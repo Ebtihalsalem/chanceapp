@@ -16,7 +16,7 @@ class _LoginscreenState extends State<Loginscreen> {
         body: Stack(
           children: [
             Image.asset(
-              "lib/images/backman.jpg",
+              "lib/images/backgroundFill3.jpg",
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
@@ -68,13 +68,11 @@ class _LoginscreenState extends State<Loginscreen> {
                         topLeft: Radius.circular(40.0),
                         topRight: Radius.circular(40.0),
                       ),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                         child: Container(
-                          padding: const EdgeInsets.fromLTRB(25, 50, 25, 50),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.3),
-                            borderRadius: const BorderRadius.only(
+                          padding: const EdgeInsets.fromLTRB(50, 50, 50, 50),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFEFEFEF),
+                            borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(40.0),
                               topRight: Radius.circular(40.0),
                             ),
@@ -200,7 +198,6 @@ class _LoginscreenState extends State<Loginscreen> {
                         ),
                       ),
                     ),
-                  )
                 ],
               ),
             ),
