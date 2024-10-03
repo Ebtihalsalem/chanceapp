@@ -13,13 +13,14 @@ class _StartedScreenState extends State<StartedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Image.asset(
             "lib/images/backgroundFill3.jpg",
-            fit: BoxFit.fill,
-            width: double.infinity,
-            height: 800,
+            fit: BoxFit.cover,
+            width: 600,
+            height: 600,
             // height: double.infinity,
           ),
           BackdropFilter(
@@ -27,7 +28,7 @@ class _StartedScreenState extends State<StartedScreen> {
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.2),
             ),
           ),
           Center(
