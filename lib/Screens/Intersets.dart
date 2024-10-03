@@ -1,3 +1,4 @@
+import 'package:chanceapp/Screens/home.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -48,11 +49,22 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
           children: [
             _buildBackgroundImage(),
             _buildBlurOverlay(),
+            // إضافة السهم فوق الخلفية
+            Positioned(
+              top: 20, // تحديد المكان في الأعلى
+              left: 350, // تحديد الموقع من اليسار
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 30), // أيقونة السهم
+                onPressed: () {
+                  Navigator.pop(context); // العودة للصفحة السابقة
+                },
+              ),
+            ),
             Center(
               child: Column(
                 children: [
                   _buildTopLine(),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 90),
                   Expanded(
                     child: _buildFormContainer(),
                   ),
@@ -117,6 +129,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
     return Column(
       children: [
         Expanded(
+          flex: 7,
           child: Stack(
             children: [
               Column(
@@ -144,14 +157,31 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                     visible: selectedCards.length >= 3, // Show button if at least 3 cards selected
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => IntersetsScreen()),
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(const Color(0xFFF59039)),
-                        padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                        backgroundColor: WidgetStateProperty.all(const Color(0xFFF59039)),
+                        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
                       ),
-                      child: _buildHeaderText("التالي", 20, FontWeight.bold),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.navigate_next, color: Colors.white), // أيقونة السهم
+                          const SizedBox(width: 10), // مسافة بين الأيقونة والنص
+                          Expanded( // يسمح للنص بأن يأخذ المساحة المتبقية
+                            child: Text(
+                              "الــــتــــالـــــي",
+                              textAlign: TextAlign.center, // محاذاة النص في المنتصف
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white, // تعيين لون النص إلى الأبيض
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+
                   ),
                 ),
               ),
