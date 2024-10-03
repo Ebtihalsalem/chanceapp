@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chanceapp/Screens/Intersets.dart';
 import 'dart:ui';
 
 class Loginscreen extends StatefulWidget {
@@ -215,7 +216,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                     ],
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
