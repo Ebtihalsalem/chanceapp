@@ -18,8 +18,8 @@ class _LoginscreenState extends State<Loginscreen> {
             Image.asset(
               "lib/images/backgroundFill3.jpg",
               fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
+              width: 600,
+              height: 600,
             ),
             BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
@@ -32,13 +32,13 @@ class _LoginscreenState extends State<Loginscreen> {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.only(top: 80.0),
+                padding: const EdgeInsets.only(top: 120.0),
                 child: Column(
                   children: [
                     Image.asset(
                       'lib/images/logo.png',
-                      height: 140,
-                      width: 140,
+                      height: 119,
+                      width: 120,
                     ),
                     const SizedBox(height: 15),
                     const Text(
@@ -58,18 +58,18 @@ class _LoginscreenState extends State<Loginscreen> {
               child: Column(
                 children: [
                   const Expanded(
-                    flex: 7,
+                    flex: 8,
                     child: SizedBox(height: 10),
                   ),
                   Expanded(
-                    flex: 10,
+                    flex: 12,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(40.0),
                         topRight: Radius.circular(40.0),
                       ),
                         child: Container(
-                          padding: const EdgeInsets.fromLTRB(50, 50, 50, 50),
+                          padding: const EdgeInsets.fromLTRB(50, 20, 50, 50),
                           decoration: const BoxDecoration(
                             color: Color(0xFFEFEFEF),
                             borderRadius: BorderRadius.only(
@@ -77,123 +77,146 @@ class _LoginscreenState extends State<Loginscreen> {
                               topRight: Radius.circular(40.0),
                             ),
                           ),
-                          child: Form(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const SizedBox(height: 5),
-                                SizedBox(
-                                  width: 300,
-                                  height: 60,
-                                  child: TextField(
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.right,
-                                    decoration: InputDecoration(
-                                      // label: const Text("اسم المستخدم",style: TextStyle(fontFamily: "Tajawal",
-                                      //     color: Colors.grey),),
-                                      hintText: "اسم المستخدم",
-                                      hintStyle: TextStyle(fontFamily: "Tajawal", color: Colors.grey),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF1F0F0),
-                                      suffixIcon: const Icon(Icons.person,
-                                          color: Color(0xFF777777)),
-                                      border: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 30),
-                                SizedBox(
-                                  width: 300,
-                                  height: 60,
-                                  child: TextField(
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.right,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      // label: const Text("كلمة المرور",style: TextStyle(fontFamily: "Tajawal",
-                                      //     color: Colors.grey),),
-                                      hintText: "كلمة المرور",
-                                      hintStyle: const TextStyle(fontFamily: "Tajawal", color: Colors.grey),
-                                      filled: true,
-                                      fillColor: const Color(0xFFF1F0F0),
-                                      suffixIcon: const Icon(Icons.lock,
-                                          color: Color(0xFF777777)),
-                                      border: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 40),
-                                SizedBox(
-                                  width: 300,
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      WidgetStateProperty.all(
-                                        const Color(0xFFF59039),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Text(
-                                      "تسجيل الدخول",
-                                      style: TextStyle(
-                                          color: Colors.white70, fontSize: 16,fontFamily: "Tajawal"),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 40),
-                                const Text("أو",
-                                    style: TextStyle(
-                                        color: Color(0xFFD9D9D9),
-                                        fontSize: 20,fontFamily: "Tajawal",)),
-                                const SizedBox(height: 40),
-                                SizedBox(
-                                  width: 300,
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: WidgetStateProperty.all(
-                                        const Color(0xFFF1F0F0),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      textDirection: TextDirection.rtl,
-                                      children: [
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "التسجيل باستخدام جوجل",
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 16,
-                                            fontFamily: "Tajawal"
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 3,
+                                width: 149,
+                                color: Colors.grey,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top:40.0),
+                                child: Form(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 300,
+                                        height: 60,
+                                        child: TextField(
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          decoration: InputDecoration(
+                                            hintText: "اسم المستخدم",
+                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
+                                            filled: true,
+                                            fillColor: const Color(0xFFF3F3F3),
+                                            suffixIcon: const Icon(Icons.person,
+                                                color: Color(0xFFBBBBBB)),
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  color: Color(0xFFBCBCBC)),
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  color: Color(0xFFBCBCBC)),
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      SizedBox(
+                                        width: 300,
+                                        height: 60,
+                                        child: TextField(
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            hintText: "كلمة المرور",
+                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
+                                            filled: true,
+                                            fillColor: const Color(0xFFF3F3F3),
+                                            suffixIcon: const Icon(Icons.lock,
+                                                color: Color(0xFFBBBBBB)),
+                                            border: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  color: Color(0xFFBCBCBC)),
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: const BorderSide(
+                                                  color: Color(0xFFBCBCBC)),
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextButton(onPressed: (){}, child: Text("نسيت كلمة المرور؟",style: TextStyle(
+                                          fontSize: 10,color: Color(0xFFF59039), fontFamily: "Tajawal",
+                                            fontWeight: FontWeight.bold
+                                        ),)),
+                                      ),
+                                      SizedBox(height: 20,),
+                                      SizedBox(
+                                        width: 300,
+                                        height: 50,
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                            WidgetStateProperty.all(
+                                              const Color(0xFFF59039),
+                                            ),
+                                          ),
+                                          onPressed: () {},
+                                          child: const Text(
+                                            "تسجيل الدخول",
+                                            style: TextStyle(
+                                                color: Colors.white70, fontSize: 16,fontFamily: "Tajawal",
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 40),
+                                      const Row(
+                                        children: [
+                                          Expanded(
+                                            child: Divider(
+                                              color: Color(0xFFBBBBBB),
+                                              thickness: 1.0,
+                                              endIndent: 10.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            "أو",
+                                            style: TextStyle(
+                                              color: Color(0xFFBBBBBB),
+                                              fontSize: 16,
+                                              fontFamily: "Tajawal",
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Divider(
+                                              color: Color(0xFFBBBBBB),
+                                              thickness: 1.0,
+                                              indent: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 40),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(onPressed: (){}, icon:
+                                           Image.asset("lib/images/google1.png",
+                                             height: 40,width: 40,),),
+
+                                          IconButton(onPressed: (){}, icon:
+                                           Image.asset("lib/images/linkedin.png",
+                                            height: 45,width: 45,),),
+                                        ],
+                                      ),
+
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
