@@ -163,7 +163,11 @@ class _LoginscreenState extends State<Loginscreen> {
                                               const Color(0xFFF59039),
                                             ),
                                           ),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(builder: (context)=> IntersetsScreen())
+                                            );
+                                          },
                                           child: const Text(
                                             "تسجيل الدخول",
                                             style: TextStyle(
