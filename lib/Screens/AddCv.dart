@@ -20,7 +20,7 @@ class _AddCvState extends State<AddCv> {
     String name = widget.name;
 
     return AlertDialog(
-      backgroundColor: Color(0xFFEFEFEF),
+      backgroundColor: const Color(0xFFEFEFEF),
       title:  Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -52,7 +52,7 @@ class _AddCvState extends State<AddCv> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5, right: 20),
+                      padding: const EdgeInsets.only(bottom: 5, right: 20),
                       child: Text(
                         name,
                         style: const TextStyle(

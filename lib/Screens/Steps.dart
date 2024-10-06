@@ -41,7 +41,7 @@ class _StepsState extends State<Steps> {
           ),
         ),
         body: Container(
-          color: Color(0xffEAEAEA),
+          color: const Color(0xffEAEAEA),
           child: Theme(
             data: ThemeData(
               colorScheme: const ColorScheme.light(
