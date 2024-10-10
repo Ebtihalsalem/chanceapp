@@ -1,7 +1,6 @@
+import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'LoginScreen.dart';
-import 'StartedScreen.dart';
 
 
 class Splash extends StatefulWidget {
@@ -19,7 +18,7 @@ class _SplashState extends State<Splash> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 10), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => StartedScreen())
+          MaterialPageRoute(builder: (_) => const TypeUser())
       );
     });
   }
