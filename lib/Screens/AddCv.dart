@@ -29,7 +29,7 @@ class _AddCvState extends State<AddCv> {
             height: 15,
             width: 15,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
            Text(title,
@@ -131,7 +131,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -180,13 +180,13 @@ class _AddCvState extends State<AddCv> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: _buildHeaderText("الغاء",17,FontWeight.bold,Color(0xFFF59039)),
+                      child: _buildHeaderText("الغاء",17,FontWeight.bold,const Color(0xFFF59039)),
                     ),
                     Container(
                       height: 40,
                       width: 80,
                       decoration: BoxDecoration(
-                          color: Color(0xFFF59039),
+                          color: const Color(0xFFF59039),
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: TextButton(

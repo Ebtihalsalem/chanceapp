@@ -178,7 +178,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                     // Show button if at least 3 cards selected
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Steps()),
+                        MaterialPageRoute(builder: (context) => const Steps()),
                       ),
                       style: ButtonStyle(
                         backgroundColor:
@@ -293,7 +293,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Container(
-            color: Color(0xffE9E9E9),
+            color: const Color(0xffE9E9E9),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -302,7 +302,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                     height: 45,
                     width: 45,
                     decoration: BoxDecoration(
-                      color: Color(0xFFE2E2E2),
+                      color: const Color(0xFFE2E2E2),
                       borderRadius: BorderRadius.circular(80),
                     ),
                   ),
@@ -332,7 +332,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
           content: _buildHeaderTextTitle('لا يمكنك اختيار أكثر من 5 مجالات.',15,FontWeight.normal),
           actions: [
             TextButton(
-              child: _buildHeaderText('حسنًا',15,FontWeight.bold,Color(0xFFF59039)),
+              child: _buildHeaderText('حسنًا',15,FontWeight.bold,const Color(0xFFF59039)),
               onPressed: () {
                 Navigator.of(context).pop(); // إغلاق الـ Dialog
               },

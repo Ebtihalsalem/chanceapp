@@ -1,3 +1,4 @@
+import 'package:chanceapp/Screens/AfterCv.dart';
 import 'package:flutter/material.dart';
 
 import 'AddCv.dart';
@@ -28,7 +29,7 @@ class _StepsState extends State<Steps> {
                 height: 20,
                 width: 20,
               ),
-              SizedBox(
+               const SizedBox(
                 width: 10,
               ),
               const Text("الملف الشخصي",
@@ -60,22 +61,22 @@ class _StepsState extends State<Steps> {
                   else
                     {
                       Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => HomeScreen())
+                      MaterialPageRoute(builder: (context) => const AfterCv())
                       );
                     }
 
                 },
                 onStepCancel: () {
                   if (currentStep != 0)
-                    setState(() => currentStep -= 1);
+                    {setState(() => currentStep -= 1);}
                   else
-                    null;
+                  {  null;}
                 },
                 controlsBuilder:
                     (BuildContext context, ControlsDetails details) {
                   return Column(
                     children: [
-                      SizedBox(height: 26),
+                      const SizedBox(height: 26),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -84,7 +85,7 @@ class _StepsState extends State<Steps> {
                             width: 70,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Color(0xFFF59039))),
+                                border: Border.all(color: const Color(0xFFF59039))),
                             child: TextButton(
                               onPressed: details.onStepCancel,
                               style: TextButton.styleFrom(
@@ -97,18 +98,18 @@ class _StepsState extends State<Steps> {
                               child: const Text('رجـوع'),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Container(
                             height: 35,
                             width: 45,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF59039),
+                              color: const Color(0xFFF59039),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: IconButton(
                               onPressed: details.onStepContinue,
                               icon: const Icon(
-                                Icons.navigate_next,
+                                Icons.arrow_forward,
                                 color: Colors.white,
                                 size: 20,
                               ),
@@ -143,7 +144,7 @@ class _StepsState extends State<Steps> {
                         height: 125,
                         width: 125,
                         decoration: BoxDecoration(
-                          color: Color(0xFFE7E7E7),
+                          color: const Color(0xFFE7E7E7),
                           borderRadius: BorderRadius.circular(80),
                         ),
                       ),
@@ -156,7 +157,7 @@ class _StepsState extends State<Steps> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               const Padding(
@@ -432,7 +433,7 @@ class _StepsState extends State<Steps> {
         ),
         Step(
           isActive: currentStep >= 1,
-          title: Text(" "),
+          title: const Text(" "),
           content: Column(
             children: <Widget>[
               const Padding(
@@ -476,7 +477,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -525,7 +526,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -547,7 +548,7 @@ class _StepsState extends State<Steps> {
                                     return const AddCv(title: "الخبرة العملية",name: "نوع العمل",);
                                   });
                             },
-                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
@@ -607,7 +608,7 @@ class _StepsState extends State<Steps> {
         ),
         Step(
           isActive: currentStep >= 2,
-          title: Text(
+          title: const Text(
             " ",
           ),
           content: Column(
@@ -702,7 +703,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -773,7 +774,7 @@ class _StepsState extends State<Steps> {
                                     return const AddCv(title: "اللغات",name: "اللغة",);
                                   });
                             },
-                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
@@ -784,7 +785,7 @@ class _StepsState extends State<Steps> {
         ),
         Step(
           isActive: currentStep >= 3,
-          title: Text(" "),
+          title: const Text(" "),
           content: Column(
             children: <Widget>[
               const Padding(
@@ -828,7 +829,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -850,7 +851,7 @@ class _StepsState extends State<Steps> {
                                   return const AddCv(title: "النشاطات",name: "اسم النشاط",);
                                 });
                               },
-                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
@@ -876,7 +877,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -898,7 +899,7 @@ class _StepsState extends State<Steps> {
                                     return const AddCv(title: "الاعمال التطوعية",name: "اسم العمل",);
                                   });
                             },
-                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
@@ -924,7 +925,7 @@ class _StepsState extends State<Steps> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFBCBCBC))),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

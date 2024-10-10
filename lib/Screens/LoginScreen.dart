@@ -147,12 +147,12 @@ class _LoginscreenState extends State<Loginscreen> {
                                       ),
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: TextButton(onPressed: (){}, child: Text("نسيت كلمة المرور؟",style: TextStyle(
+                                        child: TextButton(onPressed: (){}, child: const Text("نسيت كلمة المرور؟",style: TextStyle(
                                           fontSize: 10,color: Color(0xFFF59039), fontFamily: "Tajawal",
                                             fontWeight: FontWeight.bold
                                         ),)),
                                       ),
-                                      SizedBox(height: 20,),
+                                      const SizedBox(height: 20,),
                                       SizedBox(
                                         width: 300,
                                         height: 50,
@@ -165,7 +165,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                           ),
                                           onPressed: () {
                                             Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (context)=> IntersetsScreen())
+                                              MaterialPageRoute(builder: (context)=> const IntersetsScreen())
                                             );
                                           },
                                           child: const Text(
