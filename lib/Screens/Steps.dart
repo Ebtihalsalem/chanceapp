@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'AddCv.dart';
+import 'home.dart';
+
 class Steps extends StatefulWidget {
   const Steps({super.key});
 
@@ -38,10 +41,10 @@ class _StepsState extends State<Steps> {
           ),
         ),
         body: Container(
-          color: Color(0xffEAEAEA),
+          color: const Color(0xffEAEAEA),
           child: Theme(
             data: ThemeData(
-              colorScheme: ColorScheme.light(
+              colorScheme: const ColorScheme.light(
                 primary: Color(0xFFF59039),
               ),
             ),
@@ -52,13 +55,18 @@ class _StepsState extends State<Steps> {
                 steps: getSteps(),
                 currentStep: currentStep,
                 onStepContinue: () {
-                  if (currentStep < 4)
-                    setState(() => currentStep += 1);
+                  if (currentStep != 3)
+                    {setState(() => currentStep += 1);}
                   else
-                    null;
+                    {
+                      Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomeScreen())
+                      );
+                    }
+
                 },
                 onStepCancel: () {
-                  if (currentStep > 0)
+                  if (currentStep != 0)
                     setState(() => currentStep -= 1);
                   else
                     null;
@@ -125,30 +133,32 @@ class _StepsState extends State<Steps> {
           ),
           content: Column(
             children: <Widget>[
-          Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 125,
-                          width: 125,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFE7E7E7),
-                            borderRadius: BorderRadius.circular(80),
-                          ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 125,
+                        width: 125,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE7E7E7),
+                          borderRadius: BorderRadius.circular(80),
                         ),
-                        Image.asset(
-                          "lib/images/ion_camera.png",
-                          height: 50,
-                          width: 50,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              SizedBox(height: 15,),
+                      ),
+                      Image.asset(
+                        "lib/images/ion_camera.png",
+                        height: 50,
+                        width: 50,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15,
+              ),
               const Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Row(
@@ -460,31 +470,37 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "التعليم",name: "نوع الشهادة",);
+                                  });
+                            },
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -503,31 +519,36 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "الخبرة العملية",name: "نوع العمل",);
+                                  });
+                            },
+                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -546,31 +567,37 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "الدورات التدريبة",name: "اسم الدورة",);
+                                  });
+                            },
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                 ],
@@ -620,31 +647,37 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                 return const AddCv(title: "المهارات الشخصية",name: "المهارة",);
+                                  });
+                            },
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -663,31 +696,37 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "مهارات الحاسوب",name: "المهارة",);
+                                  });
+                            },
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -706,31 +745,36 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                            const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "اللغات",name: "اللغة",);
+                                  });
+                            },
+                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                 ],
@@ -778,31 +822,36 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                        const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const AddCv(title: "النشاطات",name: "اسم النشاط",);
+                                });
+                              },
+                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -821,31 +870,36 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                        const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "الاعمال التطوعية",name: "اسم العمل",);
+                                  });
+                            },
+                            icon: Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -864,31 +918,36 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  Container(
                     width: 320,
                     height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اضافة.. ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon:
-                        const Icon(Icons.add, color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Color(0xFFBCBCBC))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15.0),
+                          child: Text(
+                            "اضافة..",
+                            style: TextStyle(
+                              fontFamily: "Tajawal",
+                              color: Color(0xFFBBBBBB),
+                            ),
+                          ),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                          const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(title: "المشاريع",name: "اسم المشروع",);
+                                  });
+                            },
+                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                      ],
                     ),
                   ),
                 ],
@@ -897,4 +956,7 @@ class _StepsState extends State<Steps> {
           ),
         ),
       ];
+
+
+
 }

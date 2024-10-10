@@ -2,6 +2,8 @@ import 'package:chanceapp/Screens/home.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'Steps.dart';
+
 class IntersetsScreen extends StatefulWidget {
   const IntersetsScreen({super.key});
 
@@ -13,17 +15,30 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
   Set<int> selectedCards = {}; // مجموعة لتخزين الكروت المختارة
 
   // قائمة الأيقونات
-  final List<IconData> icons = [
-    Icons.web,               // تطوير تطبيقات الويب
-    Icons.code,              // تطوير البرمجيات
-    Icons.mobile_friendly,   // تطوير التطبيقات
-    Icons.videogame_asset,   // تطوير الألعاب
-    Icons.security,          // الأمن السيبراني
-    Icons.settings,          // إدارة الأنظمة
-    Icons.add,         // التسويق الرقمي
-    Icons.analytics,         // تحليل البيانات
-    Icons.computer,          // تقنية المعلومات
-    Icons.business_center,   // إدارة المشاريع
+  // final List<IconData> icons = [
+  //   Icons.web,               // تطوير تطبيقات الويب
+  //   Icons.code,              // تطوير البرمجيات
+  //   Icons.mobile_friendly,   // تطوير التطبيقات
+  //   Icons.videogame_asset,   // تطوير الألعاب
+  //   Icons.security,          // الأمن السيبراني
+  //   Icons.settings,          // إدارة الأنظمة
+  //   Icons.add,         // التسويق الرقمي
+  //   Icons.analytics,         // تحليل البيانات
+  //   Icons.computer,          // تقنية المعلومات
+  //   Icons.business_center,   // إدارة المشاريع
+  // ];
+
+  final List<String> images = [
+    "lib/images/app-development.png", // تطوير تطبيقات الويب
+    "lib/images/software-development.png", // تطوير البرمجيات
+    "lib/images/app-programming (1).png", // تطوير التطبيقات
+    "lib/images/game-development.png", // تطوير الألعاب
+    "lib/images/cyber-security (3).png", // الأمن السيبراني
+    "lib/images/system.png", // إدارة الأنظمة
+    "lib/images/social-media-marketing.png", // التسويق الرقمي
+    "lib/images/graphic-design-software.png", // تحليل البيانات
+    "lib/images/ui.png", // تقنية المعلومات
+    "lib/images/ux-design (1).png", // إدارة المشاريع
   ];
 
   // قائمة العناوين
@@ -35,9 +50,9 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
     "الأمن السيبراني",
     "إدارة الأنظمة",
     "التسويق الرقمي",
-    "تحليل البيانات",
-    "تقنية المعلومات",
-    "إدارة المشاريع",
+    "التصميم الجرافيكي",
+    "تصميم واجهة المستخدم",
+    "تصميم تجربة المستخدم",
   ];
 
   @override
@@ -54,7 +69,9 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
               top: 20, // تحديد المكان في الأعلى
               left: 350, // تحديد الموقع من اليسار
               child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 30), // أيقونة السهم
+                icon: const Icon(Icons.arrow_back_ios_new,
+                    color: Colors.white, size: 30),
+                // أيقونة السهم
                 onPressed: () {
                   Navigator.pop(context); // العودة للصفحة السابقة
                 },
@@ -137,13 +154,15 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                 children: [
                   _buildTopLine(),
                   const SizedBox(height: 40),
-                  _buildHeaderText("اختر مجالات اهتماماتك", 27, FontWeight.bold),
+                  _buildHeaderTextTitle(
+                      "اختر مجالات اهتماماتك", 27, FontWeight.bold),
                   const SizedBox(height: 16),
-                  _buildHeaderText(
-                      "أختر من 3-5 مجالات مهتم للتدريب فيها", 18, FontWeight.normal),
+                  _buildHeaderTextTitle("أختر من 3-5 مجالات مهتم للتدريب فيها",
+                      18, FontWeight.normal),
                   const SizedBox(height: 16),
                   Expanded(
-                    child: _buildInterestsGrid(), // استخدام Grid بدلاً من ListView
+                    child:
+                        _buildInterestsGrid(), // استخدام Grid بدلاً من ListView
                   ),
                 ],
               ),
@@ -152,36 +171,45 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                 bottom: 16,
                 left: 0,
                 right: 0,
-                child: Center( // Center the button
+                child: Center(
+                  // Center the button
                   child: Visibility(
-                    visible: selectedCards.length >= 3, // Show button if at least 3 cards selected
+                    visible: selectedCards.length >= 3,
+                    // Show button if at least 3 cards selected
                     child: ElevatedButton(
                       onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        MaterialPageRoute(builder: (context) => Steps()),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(const Color(0xFFF59039)),
-                        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                        backgroundColor:
+                            WidgetStateProperty.all(const Color(0xFFF59039)),
+                        padding: WidgetStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10)),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
-                          const Icon(Icons.navigate_next, color: Colors.white), // أيقونة السهم
-                          const SizedBox(width: 10), // مسافة بين الأيقونة والنص
-                          Expanded( // يسمح للنص بأن يأخذ المساحة المتبقية
+                          // أيقونة السهم
+                          SizedBox(width: 10), // مسافة بين الأيقونة والنص
+                          Expanded(
+                            // يسمح للنص بأن يأخذ المساحة المتبقية
                             child: Text(
-                              "الــــتــــالـــــي",
-                              textAlign: TextAlign.center, // محاذاة النص في المنتصف
+                              "الــتـــالـي",
+                              textAlign: TextAlign.center,
+                              // محاذاة النص في المنتصف
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white, // تعيين لون النص إلى الأبيض
+                                fontFamily: "Tajawal",
+                                color:
+                                    Colors.white, // تعيين لون النص إلى الأبيض
                               ),
                             ),
                           ),
+                          Icon(Icons.navigate_next, color: Colors.white),
                         ],
                       ),
                     ),
-
                   ),
                 ),
               ),
@@ -192,7 +220,8 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
     );
   }
 
-  Widget _buildHeaderText(String text, double fontSize, FontWeight fontWeight) {
+  Widget _buildHeaderTextTitle(
+      String text, double fontSize, FontWeight fontWeight) {
     return Text(
       text,
       style: TextStyle(
@@ -206,28 +235,46 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
     );
   }
 
+  Widget _buildHeaderText(String text, double fontSize, FontWeight fontWeight, Color fontColor) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: fontColor,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontFamily: "Tajawal",
+      ),
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.rtl,
+    );
+  }
+
   Widget _buildInterestsGrid() {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, // عدد الأعمدة
-        mainAxisSpacing: 8.0, // المسافة العمودية بين الكروت
-        crossAxisSpacing: 8.0, // المسافة الأفقية بين الكروت
-        childAspectRatio: 1.5, // نسبة العرض إلى الارتفاع لكل كرت
+        mainAxisSpacing: 0.3, // المسافة العمودية بين الكروت
+        crossAxisSpacing: 0.2, // المسافة الأفقية بين الكروت
+        childAspectRatio: 555 / 530, // نسبة العرض إلى الارتفاع لكل كرت
       ),
       itemCount: titles.length,
       itemBuilder: (context, index) {
-        return _buildInterestCard(index, icons[index], titles[index]);
+        // return _buildInterestCard(index, icons[index], titles[index]);
+        return _buildInterestCard(index, images[index], titles[index]);
       },
     );
   }
 
-  Widget _buildInterestCard(int index, IconData iconData, String title) {
-    bool isSelected = selectedCards.contains(index); // التحقق من إذا تم اختيار البطاقة
+  // Widget _buildInterestCard(int index, IconData iconData, String title) {
+  Widget _buildInterestCard(int index, String imagePath, String title) {
+    bool isSelected =
+        selectedCards.contains(index); // التحقق من إذا تم اختيار البطاقة
     return GestureDetector(
       onTap: () {
         setState(() {
           if (isSelected) {
-            selectedCards.remove(index); // إزالة من المختارة إذا تم النقر مرة أخرى
+            selectedCards
+                .remove(index); // إزالة من المختارة إذا تم النقر مرة أخرى
           } else if (selectedCards.length < 5) {
             selectedCards.add(index); // إضافة إلى المختارة
           } else {
@@ -245,17 +292,31 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
             ),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                iconData,
-                size: 40,
-                color: isSelected ? Colors.orange : Colors.grey,
-              ),
-              const SizedBox(height: 16),
-              _buildHeaderText(title, 12, FontWeight.bold),
-            ],
+          child: Container(
+            color: Color(0xffE9E9E9),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(alignment: Alignment.center, children: [
+                  Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE2E2E2),
+                      borderRadius: BorderRadius.circular(80),
+                    ),
+                  ),
+                  Image.asset(
+                    imagePath,
+                    width: 25,
+                    height: 25,
+                    color: isSelected ? Colors.orange : Colors.grey,
+                  ),
+                ]),
+                const SizedBox(height: 16),
+                _buildHeaderText(title, 15, FontWeight.normal,isSelected ? Colors.orange : Colors.grey,),
+              ],
+            ),
           ),
         ),
       ),
@@ -267,11 +328,11 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('حد الاهتمامات'),
-          content: const Text('لا يمكنك اختيار أكثر من 5 مجالات.'),
+          title: _buildHeaderTextTitle('حد الاهتمامات',20,FontWeight.bold),
+          content: _buildHeaderTextTitle('لا يمكنك اختيار أكثر من 5 مجالات.',15,FontWeight.normal),
           actions: [
             TextButton(
-              child: const Text('حسنًا'),
+              child: _buildHeaderText('حسنًا',15,FontWeight.bold,Color(0xFFF59039)),
               onPressed: () {
                 Navigator.of(context).pop(); // إغلاق الـ Dialog
               },

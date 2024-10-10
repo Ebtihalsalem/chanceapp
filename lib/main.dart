@@ -1,13 +1,15 @@
-import 'package:chanceapp/Screens/AddProfile.dart';
+import 'package:chanceapp/Screens/AddCv.dart';
+import 'package:chanceapp/Screens/Intersets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Screens/AddProfile.dart';
+import 'Screens/AddCv.dart';
+import 'Screens/Splash.dart';
 import 'Screens/Steps.dart';
 
 void main() {
   runApp(const MaterialApp(
         debugShowCheckedModeBanner: false,
-    home: Steps(),
+    home: Splash(),
     locale: const Locale('ar'),
     supportedLocales: const [
       Locale('ar'),
@@ -20,5 +22,7 @@ void main() {
     ],
   ));
 }
+
+
 
 
