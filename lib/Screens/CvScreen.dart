@@ -2,6 +2,10 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../UI Components/BottomBar.dart';
+import 'MyAccount.dart';
+import 'SavedScreen.dart';
+import 'TrianingDetils.dart';
+import 'home.dart';
 
 class CvScreen extends StatefulWidget {
   const CvScreen({super.key});
@@ -12,9 +16,24 @@ class CvScreen extends StatefulWidget {
 
 class _CvScreenState extends State<CvScreen> {
 
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    HomeScreen(),
+    SavedScreen(),
+    TrianingDetils(),
+    MyAccount(),
+  ];
+
+
+
   List<Map<String, String>> educationList = [
     {"title": "الشهادة الثانوية", "year": "2018","place": "أسماء للبنات"},
     {"title": "الشهادة الجامعية", "year": "2022","place": "جامعة مصراتة - كلية تقنية المعلومات"},
+  ];
+
+  List<Map<String, String>> ExList = [
+    {"title": "مصممة UI", "year": "2022-2023","place": "شركة لمة"},
   ];
   List<Map<String, String>> detailsList = [
     {"phone": "092 4575363", "email": "sara1@gmail.com","place": "مصراتة-شارع طرابلس","birth":"12/4/2000"},
@@ -22,6 +41,15 @@ class _CvScreenState extends State<CvScreen> {
 
   List<String> personalSkillsList = [
     "حس المسؤولية", "التواصل مع الأخرين", "العمل مع فريق","قدرات إبداعية",
+  ];
+
+  List<String> langList = [
+    "العربية", "الانجليزية"
+  ];
+
+  List<String> skillsList = [
+    "أدوبي فوتوشوب", "أدوبي xd","فيجما","ميكروسوفت اوفس","C++","Dart","Flutter","Kotlin","C#",
+    "python","Java","JS"
   ];
 
   @override
@@ -86,7 +114,7 @@ class _CvScreenState extends State<CvScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const Padding(
+      bottomNavigationBar: Padding(
         padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -95,6 +123,8 @@ class _CvScreenState extends State<CvScreen> {
       ),
     );
   }
+
+
 
   Widget _buildHeaderText(
     String text,
@@ -159,27 +189,57 @@ class _CvScreenState extends State<CvScreen> {
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: const Color(0xFFBBBBBB))),
             padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
-            child: _contentText(educationList,"التعليــم"),
-          ),
-         const SizedBox(height: 20,),
-          Container(
-            height: 220,
-            width: 357,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFFBBBBBB))),
-            padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
             child: _contentTextd(detailsList,"التفاصيل العامة"),
           ),
           const SizedBox(height: 20,),
           Container(
-            height: 220,
+            height: 180,
             width: 357,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: const Color(0xFFBBBBBB))),
             padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
-            child: _boxesSkills(personalSkillsList,"التفاصيل العامة"),
+            child: _boxesSkills(personalSkillsList,"المهارات الشخصية"),
+          ),
+          const SizedBox(height: 20,),
+          Container(
+            height: 130,
+            width: 357,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFFBBBBBB))),
+            padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+            child: _contentText(ExList,"الخبرة"),
+          ),
+          const SizedBox(height: 20,),
+          Container(
+            height: 190,
+            width: 357,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFFBBBBBB))),
+            padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+            child: _contentText(educationList,"التعليــم"),
+          ),
+          const SizedBox(height: 20,),
+          Container(
+            height: 140,
+            width: 357,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFFBBBBBB))),
+            padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+            child: _boxesSkills(langList,"اللغـات"),
+          ),
+          const SizedBox(height: 20,),
+          Container(
+            height: 200,
+            width: 357,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFFBBBBBB))),
+            padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+            child: _boxesSkills(skillsList,"المهارات التقنية"),
           ),
         ],
       ),
@@ -223,7 +283,7 @@ class _CvScreenState extends State<CvScreen> {
               const SizedBox(height: 18.0),
             ],
           );
-        }).toList(),
+        }),
       ],
     );
 
@@ -256,7 +316,7 @@ class _CvScreenState extends State<CvScreen> {
               _buildHeaderTextTitle(data["birth"]!,14, FontWeight.normal),
             ],
           );
-        }).toList(),
+        }),
       ],
     );
 
@@ -277,8 +337,8 @@ class _CvScreenState extends State<CvScreen> {
         ),
         const SizedBox(height: 18.0),
         Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
+          spacing: 4.0,
+          runSpacing: 4.0,
           children: dataList.map((data) {
             return Padding(
               padding: const EdgeInsets.all(4.0),

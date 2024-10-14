@@ -1,3 +1,5 @@
+import 'package:chanceapp/Screens/MessageScreen.dart';
+import 'package:chanceapp/Screens/TrianingDetils.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import '../UI Components/BottomBar.dart';
@@ -105,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       actions: [
         _buildActionButton(EvaIcons.messageCircle, () {
-          // التعامل مع الدردشة
+         Navigator.of(context).pushReplacement(
+                 MaterialPageRoute(builder: (context)=> MessageScreen()));
         }),
         const SizedBox(width: 10),
         Padding(
@@ -222,81 +225,88 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildForYouSection() {
-    return Container(
-      height: 154,
-      width: 344,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF59039),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage('lib/images/acadimic.jpg'),
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeaderText(
-                          'الأكاديمية البيئية لتكنولوجيا المعلومات',
-                          12,
-                          FontWeight.bold,
-                          const Color(0xffEFEFEF)),
-                      _buildHeaderText('مساعدة مدير', 12, FontWeight.normal,
-                          const Color(0xffEFEFEF)),
-                    ],
-                  ),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Icon(EvaIcons.bookmarkOutline,color: Color(0xffEFEFEF)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 26),
-          Padding(
-            padding: const EdgeInsets.only(right: 60.0),
-            child: Row(
+    return InkWell(
+      onTap:(){
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context)=>TrianingDetils())
+        );
+      },
+      child: Container(
+        height: 154,
+        width: 344,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF59039),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Image.asset(
-                  "lib/images/tdesign_location.png",
-                  height: 15,
-                  width: 15,
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage('lib/images/acadimic.jpg'),
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 4.0),
-                  child: _buildHeaderText(
-                      'مصراتة', 12, FontWeight.normal, const Color(0xffEFEFEF)),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildHeaderText(
+                            'الأكاديمية البيئية لتكنولوجيا المعلومات',
+                            12,
+                            FontWeight.bold,
+                            const Color(0xffEFEFEF)),
+                        _buildHeaderText('مساعدة مدير', 12, FontWeight.normal,
+                            const Color(0xffEFEFEF)),
+                      ],
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Icon(EvaIcons.bookmarkOutline,color: Color(0xffEFEFEF)),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const SizedBox(width: 60),
-              _buildOvalContainer('شبكات واتصالات', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-              const SizedBox(width: 8),
-              _buildOvalContainer('علوم حاسوب', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-            ],
-          ),
-        ],
+            const SizedBox(height: 26),
+            Padding(
+              padding: const EdgeInsets.only(right: 60.0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    "lib/images/tdesign_location.png",
+                    height: 15,
+                    width: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: _buildHeaderText(
+                        'مصراتة', 12, FontWeight.normal, const Color(0xffEFEFEF)),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const SizedBox(width: 60),
+                _buildOvalContainer('شبكات واتصالات', const Color(0xFFF3F3F3),
+                    const Color(0xFFBBBBBB), const Color(0xFFF59039)),
+                const SizedBox(width: 8),
+                _buildOvalContainer('علوم حاسوب', const Color(0xFFF3F3F3),
+                    const Color(0xFFBBBBBB), const Color(0xFFF59039)),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -391,5 +401,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
+
 
 }
