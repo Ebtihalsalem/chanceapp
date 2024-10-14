@@ -2,7 +2,6 @@ import 'package:chanceapp/Screens/AfterCv.dart';
 import 'package:flutter/material.dart';
 
 import 'AddCv.dart';
-import 'home.dart';
 
 class Steps extends StatefulWidget {
   const Steps({super.key});

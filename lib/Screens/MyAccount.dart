@@ -11,6 +11,8 @@ class MyAccount extends StatefulWidget {
 }
 
 class _MyAccountState extends State<MyAccount> {
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,7 +54,7 @@ class _MyAccountState extends State<MyAccount> {
                       height: 34,
                       width: 200,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFF59039)),
+                        border: Border.all(color: const Color(0xFFF59039)),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Row(
@@ -88,7 +90,7 @@ class _MyAccountState extends State<MyAccount> {
                       padding: const EdgeInsets.only(left: 18.0, right: 65),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFF59039),
+                          backgroundColor: const Color(0xFFF59039),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -119,7 +121,7 @@ class _MyAccountState extends State<MyAccount> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFF59039),
+                        backgroundColor: const Color(0xFFF59039),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -252,7 +254,7 @@ class _MyAccountState extends State<MyAccount> {
             child: Icon(
               icon,
               size: 20,
-              color: Color(0xFFBBBBBB),
+              color: const Color(0xFFBBBBBB),
             ),
           ),
           _buildHeaderTextTitle(title, 13, FontWeight.normal),
@@ -290,7 +292,7 @@ class _MyAccountState extends State<MyAccount> {
                   height: 34,
                   width: 200,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFFF59039)),
+                    border: Border.all(color: const Color(0xFFF59039)),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Row(
