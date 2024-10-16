@@ -1,6 +1,7 @@
 import 'dart:ui';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:flutter/material.dart';
-import 'LoginScreen.dart';
+import '../Screens/LoginScreen.dart';
 
 class StartedScreen extends StatefulWidget {
   const StartedScreen({super.key});
@@ -96,10 +97,10 @@ class _StartedScreenState extends State<StartedScreen> {
                                 backgroundColor: const Color(0xFFF59039),
                               ),
                               onPressed: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Loginscreen(),
+                                    builder: (context) => const HomeScreen(),
                                   ),
                                 );
                               },

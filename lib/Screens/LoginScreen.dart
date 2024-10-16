@@ -1,6 +1,13 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:chanceapp/Screens/Intersets.dart';
 import 'dart:ui';
+import '../Core/App_theme.dart';
+import '../TraineeScreens/Intersets.dart';
+import '../UI Components/BuildText.dart';
+import '../UI Components/Button.dart';
+import '../UI Components/TextField.dart';
+
+
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -48,7 +55,6 @@ class _LoginscreenState extends State<Loginscreen> {
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        fontFamily: "Tajawal",
                       ),
                     ),
                   ],
@@ -71,9 +77,9 @@ class _LoginscreenState extends State<Loginscreen> {
                       ),
                         child: Container(
                           padding: const EdgeInsets.fromLTRB(50, 20, 50, 50),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFEFEFEF),
-                            borderRadius: BorderRadius.only(
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(40.0),
                               topRight: Radius.circular(40.0),
                             ),
@@ -87,114 +93,36 @@ class _LoginscreenState extends State<Loginscreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top:40.0),
-                                child: Form(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: 60,
-                                        child: TextField(
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          decoration: InputDecoration(
-                                            hintText: "اسم المستخدم",
-                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                                            filled: true,
-                                            fillColor: const Color(0xFFF3F3F3),
-                                            suffixIcon: const Icon(Icons.person,
-                                                color: Color(0xFFBBBBBB)),
-                                            border: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      textField("اسم المستخدم",Icons.person,50,300),
                                       const SizedBox(height: 16),
-                                      SizedBox(
-                                        width: 300,
-                                        height: 60,
-                                        child: TextField(
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          obscureText: true,
-                                          decoration: InputDecoration(
-                                            hintText: "كلمة المرور",
-                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                                            filled: true,
-                                            fillColor: const Color(0xFFF3F3F3),
-                                            suffixIcon: const Icon(Icons.lock,
-                                                color: Color(0xFFBBBBBB)),
-                                            border: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      textField("كلمة المرور",Icons.lock,50,300),
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: TextButton(onPressed: (){}, child: const Text("نسيت كلمة المرور؟",style: TextStyle(
-                                          fontSize: 10,color: Color(0xFFF59039), fontFamily: "Tajawal",
-                                            fontWeight: FontWeight.bold
+                                        child: TextButton(onPressed: (){}, child: buildText("نسيت كلمة المرور؟",
+                                          10, FontWeight.bold,Color(0xFFF59039),
                                         ),)),
-                                      ),
-                                      const SizedBox(height: 20,),
-                                      SizedBox(
-                                        width: 300,
-                                        height: 50,
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                            WidgetStateProperty.all(
-                                              const Color(0xFFF59039),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (context)=> const IntersetsScreen())
-                                            );
-                                          },
-                                          child: const Text(
-                                            "تسجيل الدخول",
-                                            style: TextStyle(
-                                                color: Colors.white70, fontSize: 16,fontFamily: "Tajawal",
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
+                                      const SizedBox(height: 16,),
+                                      button("تسجيل الدخول",context,const IntersetsScreen(),null),
                                       const SizedBox(height: 40),
-                                      const Row(
+                                      Row(
                                         children: [
-                                          Expanded(
+                                          const Expanded(
                                             child: Divider(
                                               color: Color(0xFFBBBBBB),
                                               thickness: 1.0,
                                               endIndent: 10.0,
                                             ),
                                           ),
-                                          Text(
+                                          buildText(
                                             "أو",
-                                            style: TextStyle(
-                                              color: Color(0xFFBBBBBB),
-                                              fontSize: 16,
-                                              fontFamily: "Tajawal",
+                                              16,
+                                              FontWeight.normal,
+                                              Color(0xFFBBBBBB),
                                             ),
-                                          ),
-                                          Expanded(
+                                          const Expanded(
                                             child: Divider(
                                               color: Color(0xFFBBBBBB),
                                               thickness: 1.0,
@@ -210,17 +138,12 @@ class _LoginscreenState extends State<Loginscreen> {
                                           IconButton(onPressed: (){}, icon:
                                            Image.asset("lib/images/google1.png",
                                              height: 40,width: 40,),),
-
-                                          IconButton(onPressed: (){}, icon:
-                                           Image.asset("lib/images/linkedin.png",
-                                            height: 45,width: 45,),),
                                         ],
                                       ),
 
                                     ],
                                   ),
                                 ),
-                              )
                             ],
                           ),
                         ),

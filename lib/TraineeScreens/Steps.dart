@@ -1,7 +1,9 @@
-import 'package:chanceapp/Screens/AfterCv.dart';
+
+import 'package:chanceapp/Core/App_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'AddCv.dart';
+import 'AfterCv.dart';
 
 class Steps extends StatefulWidget {
   const Steps({super.key});
@@ -15,11 +17,10 @@ class _StepsState extends State<Steps> {
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = const Color(0xFFF5F5F5);
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: primaryColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -49,10 +50,10 @@ class _StepsState extends State<Steps> {
               ),
             ),
             child: Container(
-              color: backgroundColor,
+              color: primaryColor,
               child: Stepper(
                 type: StepperType.horizontal,
-                steps: getSteps(),
+                steps: getSteps(),connectorColor: primaryColor,
                 currentStep: currentStep,
                 onStepContinue: () {
                   if (currentStep != 3)

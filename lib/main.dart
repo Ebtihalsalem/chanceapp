@@ -1,19 +1,23 @@
-import 'package:chanceapp/Screens/ChatsScreen.dart';
-import 'package:chanceapp/Screens/NotifationScreen.dart';
-import 'package:chanceapp/Screens/TrackingScreen.dart';
-import 'package:chanceapp/Screens/home.dart';
+import 'package:chanceapp/Core/App_theme.dart';
+import 'package:chanceapp/Screens/LoginScreen.dart';
+import 'package:chanceapp/Screens/TypeUser.dart';
+import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'TraineeScreens/Steps.dart';
+import 'TraineeScreens/TrianingDetils.dart';
+
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: "Tajawal", // الخط المستخدم
-        ),
-    home: const TrackingScreen(),
+        theme: appTheme,
+    home: const Steps(),
     locale: const Locale('ar'),
     supportedLocales: const [
       Locale('ar'),
