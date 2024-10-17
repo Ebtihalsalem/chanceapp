@@ -1,9 +1,11 @@
+import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
+import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 
 
@@ -24,11 +26,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: _buildAppBar(),
+        appBar: buildAppBar("الاكاديمية الليبية","lib/images/acadimic.jpg"),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -73,6 +75,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
+                            // textFieldWithoutIcon("", 45, 280),
                               Theme(
                                   data: ThemeData(
                                     colorScheme: const ColorScheme.light(
@@ -103,10 +106,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                   ),
                             Container(
                                 height: 40,
-                                width: 50,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                    color: const Color(0xFFF59039),
-                                    borderRadius: BorderRadius.circular(15)),
+                                    color: secondaryColor,
+                                    borderRadius: BorderRadius.circular(20)),
                                 child: IconButton(
                                     onPressed: () {
                                       setState(() {
@@ -135,31 +138,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
             child: BottomBar(),
           ),
         ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: primaryColor,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 18, right: 18.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(
-              "lib/images/acadimic.jpg",
-              height: 25,
-              width: 25,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            buildText("الاكاديمية الليبية",16,
-                FontWeight.bold,
-              Color(0xFF4A4C4D),)
-          ],
-        ),
-      ),
     );
   }
 

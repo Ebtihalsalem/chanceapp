@@ -11,6 +11,7 @@ centerTitle: false,
 ), // AppBarTheme
 brightness: Brightness.light,
 primaryColor: primaryColor,
+  scaffoldBackgroundColor: primaryColor,
   colorScheme: ColorScheme.light(
     primary: secondaryColor,
 ),
@@ -21,21 +22,6 @@ foregroundColor: primaryColor,
 ), // FloatingActionButtonThemeData
   inputDecorationTheme: InputDecorationTheme(
     floatingLabelStyle: TextStyle(color: primaryColor),
-    // border: OutlineInputBorder(
-    //   borderSide: const BorderSide(
-    //       color: Color(0xFFBCBCBC)),
-    //   borderRadius: BorderRadius.circular(30),
-    // ),
-    // enabledBorder: OutlineInputBorder(
-    //   borderSide: const BorderSide(
-    //       color: Color(0xFFBCBCBC)),
-    //   borderRadius: BorderRadius.circular(30),
-    // ),
-    // focusColor: secondaryColor,
-    // focusedBorder: OutlineInputBorder(
-    //   borderSide: BorderSide(color: secondaryColor),
-    //   borderRadius: BorderRadius.circular(30),
-    // ),
   ),
   fontFamily: "Tajawal",
 

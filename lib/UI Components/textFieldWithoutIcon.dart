@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
 
-Widget textField(String text,IconData? icon,double h,double w){
+Widget textFieldWithoutIcon(String text,double h,double w){
   return SizedBox(
     width: w,
     height: h,
@@ -13,8 +13,6 @@ Widget textField(String text,IconData? icon,double h,double w){
         hintStyle: const TextStyle(color: Color(0xFFBBBBBB),fontFamily: "Tajawal"),
         filled: true,
         fillColor: const Color(0xFFFDFDFD),
-        prefixIcon: Icon(icon,
-            color: const Color(0xFFBBBBBB)),
         border: OutlineInputBorder(
           borderSide: BorderSide(
               color: borderColor),

@@ -1,8 +1,13 @@
 import 'dart:ui';
+import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
+import 'package:chanceapp/TraineeScreens/AvailableTrainings.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
+import '../Core/App_theme.dart';
+import '../UI Components/BuildText.dart';
+import 'AboutCompany.dart';
 
 class CompanyScreen extends StatefulWidget {
   const CompanyScreen({super.key});
@@ -21,15 +26,16 @@ class _CompanyScreenState extends State<CompanyScreen> {
     "المقر الرئيسي":"المقر الرئيسي","نوع":"الشركة عامة","تأسست":"2021","التخصص":"التدريب، تقنية المعلومات والاتصالات ، التحول الرقمي، الاستشارات"
     }
   ];
+  List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   int _currentTab = 0;
 
   Widget screensTabs()
   {
     switch(_currentTab){
       case 0:
-        return aboutTab(summary);
+        return aboutTab(summary,information);
       case 1:
-        return avaibleTrianing();
+        return availableTrainings(context,const TrainingDetails(),skills,"مساعد مدير","مصراتة","20","يوجد","شهرين");
       default:
         return Container();
     }
@@ -67,23 +73,23 @@ class _CompanyScreenState extends State<CompanyScreen> {
                 alignment: Alignment.topCenter,
                 children: [
                   Container(
-                    height: 650,
+                    height: 630,
                     width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(18, 90, 18, 50),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEFEFEF),
+                    padding: const EdgeInsets.fromLTRB(18, 80, 18, 50),
+                    decoration: BoxDecoration(
+                      color: primaryColor,
                     ),
                     child: Align(
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          _buildHeaderTextTitle(
+                          buildTextTitle(
                               "الاكاديمية الليبية للاتصالات والمعلوماتية",
                               12,
                               FontWeight.bold),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
-                            child: _buildHeaderText(
+                            child: buildText(
                                 "لخدمات تقنية المعلومات والاستشارات\n في مجال تقنية المعلومات",
                                 10,
                                 FontWeight.normal,
@@ -137,35 +143,6 @@ class _CompanyScreenState extends State<CompanyScreen> {
     );
   }
 
-  Widget _buildHeaderText(
-      String text, double fontSize, FontWeight fontWeight, Color fontColor) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: fontColor,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontFamily: "Tajawal",
-      ),
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.rtl,
-    );
-  }
-
-  Widget _buildHeaderTextTitle(
-      String text, double fontSize, FontWeight fontWeight) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: const Color(0xff4A4C4D),
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontFamily: "Tajawal",
-      ),
-      textAlign: TextAlign.right,
-      textDirection: TextDirection.rtl,
-    );
-  }
   Widget _tabs() {
     return Positioned(
       top: 0,
@@ -188,7 +165,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
                     left: 10,
                     top: 7,
                   ),
-                  child: _buildHeaderTextTitle(tab, 13, FontWeight.normal),
+                  child: buildTextTitle(tab, 13, FontWeight.normal),
                 ),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
@@ -205,165 +182,4 @@ class _CompanyScreenState extends State<CompanyScreen> {
     );
   }
 
-  Widget aboutTab(List<String> summary) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeaderTextTitle("ملخص", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...summary.map((data) {
-            return _buildHeaderTextTitle(data, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("الموقع", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["الموقع"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("المجال", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["المجال"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("حجم الشركة", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["حجم الشركة"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("المقر الرئيسي", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["المقر الرئيسي"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("النوع", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["نوع"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("تاسست", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["تأسست"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("التخصص", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["التخصص"]!, 12, FontWeight.normal);
-          }),
-
-        ],
-      ),
-    );
-  }
-
-  Widget _buildOvalContainer(
-      String text, Color color, Color borderColor, Color fontColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: borderColor),
-      ),
-      child: _buildHeaderText(text, 10, FontWeight.bold, fontColor),
-    );
-  }
-
-  Widget avaibleTrianing() {
-    return Container(
-      height: 130,
-      width: 344,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF59039),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeaderText('مساعدة مدير', 14, FontWeight.bold,
-                          const Color(0xffEFEFEF)),
-                    ],
-                  ),
-                ),
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset(
-                        "lib/images/tdesign_location.png",
-                        height: 16,
-                        width: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText(
-                            'مصراتة', 10, FontWeight.bold, const Color(0xffEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(EvaIcons.clockOutline,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("شهرين", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(EvaIcons.peopleOutline,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("20", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(Icons.monetization_on_outlined,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("يوجد", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              const SizedBox(width: 60),
-              _buildOvalContainer('شبكات واتصالات', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-              const SizedBox(width: 8),
-              _buildOvalContainer('علوم حاسوب', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }

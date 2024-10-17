@@ -1,7 +1,6 @@
 import 'package:chanceapp/Core/App_theme.dart';
-import 'package:chanceapp/UI%20Components/TextField.dart';
+import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:flutter/material.dart';
-
 import '../UI Components/BuildText.dart';
 
 class AddCv extends StatefulWidget {
@@ -30,14 +29,14 @@ class _AddCvState extends State<AddCv> {
         children: [
           Image.asset(
             "lib/images/logo.png",
-            height: 15,
-            width: 15,
+            height: 18,
+            width: 18,
           ),
           const SizedBox(
             width: 10,
           ),
-           buildText(title,
-               15,FontWeight.bold,Color(0xFF4A4C4D)),
+           buildTextTitle(title,
+               18,FontWeight.bold),
         ],
       ),
       content:
@@ -53,53 +52,47 @@ class _AddCvState extends State<AddCv> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5, right: 20),
-                      child: Text(
+                      child: buildTextTitle(
                         name,
-                        style: const TextStyle(
-                            fontFamily: "Tajawal",
-                            color: Color(0xFF4A4C4D),
-                            fontWeight: FontWeight.bold),
+                          12,
+                          FontWeight.bold
                       ),
                     ),
                   ],
                 ),
-                textField(name, null, 50, 320),
+                textFieldWithoutIcon(name, 50, 320),
                 const SizedBox(height: 15,),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5,  right: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(bottom: 5,  right: 20),
+                      child: buildTextTitle(
                         "تاريخ الحصول عليها",
-                        style: TextStyle(
-                            fontFamily: "Tajawal",
-                            color: Color(0xFF4A4C4D),
-                            fontWeight: FontWeight.bold),
+                          12,
+                          FontWeight.bold
                       ),
                     ),
                   ],
                 ),
-                textField("0000/00/00", null, 50, 320),
+                textFieldWithoutIcon("0000/00/00", 50, 320),
 
                 const SizedBox(height: 15,),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 5,  right: 20),
-                      child: Text(
+                      padding: const EdgeInsets.only(bottom: 5,  right: 20),
+                      child: buildTextTitle(
                         "مكان الحصول عليها",
-                        style: TextStyle(
-                            fontFamily: "Tajawal",
-                            color: Color(0xFF4A4C4D),
-                            fontWeight: FontWeight.bold),
+                        12,
+                          FontWeight.bold
                       ),
                     ),
                   ],
                 ),
-                textField("اسم الجهة", null, 50, 320),
-                const SizedBox(height: 20,),
+                textFieldWithoutIcon("اسم الجهة", 50, 320),
+                const SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -107,7 +100,10 @@ class _AddCvState extends State<AddCv> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: buildText("الغاء",17,FontWeight.bold,secondaryColor),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left:8.0),
+                        child: buildText("الغاء",17,FontWeight.bold,secondaryColor),
+                      ),
                     ),
                     Container(
                       height: 40,

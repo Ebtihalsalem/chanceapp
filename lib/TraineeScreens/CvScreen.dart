@@ -12,16 +12,6 @@ class CvScreen extends StatefulWidget {
 
 class _CvScreenState extends State<CvScreen> {
 
-  final int _selectedIndex = 0;
-
-  // final List<Widget> _screens = [
-  //   HomeScreen(),
-  //   SavedScreen(),
-  //   TrianingDetils(),
-  //   MyAccount(),
-  // ];
-
-
 
   List<Map<String, String>> educationList = [
     {"title": "الشهادة الثانوية", "year": "2018","place": "أسماء للبنات"},
