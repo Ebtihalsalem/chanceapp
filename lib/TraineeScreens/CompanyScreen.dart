@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/TraineeScreens/AvailableTrainings.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';

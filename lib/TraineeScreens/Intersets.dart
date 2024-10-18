@@ -51,7 +51,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
         body: Stack(
           children: [
             buildBackgroundImage(),
-            _buildBlurOverlay(),
+            buildBlurOverlay(),
             Positioned(
               top: 20,
               left: 350,
@@ -81,21 +81,10 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
   }
 
 
-  Widget _buildBlurOverlay() {
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        color: Colors.black.withOpacity(0.2),
-      ),
-    );
-  }
-
   Widget _buildTopLine() {
     return Container(
       height: 3,
-      width: 200,
+      width: 140,
       color: Colors.grey,
     );
   }
@@ -211,7 +200,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
     );
   }
 
-  // Widget _buildInterestCard(int index, IconData iconData, String title) {
+
   Widget _buildInterestCard(int index, String imagePath, String title) {
     bool isSelected =
         selectedCards.contains(index); // التحقق من إذا تم اختيار البطاقة
