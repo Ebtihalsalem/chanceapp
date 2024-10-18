@@ -101,7 +101,7 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
                       children: chunk.map((data) {
                         return Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: _buildOvalContainer(
+                          child: buildOvalContainer(
                             data,
                             fontColor,
                             backColor,
@@ -121,7 +121,7 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
   );
 }
 
-Widget _buildOvalContainer(String text, Color color,
+Widget buildOvalContainer(String text, Color color,
     Color fontColor) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

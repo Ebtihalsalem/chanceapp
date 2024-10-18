@@ -26,7 +26,15 @@
 //     ],
 //   ));
 // }
+import 'package:chanceapp/Screens/Bouquets.dart';
+import 'package:chanceapp/Screens/yourPlan.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
+import 'package:chanceapp/TraineeScreens/MyAccount.dart';
+import 'package:chanceapp/TraineeScreens/MyTraining.dart';
+import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
+import 'package:chanceapp/TraineeScreens/SavedScreen.dart';
+import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
+import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -51,7 +59,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const IntersetsScreen(),
+      home: const Bouquets(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),
