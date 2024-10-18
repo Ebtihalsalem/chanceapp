@@ -1,7 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../UI Components/BottomBar.dart';
+import '../../UI Components/BottomBar.dart';
 
 class MyTraining extends StatefulWidget {
   const MyTraining({super.key});

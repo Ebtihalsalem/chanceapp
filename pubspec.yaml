@@ -1,5 +1,5 @@
 name: chanceapp
-description: "A new Flutter project."
+description: "بداية مسيرتك المهنية"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -44,6 +44,12 @@ dependencies:
   line_awesome_flutter: ^1.0.0
   chat_bubbles: ^1.6.0
   flutter_heatmap_calendar: ^1.0.5
+  equatable: ^2.0.5
+  internet_connection_checker: ^1.0.0+1
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+  supabase_flutter: ^2.8.0
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:

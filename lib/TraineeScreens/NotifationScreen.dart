@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../UI Components/BottomBar.dart';
+import '../../UI Components/BottomBar.dart';
 
 class NotifationScreen extends StatefulWidget {
   const NotifationScreen({super.key});
@@ -55,6 +55,7 @@ class _NotifationScreenState extends State<NotifationScreen> {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.grey[200],
+      automaticallyImplyLeading: false,
       title: Padding(
         padding: const EdgeInsets.only(top: 18, right: 18.0),
         child: Row(

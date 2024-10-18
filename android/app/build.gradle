@@ -42,3 +42,9 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // تأكد من أنك أضفت firebase_core
+
+        implementation 'com.google.android.gms:play-services-auth:20.6.0' // تأكد من أن الإصدار محدث
+}

@@ -1,0 +1,1 @@
+const N0_INTERNET_ERROR_MESSAGE = "Please check your internet connections";

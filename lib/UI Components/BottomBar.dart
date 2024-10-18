@@ -1,12 +1,7 @@
-import 'package:chanceapp/Screens/MyAccount.dart';
-import 'package:chanceapp/Screens/MyTraining.dart';
-import 'package:chanceapp/Screens/home.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../Screens/SavedScreen.dart';
-import '../Screens/TrianingDetils.dart';
 
 
 class BottomBar extends StatefulWidget {

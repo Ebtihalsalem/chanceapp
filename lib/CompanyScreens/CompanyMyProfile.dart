@@ -1,26 +1,29 @@
 import 'dart:ui';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../UI Components/BottomBar.dart';
+import '../../UI Components/BottomBar.dart';
 
-class CompanyScreen extends StatefulWidget {
-  const CompanyScreen({super.key});
+class CompanyMyProfile extends StatefulWidget {
+  const CompanyMyProfile({super.key});
 
   @override
-  State<CompanyScreen> createState() => _CompanyScreenState();
+  State<CompanyMyProfile> createState() => _CompanyMyProfileState();
 }
 
-class _CompanyScreenState extends State<CompanyScreen> {
+class _CompanyMyProfileState extends State<CompanyMyProfile> {
+
   List<String> tabs = ["حــول", "التدريبات المتاحة"];
 
   List<String> summary = ["تأسست الأكاديمية الليبية للاتصالات والمعلوماتية بموجب قرار مجلس إدراة الشركة الليبية للبريد والاتصالات وتقنية المعلومات القابضة رقم 15 لسنة 2021م، كشركة وطنية تدريبية وتطويرية متخصصة تخدم قطاع الاتصالات وبقية القطاعات الخاصة والحكومية، وتختص بإعداد ورفع كفاءة العناصر البشرية من خلال التدريب المستمر، كما تقدم الدراسات والاستشارات الفنية لتوطين التقنية وتمكين التحول الرقمي في كافة القطاعات ذات العلاقة. نسعى من خلالنا معالجة الفجوات والتحديات في تنفيذ استراتيجية التحول الرقمي في ليبيا، وذلك بإعداد الكوادر البشرية المدربة القادرة على التعامل مع التقنيات الحديثة وتطبيقها ميدانيا، بالإضافة لتطوير أداء العاملين في قطاع الاتصالات على كافة المستويات، لضمان تقديم أداء عالي المستوى يرقى إلى المواصفات العالمية والارتقاء بالجودة المهنية والفنية للكوادر البشرية. كما تساهم الأكاديمية في تدريب حديثي التخرج والباحثين عن العمل لتغطية الحاجة الوظيفية المتغيرة والمتزايدة، والذي سيؤدي دون أدنى شك إلى التطوير المؤسسي ورفع كفاءة وجودة الأنشطة الاقتصادية والبرامج والأعمال"];
 
   List<Map<String, String>> information = [
     { "الموقع":"https://lati.ly/","المجال": "لخدمات تقنية المعلومات والاستشارات \n في مجال تقنية المعلومات","حجم الشركة":"50-11 موظف",
-    "المقر الرئيسي":"المقر الرئيسي","نوع":"الشركة عامة","تأسست":"2021","التخصص":"التدريب، تقنية المعلومات والاتصالات ، التحول الرقمي، الاستشارات"
+      "المقر الرئيسي":"المقر الرئيسي","نوع":"الشركة عامة","تأسست":"2021","التخصص":"التدريب، تقنية المعلومات والاتصالات ، التحول الرقمي، الاستشارات"
     }
   ];
+
   int _currentTab = 0;
 
   Widget screensTabs()
@@ -89,6 +92,40 @@ class _CompanyScreenState extends State<CompanyScreen> {
                                 FontWeight.normal,
                                 const Color(0xFF848484)),
                           ),
+                          Center(
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Container(
+                                  height: 34,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: const Color(0xFFF59039)),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(left: 18.0, right: 40),
+                                        child: Icon(
+                                          EvaIcons.edit2Outline,
+                                          color: Color(0xFFF59039),
+                                          size: 16,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4.0),
+                                        child: _buildHeaderText(
+                                          'تعديل الحساب',
+                                          11,
+                                          FontWeight.bold,
+                                          const Color(0xFFF59039),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                           const SizedBox(height: 30),
                           SizedBox(
                               height: 70,
@@ -127,6 +164,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
           ),
         ],
       ),
+
       bottomNavigationBar: const Padding(
         padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
@@ -134,6 +172,15 @@ class _CompanyScreenState extends State<CompanyScreen> {
           child: BottomBar(),
         ),
       ),
+    floatingActionButton: _currentTab == 1
+    ? Padding(
+      padding: const EdgeInsets.only(left: 18,bottom:10),
+      child: FloatingActionButton(
+      backgroundColor: const Color(0xFFF59039),
+      onPressed: (){},
+      child: const Icon(EvaIcons.edit2,color: Color(0xFFF1F1F1),)
+      ),
+    ):null
     );
   }
 
@@ -288,6 +335,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
       child: Column(
         children: [
+
           Row(
             children: [
               Expanded(
@@ -367,3 +415,4 @@ class _CompanyScreenState extends State<CompanyScreen> {
     );
   }
 }
+

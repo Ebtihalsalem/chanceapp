@@ -1,11 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-import '../UI Components/BottomBar.dart';
-import 'MyAccount.dart';
-import 'SavedScreen.dart';
-import 'TrianingDetils.dart';
-import 'home.dart';
+import '../../UI Components/BottomBar.dart';
 
 class CvScreen extends StatefulWidget {
   const CvScreen({super.key});
@@ -15,16 +11,6 @@ class CvScreen extends StatefulWidget {
 }
 
 class _CvScreenState extends State<CvScreen> {
-
-  int _selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-    SavedScreen(),
-    TrianingDetils(),
-    MyAccount(),
-  ];
-
 
 
   List<Map<String, String>> educationList = [
@@ -114,7 +100,7 @@ class _CvScreenState extends State<CvScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: const Padding(
         padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(30)),
