@@ -4,6 +4,7 @@ import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import '../../UI Components/BottomBar.dart';
+import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Cards.dart';
 import '../UI Components/SearchBar.dart';
@@ -24,7 +25,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: _buildAppBar(),
+        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(
@@ -80,71 +81,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
         ),
     );
   }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: primaryColor,
-      automaticallyImplyLeading: false,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 18, right: 18.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.asset(
-              "lib/images/logo.png",
-              height: 25,
-              width: 25,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text("مرحبًا، سارة أحمد !",
-                style: TextStyle(
-                    fontFamily: "Tajawal",
-                    fontSize: 16,
-                    color: Color(0xFF4A4C4D),
-                    fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
-      actions: [
-        _buildActionButton(EvaIcons.messageCircle, () {
-         Navigator.of(context).pushReplacement(
-                 MaterialPageRoute(builder: (context)=> const MessageScreen()));
-        }),
-        const SizedBox(width: 10),
-        Padding(
-          padding: const EdgeInsets.only(left: 18.0),
-          child: _buildActionButton(EvaIcons.bell, () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context)=> const NotifationScreen()));
-          }),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionButton(IconData icon, VoidCallback onTap) {
-    return Container(
-      margin: const EdgeInsets.only(top: 18.0, left: 18),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: 40,
-          width: 40,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffE7E7E7),
-          ),
-          child: Icon(
-            icon,
-            color: const Color(0xFFF59039),
-            size: 25,
-          ),
-        ),
-      ),
-    );
-  }
+  
 
 }
 

@@ -1,6 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import '../Core/App_theme.dart';
 import '../TraineeScreens/home.dart';
 import '../UI Components/BCards.dart';

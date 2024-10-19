@@ -26,7 +26,9 @@
 //     ],
 //   ));
 // }
+import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
 import 'package:chanceapp/Screens/Bouquets.dart';
+import 'package:chanceapp/Screens/PayScreen.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
 import 'package:chanceapp/TraineeScreens/MyAccount.dart';
@@ -59,7 +61,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const Bouquets(),
+      home: const HomeScreen(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),
