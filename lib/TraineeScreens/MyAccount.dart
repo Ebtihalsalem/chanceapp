@@ -26,7 +26,7 @@ class _MyAccountState extends State<MyAccount> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("الحساب","lib/images/logo.png"),
+        appBar: buildAppBar("الحساب","lib/images/logo.png",context,false),
         backgroundColor:primaryColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),

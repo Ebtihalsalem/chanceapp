@@ -34,7 +34,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
       case 0:
         return aboutTab(summary,information);
       case 1:
-        return availableTrainings(context,const TrainingDetails(),skills,"مساعد مدير","مصراتة","20","يوجد","شهرين");
+        return availableTrainings(context,const TrainingDetailsCompany(),skills,"مساعد مدير","مصراتة","20","يوجد","شهرين");
       default:
         return Container();
     }

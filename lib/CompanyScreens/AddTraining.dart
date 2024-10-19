@@ -15,7 +15,7 @@ class _AddTrainingState extends State<AddTraining> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: const Color(0xFFEFEFEF),
-      title:  Row(
+      title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(

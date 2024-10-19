@@ -26,11 +26,19 @@
 //     ],
 //   ));
 // }
+import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
+import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
 import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
+import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
+import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
+import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
+import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
 import 'package:chanceapp/Screens/Bouquets.dart';
 import 'package:chanceapp/Screens/PayScreen.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
+import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
+import 'package:chanceapp/TraineeScreens/MessageScreen.dart';
 import 'package:chanceapp/TraineeScreens/MyAccount.dart';
 import 'package:chanceapp/TraineeScreens/MyTraining.dart';
 import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
@@ -61,7 +69,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const HomeScreen(),
+      home: const PayScreen(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

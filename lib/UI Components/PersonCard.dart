@@ -14,109 +14,95 @@ List<List<String>> chunkedList(List<String> list, int chunkSize) {
   return chunks;
 }
 
-Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color fontColor,String img,
-    Color borderColor,Color boxes,List<String> skillsList,String role,String location,String company ) {
+Widget personCard(BuildContext context,Widget targetScreen,String img,
+   String name,String? train) {
   return InkWell(
     onTap:(){
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => targetScreen)
       );
     },
-    child: Wrap(
-        children: [
-          Container(
-            width: 370,
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-            decoration: BoxDecoration(
-                color: backColor,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: borderColor)
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(img),
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildText(
-                                company,
-                                12,
-                                FontWeight.bold,
-                                fontColor),
-                            buildText(role, 12, FontWeight.normal,
-                                fontColor),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Icon(EvaIcons.bookmarkOutline,color: fontColor),
-                    ),
-                  ],
+    child: Container(
+      height: 90,
+      width: 344,
+      decoration: BoxDecoration(
+          color: const Color(0xFFF3F3F3),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xFFBBBBBB))),
+      padding: const EdgeInsets.all(8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          children: [
+            Container(
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(img),
                 ),
-                const SizedBox(height: 26),
-                Padding(
-                  padding: const EdgeInsets.only(right: 60.0),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "lib/images/tdesign_location.png",
-                        height: 15,
-                        width: 15,
-                        color: fontColor,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 4.0),
-                        child: buildText(
-                            location, 12, FontWeight.normal, fontColor),
-                      ),
-                    ],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildText(name, 10, FontWeight.bold,
+                      const Color(0xFFF59039)),
+                  train !=null?
+                  buildText(train, 10,
+                      FontWeight.normal, const Color(0xFFF59039)): SizedBox(width: 1,),
+
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: Icon( EvaIcons.star,
+                            size: 13,
+                            color: Color(0xFfFFD233),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: Icon( EvaIcons.star,
+                            size: 13,
+                            color: Color(0xFfFFD233),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: Icon( EvaIcons.star,
+                            size: 13,
+                            color: Color(0xFfFFD233),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: Icon( EvaIcons.star,
+                            size: 13,
+                            color: Color(0xFFE6E6E6),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 1.0),
+                          child: Icon( EvaIcons.star,
+                            size: 13,
+                            color: Color(0xFFE6E6E6),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const SizedBox(width: 60),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: chunkedList(skillsList, 2).map((chunk) {
-                        return Wrap(
-                          spacing: 1.0,
-                          runSpacing: 1.0,
-                          children: chunk.map((data) {
-                            return Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: buildOvalContainer(
-                                data,
-                                fontColor,
-                                backColor,
-                              ),
-                            );
-                          }).toList(),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ]
+          ],
+        ),
+
+      ]),
     ),
   );
 }

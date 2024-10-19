@@ -27,10 +27,8 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
         ],
       ),
     ),
-    if(main)
-  {
-    actions:
-    [
+    actions: main
+        ? [
       _buildActionButton(EvaIcons.messageCircle, () {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const MessageScreen()));
@@ -39,14 +37,12 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
       Padding(
         padding: const EdgeInsets.only(left: 18.0),
         child: _buildActionButton(EvaIcons.bell, () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                  builder: (context) => const NotifationScreen()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const NotifationScreen()));
         }),
       ),
     ]
-  ,
-}
+        : [],
   );
 }
 

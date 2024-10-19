@@ -50,7 +50,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            buildBackgroundImage(),
+            buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
             buildBlurOverlay(),
             Positioned(
               top: 20,

@@ -1,9 +1,17 @@
 import 'dart:ui';
 
+import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
+import 'package:chanceapp/TraineeScreens/TrainingApplied.dart';
+import 'package:chanceapp/UI%20Components/BackgroundImg.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
+import '../Core/App_theme.dart';
+import '../TraineeScreens/AboutCompany.dart';
+import '../TraineeScreens/AvailableTrainings.dart';
+import '../UI Components/BuildText.dart';
+import '../UI Components/CircleImg.dart';
 
 class CompanyMyProfile extends StatefulWidget {
   const CompanyMyProfile({super.key});
@@ -30,9 +38,9 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
   {
     switch(_currentTab){
       case 0:
-        return aboutTab(summary);
+        return aboutTab(summary,information);
       case 1:
-        return avaibleTrianing();
+        return availableTrainings(context,const TrainingDetailsCompany(),skills,"مساعد مدير","مصراتة","20","يوجد","شهرين");
       default:
         return Container();
     }
@@ -44,25 +52,12 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Image.asset(
-            "lib/images/empty-hallway-office-building.jpg",
-            fit: BoxFit.cover,
-            width: 600,
-            height:200,
-          ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.black.withOpacity(0.3),
-            ),
-          ),
+          buildBackgroundImage("lib/images/empty-hallway-office-building.jpg",250,500),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Expanded(
-                flex: 4,
+                flex: 6,
                 child: SizedBox(height: 10),
               ),
               Stack(
@@ -70,23 +65,23 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                 alignment: Alignment.topCenter,
                 children: [
                   Container(
-                    height: 650,
+                    height: 600,
                     width: double.infinity,
                     padding: const EdgeInsets.fromLTRB(18, 90, 18, 50),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFEFEFEF),
+                    decoration: BoxDecoration(
+                      color: primaryColor,
                     ),
                     child: Align(
                       alignment: Alignment.center,
                       child: Column(
                         children: [
-                          _buildHeaderTextTitle(
+                          buildTextTitle(
                               "الاكاديمية الليبية للاتصالات والمعلوماتية",
                               12,
                               FontWeight.bold),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
-                            child: _buildHeaderText(
+                            child: buildText(
                                 "لخدمات تقنية المعلومات والاستشارات\n في مجال تقنية المعلومات",
                                 10,
                                 FontWeight.normal,
@@ -99,26 +94,26 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                                   height: 34,
                                   width: 200,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: const Color(0xFFF59039)),
+                                    border: Border.all(color: secondaryColor),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Row(
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(left: 18.0, right: 40),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 18.0, right: 40),
                                         child: Icon(
                                           EvaIcons.edit2Outline,
-                                          color: Color(0xFFF59039),
+                                          color: secondaryColor,
                                           size: 16,
                                         ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4.0),
-                                        child: _buildHeaderText(
+                                        child: buildText(
                                           'تعديل الحساب',
                                           11,
                                           FontWeight.bold,
-                                          const Color(0xFFF59039),
+                                          secondaryColor,
                                         ),
                                       ),
                                     ],
@@ -145,18 +140,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                   ),
                   Positioned(
                     top: -70,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Colors.white,
-                      child: ClipOval(
-                        child: Image.asset(
-                          "lib/images/acadimic.jpg",
-                          width: 130,
-                          height: 130,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                    child: circleImg("lib/images/acadimic.jpg"),
                   ),
                 ],
               ),
@@ -183,36 +167,6 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
     ):null
     );
   }
-
-  Widget _buildHeaderText(
-      String text, double fontSize, FontWeight fontWeight, Color fontColor) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: fontColor,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontFamily: "Tajawal",
-      ),
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.rtl,
-    );
-  }
-
-  Widget _buildHeaderTextTitle(
-      String text, double fontSize, FontWeight fontWeight) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: const Color(0xff4A4C4D),
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontFamily: "Tajawal",
-      ),
-      textAlign: TextAlign.right,
-      textDirection: TextDirection.rtl,
-    );
-  }
   Widget _tabs() {
     return Positioned(
       top: 0,
@@ -235,7 +189,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                     left: 10,
                     top: 7,
                   ),
-                  child: _buildHeaderTextTitle(tab, 13, FontWeight.normal),
+                  child: buildTextTitle(tab, 13, FontWeight.normal),
                 ),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
@@ -252,167 +206,5 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
     );
   }
 
-  Widget aboutTab(List<String> summary) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeaderTextTitle("ملخص", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...summary.map((data) {
-            return _buildHeaderTextTitle(data, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("الموقع", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["الموقع"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("المجال", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["المجال"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("حجم الشركة", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["حجم الشركة"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("المقر الرئيسي", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["المقر الرئيسي"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("النوع", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["نوع"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("تاسست", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["تأسست"]!, 12, FontWeight.normal);
-          }),
-          const SizedBox(height: 20,),
-          _buildHeaderTextTitle("التخصص", 14, FontWeight.bold),
-          const SizedBox(height: 10),
-          ...information.map((data){
-            return _buildHeaderTextTitle(data["التخصص"]!, 12, FontWeight.normal);
-          }),
-
-        ],
-      ),
-    );
-  }
-
-  Widget _buildOvalContainer(
-      String text, Color color, Color borderColor, Color fontColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: borderColor),
-      ),
-      child: _buildHeaderText(text, 10, FontWeight.bold, fontColor),
-    );
-  }
-
-  Widget avaibleTrianing() {
-    return Container(
-      height: 130,
-      width: 344,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF59039),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 18,vertical: 18),
-      child: Column(
-        children: [
-
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeaderText('مساعدة مدير', 14, FontWeight.bold,
-                          const Color(0xffEFEFEF)),
-                    ],
-                  ),
-                ),
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Image.asset(
-                        "lib/images/tdesign_location.png",
-                        height: 16,
-                        width: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText(
-                            'مصراتة', 10, FontWeight.bold, const Color(0xffEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(EvaIcons.clockOutline,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("شهرين", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(EvaIcons.peopleOutline,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("20", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Icon(Icons.monetization_on_outlined,color: Color(0xFFEFEFEF),size: 16,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: _buildHeaderText("يوجد", 10, FontWeight.bold,const Color(0xFFEFEFEF)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              const SizedBox(width: 60),
-              _buildOvalContainer('شبكات واتصالات', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-              const SizedBox(width: 8),
-              _buildOvalContainer('علوم حاسوب', const Color(0xFFF3F3F3),
-                  const Color(0xFFBBBBBB), const Color(0xFFF59039)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
 }
 

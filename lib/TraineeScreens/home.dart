@@ -25,7 +25,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context),
+        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(
@@ -46,7 +46,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: buildCard(context,const TrianingDetils(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-                            secondaryColor,primaryColor,skills,"مساعد المدير","مصراتة","الاكاديمية الليبية " ),
+                            secondaryColor,primaryColor,skills,"مساعد المدير","مصراتة","الاكاديمية الليبية ",false ),
                       );
                     },
                   ),
@@ -63,7 +63,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: buildCard(context,const TrianingDetils(),primaryColor,secondaryColor,"lib/images/almadar.png",
-                            borderColor,secondaryColor,skills,"مهندس شبكات","مصراتة","المــدار " ),
+                            borderColor,secondaryColor,skills,"مهندس شبكات","مصراتة","المــدار ",false ),
                       );
                     },
                   ),
