@@ -64,7 +64,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
   Widget tips(){
     return Row(
       children: [
-        boxesSkills(tipsList,"ينصح به لتكملة مسيرتك"),
+        boxesSkills(tipsList,"ينصح به لتكملة مسيرتك",false),
       ],
     );
   }

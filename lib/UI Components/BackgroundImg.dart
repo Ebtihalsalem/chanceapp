@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget buildBackgroundImage() {
+Widget buildBackgroundImage(String img,double h,double w) {
   return Image.asset(
-    "lib/images/backgroundFill3.jpg",
+    img,
     fit: BoxFit.cover,
-    width: double.infinity,
-    height: double.infinity,
+    width: w,
+    height: h,
   );
 }
 Widget buildBlurOverlay() {
@@ -17,7 +17,7 @@ Widget buildBlurOverlay() {
     child: Container(
       height: double.infinity,
       width: double.infinity,
-      color: Colors.black.withOpacity(0.2),
+      color: Colors.black.withOpacity(0.3),
     ),
   );
 }

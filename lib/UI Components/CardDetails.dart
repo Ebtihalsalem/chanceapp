@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'BuildText.dart';
 
 Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String img,
-    Color borderColor,String role,String company) {
+    Color borderColor,String? role,String company) {
   return Container(
       height: 70,
       width: 370,
@@ -28,6 +28,7 @@ Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String i
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0),
@@ -39,8 +40,10 @@ Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String i
                             12,
                             FontWeight.bold,
                             fontColor),
+
+                        role != null?
                         buildText(role, 12, FontWeight.normal,
-                            fontColor),
+                            fontColor):SizedBox(width: 1,),
                       ],
                     ),
                   ),

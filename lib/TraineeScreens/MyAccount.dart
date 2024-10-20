@@ -43,6 +43,9 @@ class _MyAccountState extends State<MyAccount> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: buildAppBar("الحساب","lib/images/logo.png",context,false),
+        backgroundColor:primaryColor,
         appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
         backgroundColor: const Color(0xffEFEFEF),
         body: Padding(

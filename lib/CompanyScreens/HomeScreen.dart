@@ -2,6 +2,7 @@ import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/BCards.dart';
+import 'package:chanceapp/UI%20Components/PersonCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        //appBar: buildAppBar("الرئيسية","lib/images/logo.png"),
+        appBar: buildAppBar("الرئيسية","lib/images/logo.png",context,true),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(
@@ -53,7 +54,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
                         padding: const EdgeInsets.only(left: 8.0),
                         child: buildCard(context,const TraineeProfile(),secondaryColor,
                             primaryColor,"lib/images/portrait-smiling-woman.jpg",
-                            secondaryColor,primaryColor,personalSkillsList,"مهتمة بمجال شركتك","مصراتة","سارة أحمد " ),
+                            secondaryColor,primaryColor,personalSkillsList,"مهتمة بمجال شركتك","مصراتة","سارة أحمد ",false ),
                       );
                     },
                   ),
@@ -69,9 +70,9 @@ class _CHomeScreenState extends State<CHomeScreen> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
-                        child: buildCard(context,const TraineeProfile(),primaryColor,secondaryColor,
+                        child: personCard(context,const TraineeProfile(),
                             "lib/images/portrait-smiling-woman.jpg",
-                            borderColor,secondaryColor,personalSkillsList,"","مصراتة","سارة أحمد " ),
+                            "سارة أحمد ","من تدريب التصميم الجرافكي"),
                       );
                     },
                   ),

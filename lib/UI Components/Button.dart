@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
+import '../Screens/TypeUser.dart';
 import '../TraineeScreens/Intersets.dart';
 import 'dart:ui';
 import 'BuildText.dart';
+import 'Snackbar.dart';
 
-Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon) {
+Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,VoidCallback? onPressed) {
   return SizedBox(
     width: 300,
     height: 50,
@@ -16,11 +18,7 @@ Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon)
           secondaryColor,
         ),
       ),
-      onPressed: () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => targetScreen),
-        );
-      },
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

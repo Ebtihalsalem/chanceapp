@@ -35,7 +35,7 @@ class _TypeUserState extends State<TypeUser> {
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withOpacity(0.3),
             ),
           ),
           Center(
@@ -87,7 +87,7 @@ class _TypeUserState extends State<TypeUser> {
                             child: SizedBox(
                               width: 300,
                               height: 50,
-                              child: button("باحث عن خبرة",context,const StartedScreen(),null),
+                              child: button("باحث عن خبرة",context,const StartedScreen(),null,null),
                             ),
                           ),
                           const SizedBox(height: 20),

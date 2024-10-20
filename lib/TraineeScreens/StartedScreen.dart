@@ -20,7 +20,7 @@ class _StartedScreenState extends State<StartedScreen> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          buildBackgroundImage(),
+          buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
           buildBlurOverlay(),
           Center(
             child: Column(
@@ -76,7 +76,7 @@ class _StartedScreenState extends State<StartedScreen> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          button("ابــدأ",context,HomeScreen(),null),
+                          button("ابــدأ",context,HomeScreen(),null,null),
 
                           SizedBox(
                             width: 300,

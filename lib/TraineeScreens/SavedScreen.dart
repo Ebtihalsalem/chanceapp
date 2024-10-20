@@ -25,7 +25,7 @@ class _SavedScreenState extends State<SavedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
+      appBar: buildAppBar("المحفوظات", "lib/images/logo.png",context,false),
       backgroundColor: primaryColor,
       body: SafeArea(
         child: Padding(
@@ -45,7 +45,7 @@ class _SavedScreenState extends State<SavedScreen> {
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: buildCard(
                         context,
-                        const TrainingDetails(),
+                        const TrainingDetailsCompany(),
                         secondaryColor,
                         primaryColor,
                         "lib/images/acadimic.jpg",
@@ -54,7 +54,7 @@ class _SavedScreenState extends State<SavedScreen> {
                         skills,
                         "مساعد مدير",
                         "مصراتة",
-                        "الاكاديمية الليبية"),
+                        "الاكاديمية الليبية",false),
                   );
                 },
               ),

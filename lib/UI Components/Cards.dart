@@ -14,7 +14,7 @@ List<List<String>> chunkedList(List<String> list, int chunkSize) {
 }
 
 Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color fontColor,String img,
-    Color borderColor,Color boxes,List<String> skillsList,String role,String location,String company ) {
+    Color borderColor,Color boxes,List<String> skillsList,String role,String location,String company,bool isCompleted ) {
   return InkWell(
     onTap:(){
       Navigator.of(context).pushReplacement(
@@ -26,10 +26,11 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
         Container(
         width: 370,
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
+
         decoration: BoxDecoration(
-          color: backColor,
+          color: isCompleted? Colors.grey[300]: backColor,
           borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: borderColor)
+            border: Border.all(color: isCompleted ? Colors.grey[300] ?? Colors.grey : borderColor),
         ),
         child: Column(
           children: [
@@ -51,7 +52,6 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         buildText(
                           company,
                             12,
@@ -105,6 +105,7 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
                             data,
                             fontColor,
                             backColor,
+                            isCompleted,
                           ),
                         );
                       }).toList(),
@@ -122,13 +123,13 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
 }
 
 Widget buildOvalContainer(String text, Color color,
-    Color fontColor) {
+    Color fontColor,bool isCompleted) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
       color: color,
       borderRadius: BorderRadius.circular(10),
     ),
-    child: buildText(text, 10, FontWeight.bold, fontColor),
+    child: buildText(text, 10, FontWeight.bold,isCompleted ? Colors.grey : fontColor),
   );
 }
