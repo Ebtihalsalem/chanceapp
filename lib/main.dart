@@ -53,6 +53,7 @@ import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
 import 'package:chanceapp/TraineeScreens/home.dart';
+import 'TraineeScreens/ReqScreen.dart';
 import 'TraineeScreens/Steps.dart';
 import 'TraineeScreens/TrianingDetils.dart';
 
@@ -69,7 +70,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const PayScreen(),
+      home: const TypeUser(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

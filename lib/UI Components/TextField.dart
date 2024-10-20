@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
 
-Widget textField(String text,IconData? icon,double h,double w){
+Widget textField(String text,IconData? icon,double h,double w,TextEditingController? controll,bool pas){
   return SizedBox(
     width: w,
     height: h,
     child: TextField(
+      controller: controll,
+      obscureText:pas,
       decoration: InputDecoration(
         hintText: text,
         hintStyle: const TextStyle(color: Color(0xFFBBBBBB),fontFamily: "Tajawal"),

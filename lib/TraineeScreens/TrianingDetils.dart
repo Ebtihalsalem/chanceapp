@@ -49,7 +49,7 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                   children: [
                     const Icon(EvaIcons.starOutline,color: Color(0xFFF59039),size: 30),
                     const Icon(EvaIcons.messageCircleOutline,color: Color(0xFFF59039),size: 26),
-                    textField("تعليقك..", null,40,270)
+                    textField("تعليقك..", null,40,270,null,false)
                   ],
                 ),
                 const SizedBox(height: 130,),
@@ -58,7 +58,7 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                     width: 300,
                     height: 50,
                     child:
-                    button("طلب التدريب",context,const HomeScreen(),null),
+                    button("طلب التدريب",context,const HomeScreen(),null,null),
                     ),
                   ),
               ],

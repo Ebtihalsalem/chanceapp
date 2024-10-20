@@ -52,7 +52,7 @@ class _DoneScreenState extends State<DoneScreen> {
                 buildTextTitle("هل تريد نشر تدريب الان؟",
                     15,FontWeight.normal),
                 const SizedBox(height: 20,),
-                button("نعم",context,AddTraining(),null),
+                button("نعم",context,AddTraining(),null,null),
                 const SizedBox(height: 16),
                 Container(
                   width: 300,

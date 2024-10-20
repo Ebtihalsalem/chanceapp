@@ -76,7 +76,7 @@ class _StartedScreenState extends State<StartedScreen> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          button("ابــدأ",context,HomeScreen(),null),
+                          button("ابــدأ",context,HomeScreen(),null,null),
 
                         ],
                       ),

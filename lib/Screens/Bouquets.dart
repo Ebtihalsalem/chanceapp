@@ -79,7 +79,7 @@ class _BouquetsState extends State<Bouquets> {
                   Icon(
                     EvaIcons.arrowIosBack,
                     color: primaryColor,
-                  )),
+                  ),null),
             ]),
           ),
         ));

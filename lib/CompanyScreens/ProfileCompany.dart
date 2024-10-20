@@ -296,7 +296,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                       ),
                       const SizedBox(height: 26),
                       button("التـالي", context, DoneScreen(),
-                          Icon(EvaIcons.arrowIosBack, color: primaryColor))
+                          Icon(EvaIcons.arrowIosBack, color: primaryColor),null)
                     ],
                   ),
                 ],

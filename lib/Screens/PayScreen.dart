@@ -15,20 +15,37 @@ class PayScreen extends StatefulWidget {
 }
 
 class _PayScreenState extends State<PayScreen> {
-
   String _paymentMethod = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: primaryColor, title: centerAppBar("فرصتك في يدك")),
+        title: centerAppBar("فرصتك في يدك"),
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 18),
-        child: ListView(
-          children:[
-            Column(
+        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 18),
+        child: ListView(children: [
+          Column(
             children: [
+              Column(
+                children: [
+                  Image.asset(
+                    'lib/images/8595516.png',
+                    height: 300,
+                    width: 300,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: buildText(
+                        "لنبـدأ معًا !!", 28, FontWeight.bold, secondaryColor),
+                  )
+                ],
+              ),
+              const SizedBox(height: 60),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -138,7 +155,7 @@ class _PayScreenState extends State<PayScreen> {
               ),
               textFieldWithoutIcon("المنطقة - الشارع", 45, 360),
               const SizedBox(
-                height: 70,
+                height: 40,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
@@ -147,51 +164,56 @@ class _PayScreenState extends State<PayScreen> {
                     child:
                         buildTextTitle("حدد طريقة الدفع", 16, FontWeight.bold)),
               ),
-              const SizedBox(height: 10,),
-             RadioTheme(
-            data: RadioThemeData(
-              fillColor: WidgetStateProperty.resolveWith<Color>(
+              const SizedBox(
+                height: 10,
+              ),
+              RadioTheme(
+                data: RadioThemeData(
+                  fillColor: WidgetStateProperty.resolveWith<Color>(
                     (states) {
-                  if (states.contains(WidgetState.selected)) {
-                    return secondaryColor;
-                  }
-                  return borderColor;
-                },
-              ),),child:
-              Column(
-                children: [
-                  ListTile(
-                    title: buildTextTitle('دفع بالبطاقة', 14, FontWeight.normal),
-                    leading: Radio<String>(
-                      value: 'بالبطاقة',
-                      groupValue: _paymentMethod,
-                      onChanged: (value) {
-                        setState(() {});
-                        _paymentMethod = value??"";
-                      },
-                    ),
+                      if (states.contains(WidgetState.selected)) {
+                        return secondaryColor;
+                      }
+                      return borderColor;
+                    },
                   ),
-              ListTile(
-                title: buildTextTitle('دفع نقدي', 14, FontWeight.normal),
-                leading: Radio<String>(
-                  value: 'نقدي',
-                  groupValue: _paymentMethod,
-                  onChanged: (value) {
-                    setState(() {
-                      _paymentMethod = value??"";
-                    });
-                  },
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title:
+                          buildTextTitle('دفع بالبطاقة', 14, FontWeight.normal),
+                      leading: Radio<String>(
+                        value: 'بالبطاقة',
+                        groupValue: _paymentMethod,
+                        onChanged: (value) {
+                          setState(() {});
+                          _paymentMethod = value ?? "";
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      title: buildTextTitle('دفع نقدي', 14, FontWeight.normal),
+                      leading: Radio<String>(
+                        value: 'نقدي',
+                        groupValue: _paymentMethod,
+                        onChanged: (value) {
+                          setState(() {
+                            _paymentMethod = value ?? "";
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-                ],
+              const SizedBox(
+                height: 20,
               ),
-             ),
-              const SizedBox(height: 20,),
-              button("الدفع",context,CHomeScreen(),null),
+              button("الدفع", context, CHomeScreen(), Icon(Icons.wallet,color: primaryColor,),null),
             ],
           ),
-      ]
-        ),
+        ]),
       ),
     );
   }
