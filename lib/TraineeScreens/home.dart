@@ -25,7 +25,7 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context),
+        appBar: buildAppBar("التدريبات","lib/images/logo.png",context,true),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(

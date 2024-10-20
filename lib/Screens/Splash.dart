@@ -1,7 +1,6 @@
-import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:chanceapp/Screens/TypeUser.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});

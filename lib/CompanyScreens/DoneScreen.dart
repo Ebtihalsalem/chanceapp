@@ -1,5 +1,10 @@
+import 'package:chanceapp/CompanyScreens/AddTraining.dart';
+import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
+import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
+import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:flutter/material.dart';
-
+import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'HomeScreen.dart';
 
 class DoneScreen extends StatefulWidget {
@@ -60,7 +65,13 @@ class _DoneScreenState extends State<DoneScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFF59039),
                     ),
-                    onPressed: () {},
+                    onPressed: () {    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                           AddTraining(), // استبدل NextScreen بالشاشة التي تريد الانتقال إليها
+                      ),
+                    );},
                     child: const Text(
                       "نعم",
                       textDirection: TextDirection.rtl,

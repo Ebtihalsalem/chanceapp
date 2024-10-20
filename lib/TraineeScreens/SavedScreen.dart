@@ -25,7 +25,7 @@ class _SavedScreenState extends State<SavedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("المحفوظات", "lib/images/logo.png"),
+      appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
       backgroundColor: primaryColor,
       body: SafeArea(
         child: Padding(

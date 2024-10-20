@@ -1,3 +1,4 @@
+
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:flutter/material.dart';
 import '../UI Components/BuildText.dart';
@@ -7,118 +8,110 @@ import 'AfterCv.dart';
 
 class Steps extends StatefulWidget {
   const Steps({super.key});
-
   @override
   State<Steps> createState() => _StepsState();
 }
-
 class _StepsState extends State<Steps> {
   int currentStep = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "lib/images/logo.png",
-              height: 20,
-              width: 20,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text("الملف الشخصي",
-                style: TextStyle(
-                    fontFamily: "Tajawal",
-                    fontSize: 20,
-                    color: Color(0xFF4A4C4D),
-                    fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
-      body: Container(
-        color: primaryColor,
-        child: Theme(
-          data: ThemeData(
-            colorScheme: ColorScheme.light(
-              primary: secondaryColor,
-            ),
-            canvasColor: primaryColor,
-          ),
-          child: Stepper(
-            type: StepperType.horizontal,
-            steps: getSteps(),
-            currentStep: currentStep,
-            onStepContinue: () {
-              if (currentStep != 3) {
-                setState(() => currentStep += 1);
-              } else {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const AfterCv()));
-              }
-            },
-            onStepCancel: () {
-              if (currentStep != 0) {
-                setState(() => currentStep -= 1);
-              } else {
-                null;
-              }
-            },
-            controlsBuilder: (BuildContext context, ControlsDetails details) {
-              return Column(
-                children: [
-                  const SizedBox(height: 26),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        height: 35,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: const Color(0xFFF59039))),
-                        child: TextButton(
-                          onPressed: details.onStepCancel,
-                          style: TextButton.styleFrom(
-                            textStyle: const TextStyle(
-                              fontFamily: "Tajawal",
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+        appBar: AppBar(
+          backgroundColor: primaryColor,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "lib/images/logo.png",
+                height: 20,
+                width: 20,
+              ),
+               const SizedBox(
+                width: 10,
+              ),
+              const Text("الملف الشخصي",
+                  style: TextStyle(
+                      fontFamily: "Tajawal",
+                      fontSize: 20,
+                      color: Color(0xFF4A4C4D),
+                      fontWeight: FontWeight.bold)),],),),
+        body: Container(
+          color: const Color(0xffEAEAEA),
+          child: Theme(
+            data: ThemeData(
+              colorScheme: const ColorScheme.light(
+                primary: Color(0xFFF59039),),),
+            child: Container(
+              color: primaryColor,
+              child: Stepper(
+                type: StepperType.horizontal,
+                steps: getSteps(),
+                currentStep: currentStep,
+                onStepContinue: () {
+                  if (currentStep != 3)
+                    {setState(() => currentStep += 1);}
+                  else
+                    {
+                      Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const AfterCv()));}},
+                onStepCancel: () {
+                  if (currentStep != 0)
+                    {setState(() => currentStep -= 1);}
+                  else
+                  {  null;}
+                },
+                controlsBuilder:
+                    (BuildContext context, ControlsDetails details) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 26),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            height: 35,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: const Color(0xFFF59039))),
+                            child: TextButton(
+                              onPressed: details.onStepCancel,
+                              style: TextButton.styleFrom(
+                                textStyle: const TextStyle(
+                                  fontFamily: "Tajawal",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              child: const Text('رجـوع'),
                             ),
                           ),
-                          child: const Text('رجـوع'),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Container(
-                        height: 35,
-                        width: 45,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF59039),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: IconButton(
-                          onPressed: details.onStepContinue,
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                            size: 20,
+                          const SizedBox(width: 10),
+                          Container(
+                            height: 35,
+                            width: 45,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF59039),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: IconButton(
+                              onPressed: details.onStepContinue,
+                              icon: const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
-                  ),
-                ],
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   List<Step> getSteps() => [
@@ -781,18 +774,6 @@ class _StepsState extends State<Steps> {
                                     return const AddCv(
                                       title: "المشاريع",
                                       name: "اسم المشروع",
-                                    );
-                                  });
-                            },
+                                    );});},
                             icon: const Icon(Icons.add,
-                                color: Color(0xFFBBBBBB))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ];
-}
+                                color: Color(0xFFBBBBBB))),],),),],),],),),];}

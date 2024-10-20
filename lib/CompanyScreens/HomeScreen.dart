@@ -30,7 +30,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("الرئيسية","lib/images/logo.png"),
+        //appBar: buildAppBar("الرئيسية","lib/images/logo.png"),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(

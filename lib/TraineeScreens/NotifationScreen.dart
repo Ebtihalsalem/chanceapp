@@ -21,7 +21,7 @@ class _NotifationScreenState extends State<NotifationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("الاشعارات","lib/images/logo.png"),
+        appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
         backgroundColor: primaryColor,
         body: SafeArea(
           child: Padding(

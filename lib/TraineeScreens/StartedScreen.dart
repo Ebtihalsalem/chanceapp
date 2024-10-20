@@ -5,7 +5,7 @@ import '../Core/App_theme.dart';
 import '../UI Components/BackgroundImg.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
-
+import 'package:chanceapp/Screens/LoginScreen.dart';
 class StartedScreen extends StatefulWidget {
   const StartedScreen({super.key});
 
@@ -78,6 +78,32 @@ class _StartedScreenState extends State<StartedScreen> {
                           const SizedBox(height: 20),
                           button("ابــدأ",context,HomeScreen(),null),
 
+                          SizedBox(
+                            width: 300,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFF59039),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Loginscreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                "ابـــدأ",
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontFamily: "Tajawal",
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

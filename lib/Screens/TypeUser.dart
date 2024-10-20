@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import '../CompanyScreens/HomeScreen.dart';
 import '../Core/App_theme.dart';
@@ -101,7 +102,7 @@ class _TypeUserState extends State<TypeUser> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (_) => const CHomeScreen())
+                                    MaterialPageRoute(builder: (_) => const Loginscreen())
                                 );
                               },
                               child: buildText(
