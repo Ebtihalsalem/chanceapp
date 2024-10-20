@@ -1,7 +1,11 @@
 import 'dart:ui';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:flutter/material.dart';
-import 'LoginScreen.dart';
-
+import '../Core/App_theme.dart';
+import '../UI Components/BackgroundImg.dart';
+import '../UI Components/BuildText.dart';
+import '../UI Components/Button.dart';
+import 'package:chanceapp/Screens/LoginScreen.dart';
 class StartedScreen extends StatefulWidget {
   const StartedScreen({super.key});
 
@@ -16,21 +20,8 @@ class _StartedScreenState extends State<StartedScreen> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
-          Image.asset(
-            "lib/images/backgroundFill3.jpg",
-            fit: BoxFit.cover,
-            width: 600,
-            height: 600,
-            // height: double.infinity,
-          ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.black.withOpacity(0.2),
-            ),
-          ),
+          buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
+          buildBlurOverlay(),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -48,9 +39,9 @@ class _StartedScreenState extends State<StartedScreen> {
                     ),
                     child: Container(
                       padding: const EdgeInsets.fromLTRB(50, 25, 50, 50),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFEFEFEF),
-                        borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0),
                         ),
@@ -59,7 +50,7 @@ class _StartedScreenState extends State<StartedScreen> {
                         children: [
                           Container(
                             height: 3,
-                            width: 200,
+                            width: 170,
                             color: Colors.grey,
                           ),
                           const Padding(
@@ -75,19 +66,18 @@ class _StartedScreenState extends State<StartedScreen> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerRight,
-                            child: Text(
+                            child: buildTextTitle(
                               "- ربط الخريجين بالشركات وتطوير المهارات المطلوبة.",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: "Tajawal",
-                              ),
+                               13,
+                               FontWeight.normal,
+
                             ),
                           ),
                           const SizedBox(height: 20),
+                          button("ابــدأ",context,HomeScreen(),null,null),
+
                           SizedBox(
                             width: 300,
                             height: 50,
@@ -96,7 +86,7 @@ class _StartedScreenState extends State<StartedScreen> {
                                 backgroundColor: const Color(0xFFF59039),
                               ),
                               onPressed: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const Loginscreen(),

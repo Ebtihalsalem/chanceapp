@@ -1,26 +1,23 @@
-import 'package:chanceapp/Screens/AfterCv.dart';
-import 'package:flutter/material.dart';
 
+import 'package:chanceapp/Core/App_theme.dart';
+import 'package:flutter/material.dart';
+import '../UI Components/BuildText.dart';
+import '../UI Components/textFieldWithoutIcon.dart';
 import 'AddCv.dart';
-import 'home.dart';
+import 'AfterCv.dart';
 
 class Steps extends StatefulWidget {
   const Steps({super.key});
-
   @override
   State<Steps> createState() => _StepsState();
 }
-
 class _StepsState extends State<Steps> {
   int currentStep = 0;
-
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = const Color(0xFFF5F5F5);
-
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: primaryColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -37,20 +34,15 @@ class _StepsState extends State<Steps> {
                       fontFamily: "Tajawal",
                       fontSize: 20,
                       color: Color(0xFF4A4C4D),
-                      fontWeight: FontWeight.bold)),
-            ],
-          ),
-        ),
+                      fontWeight: FontWeight.bold)),],),),
         body: Container(
           color: const Color(0xffEAEAEA),
           child: Theme(
             data: ThemeData(
               colorScheme: const ColorScheme.light(
-                primary: Color(0xFFF59039),
-              ),
-            ),
+                primary: Color(0xFFF59039),),),
             child: Container(
-              color: backgroundColor,
+              color: primaryColor,
               child: Stepper(
                 type: StepperType.horizontal,
                 steps: getSteps(),
@@ -61,11 +53,7 @@ class _StepsState extends State<Steps> {
                   else
                     {
                       Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const AfterCv())
-                      );
-                    }
-
-                },
+                      MaterialPageRoute(builder: (context) => const AfterCv()));}},
                 onStepCancel: () {
                   if (currentStep != 0)
                     {setState(() => currentStep -= 1);}
@@ -160,18 +148,17 @@ class _StepsState extends State<Steps> {
               const SizedBox(
                 height: 15,
               ),
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("المعلومات الشخصية",
-                        style: TextStyle(
-                          fontFamily: "Tajawal",
-                          fontSize: 16,
-                          color: Color(0xFFF59039),
-                          fontWeight: FontWeight.bold,
-                        )),
+                    buildText(
+                      "المعلومات الشخصية",
+                      16,
+                      FontWeight.bold,
+                      secondaryColor,
+                    ),
                   ],
                 ),
               ),
@@ -180,252 +167,95 @@ class _StepsState extends State<Steps> {
               ),
               Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        child: buildTextTitle(
                           "الاسم كامل",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "الاسم كامل ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("الاسم كامل", 50, 320),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        child: buildTextTitle(
                           "الايميل",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "example@gmail.com",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("example@gmail.com", 50, 320),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        child: buildTextTitle(
                           "رقم الهاتف",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "0000000 218+ ",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("0000000 218+ ", 50, 320),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "تاريخ الميلاد",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "0000/00/00",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon: const Icon(Icons.calendar_month_sharp,
-                            color: Color(0xFFBBBBBB)),
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("0000/00/00", 50, 320),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "المدينة",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "اسم المدينة",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("اسم المدينة", 50, 320),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "عنوان السكن",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        hintText: "المنطقة - الشارع",
-                        hintStyle: const TextStyle(
-                            fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xFFBCBCBC)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
+                  textFieldWithoutIcon("المنطقة - الشارع", 50, 320)
                 ],
               ),
             ],
@@ -436,18 +266,17 @@ class _StepsState extends State<Steps> {
           title: const Text(" "),
           content: Column(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("المؤهلات العلمية والخبرات",
-                        style: TextStyle(
-                          fontFamily: "Tajawal",
-                          fontSize: 16,
-                          color: Color(0xFFF59039),
-                          fontWeight: FontWeight.bold,
-                        )),
+                    buildText(
+                      "المؤهلات العلمية والخبرات",
+                      16,
+                      FontWeight.bold,
+                      secondaryColor,
+                    ),
                   ],
                 ),
               ),
@@ -456,17 +285,15 @@ class _StepsState extends State<Steps> {
               ),
               Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "التعليم",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -475,7 +302,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -486,7 +313,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -496,7 +322,10 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "التعليم",name: "نوع الشهادة",);
+                                    return const AddCv(
+                                      title: "التعليم",
+                                      name: "نوع الشهادة",
+                                    );
                                   });
                             },
                             icon: const Icon(Icons.add,
@@ -505,17 +334,15 @@ class _StepsState extends State<Steps> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "الخبرة العملية",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -524,7 +351,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -535,7 +362,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -545,25 +371,27 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "الخبرة العملية",name: "نوع العمل",);
+                                    return const AddCv(
+                                      title: "الخبرة العملية",
+                                      name: "نوع العمل",
+                                    );
                                   });
                             },
-                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "الدورات التدريبية",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -572,7 +400,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -583,7 +411,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -593,7 +420,10 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "الدورات التدريبة",name: "اسم الدورة",);
+                                    return const AddCv(
+                                      title: "الدورات التدريبة",
+                                      name: "اسم الدورة",
+                                    );
                                   });
                             },
                             icon: const Icon(Icons.add,
@@ -613,18 +443,17 @@ class _StepsState extends State<Steps> {
           ),
           content: Column(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("المهــارات",
-                        style: TextStyle(
-                          fontFamily: "Tajawal",
-                          fontSize: 16,
-                          color: Color(0xFFF59039),
-                          fontWeight: FontWeight.bold,
-                        )),
+                    buildText(
+                      "المهــارات",
+                      16,
+                      FontWeight.bold,
+                      secondaryColor,
+                    ),
                   ],
                 ),
               ),
@@ -633,17 +462,15 @@ class _StepsState extends State<Steps> {
               ),
               Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "المهــارات الشخصية",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -652,7 +479,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -663,7 +490,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -673,7 +499,10 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                 return const AddCv(title: "المهارات الشخصية",name: "المهارة",);
+                                    return const AddCv(
+                                      title: "المهارات الشخصية",
+                                      name: "المهارة",
+                                    );
                                   });
                             },
                             icon: const Icon(Icons.add,
@@ -682,17 +511,15 @@ class _StepsState extends State<Steps> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "مهـــارات الحاسوب",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -701,7 +528,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -712,7 +539,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -722,7 +548,10 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "مهارات الحاسوب",name: "المهارة",);
+                                    return const AddCv(
+                                      title: "مهارات الحاسوب",
+                                      name: "المهارة",
+                                    );
                                   });
                             },
                             icon: const Icon(Icons.add,
@@ -731,17 +560,15 @@ class _StepsState extends State<Steps> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "اللغات",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -750,7 +577,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -761,7 +588,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -771,10 +597,14 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "اللغات",name: "اللغة",);
+                                    return const AddCv(
+                                      title: "اللغات",
+                                      name: "اللغة",
+                                    );
                                   });
                             },
-                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
@@ -788,18 +618,16 @@ class _StepsState extends State<Steps> {
           title: const Text(" "),
           content: Column(
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("النشاطات والاعمال الأخرى",
-                        style: TextStyle(
-                          fontFamily: "Tajawal",
-                          fontSize: 16,
-                          color: Color(0xFFF59039),
-                          fontWeight: FontWeight.bold,
-                        )),
+                    buildTextTitle(
+                      "النشاطات والاعمال الأخرى",
+                      16,
+                      FontWeight.bold,
+                    ),
                   ],
                 ),
               ),
@@ -808,17 +636,15 @@ class _StepsState extends State<Steps> {
               ),
               Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "النشاطات",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -827,7 +653,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -838,7 +664,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -846,27 +671,29 @@ class _StepsState extends State<Steps> {
                         IconButton(
                             onPressed: () {
                               showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const AddCv(title: "النشاطات",name: "اسم النشاط",);
-                                });
-                              },
-                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                                  context: context,
+                                  builder: (context) {
+                                    return const AddCv(
+                                      title: "النشاطات",
+                                      name: "اسم النشاط",
+                                    );
+                                  });
+                            },
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "الاعمال التطوعية",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -875,7 +702,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -886,7 +713,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -896,25 +722,27 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "الاعمال التطوعية",name: "اسم العمل",);
+                                    return const AddCv(
+                                      title: "الاعمال التطوعية",
+                                      name: "اسم العمل",
+                                    );
                                   });
                             },
-                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.0, right: 20),
-                        child: Text(
+                        padding: const EdgeInsets.only(bottom: 8.0, right: 20),
+                        child: buildTextTitle(
                           "المشاريع",
-                          style: TextStyle(
-                              fontFamily: "Tajawal",
-                              color: Color(0xFF4A4C4D),
-                              fontWeight: FontWeight.bold),
+                          14,
+                          FontWeight.bold,
                         ),
                       ),
                     ],
@@ -923,7 +751,7 @@ class _StepsState extends State<Steps> {
                     width: 320,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFDFDFD),
                         borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: const Color(0xFFBCBCBC))),
                     child: Row(
@@ -934,7 +762,6 @@ class _StepsState extends State<Steps> {
                           child: Text(
                             "اضافة..",
                             style: TextStyle(
-                              fontFamily: "Tajawal",
                               color: Color(0xFFBBBBBB),
                             ),
                           ),
@@ -944,20 +771,9 @@ class _StepsState extends State<Steps> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return const AddCv(title: "المشاريع",name: "اسم المشروع",);
-                                  });
-                            },
-                            icon: const Icon(Icons.add, color: Color(0xFFBBBBBB))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ];
-
-
-
-}
+                                    return const AddCv(
+                                      title: "المشاريع",
+                                      name: "اسم المشروع",
+                                    );});},
+                            icon: const Icon(Icons.add,
+                                color: Color(0xFFBBBBBB))),],),),],),],),),];}

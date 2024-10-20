@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76363183461",
+    "project_id": "jasin2",
+    "storage_bucket": "jasin2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76363183461:android:82fc99ad4c1be8b5fa5d8c",
+        "android_client_info": {
+          "package_name": "com.example.chanceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4kzp9QOGTc1ZkiGiLkXpjg2x6NYNxj6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,20 @@
+import 'package:chanceapp/Screens/TypeUser.dart';
+import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
+import 'package:chanceapp/TraineeScreens/MyAccount.dart';
 import 'package:flutter/material.dart';
-import 'package:chanceapp/Screens/Intersets.dart';
 import 'dart:ui';
+import '../Core/App_theme.dart';
+import '../TraineeScreens/Intersets.dart';
+import '../UI Components/BuildText.dart';
+import '../UI Components/Button.dart';
+import '../UI Components/Snackbar.dart';
+import '../UI Components/TextField.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
+final supabase = Supabase.instance.client;
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -10,228 +24,281 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
+  bool isCompany = false; // متغير لتحديد نوع المستخدم
+  bool isLoading = false;
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Image.asset(
-              "lib/images/backgroundFill3.jpg",
-              fit: BoxFit.cover,
-              width: 600,
-              height: 600,
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          Image.asset(
+            "lib/images/backgroundFill3.jpg",
+            fit: BoxFit.cover,
+            width: 600,
+            height: 600,
+          ),
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Colors.black.withOpacity(0.2),
             ),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.black.withOpacity(0.2),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 120.0),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'lib/images/logo.png',
-                      height: 119,
-                      width: 120,
-                    ),
-                    const SizedBox(height: 15),
-                    const Text(
-                      "فرصتك في يدك",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Tajawal",
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Center(
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 120.0),
               child: Column(
                 children: [
-                  const Expanded(
-                    flex: 8,
-                    child: SizedBox(height: 10),
+                  Image.asset(
+                    'lib/images/logo.png',
+                    height: 119,
+                    width: 120,
                   ),
-                  Expanded(
-                    flex: 12,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(40.0),
-                        topRight: Radius.circular(40.0),
-                      ),
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(50, 20, 50, 50),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFEFEFEF),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40.0),
-                              topRight: Radius.circular(40.0),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 3,
-                                width: 149,
-                                color: Colors.grey,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top:40.0),
-                                child: Form(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: 60,
-                                        child: TextField(
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          decoration: InputDecoration(
-                                            hintText: "اسم المستخدم",
-                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                                            filled: true,
-                                            fillColor: const Color(0xFFF3F3F3),
-                                            suffixIcon: const Icon(Icons.person,
-                                                color: Color(0xFFBBBBBB)),
-                                            border: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      SizedBox(
-                                        width: 300,
-                                        height: 60,
-                                        child: TextField(
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          obscureText: true,
-                                          decoration: InputDecoration(
-                                            hintText: "كلمة المرور",
-                                            hintStyle: const TextStyle(fontFamily: "Tajawal", color: Color(0xFFBBBBBB)),
-                                            filled: true,
-                                            fillColor: const Color(0xFFF3F3F3),
-                                            suffixIcon: const Icon(Icons.lock,
-                                                color: Color(0xFFBBBBBB)),
-                                            border: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(
-                                                  color: Color(0xFFBCBCBC)),
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: TextButton(onPressed: (){}, child: const Text("نسيت كلمة المرور؟",style: TextStyle(
-                                          fontSize: 10,color: Color(0xFFF59039), fontFamily: "Tajawal",
-                                            fontWeight: FontWeight.bold
-                                        ),)),
-                                      ),
-                                      const SizedBox(height: 20,),
-                                      SizedBox(
-                                        width: 300,
-                                        height: 50,
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                            WidgetStateProperty.all(
-                                              const Color(0xFFF59039),
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (context)=> const IntersetsScreen())
-                                            );
-                                          },
-                                          child: const Text(
-                                            "تسجيل الدخول",
-                                            style: TextStyle(
-                                                color: Colors.white70, fontSize: 16,fontFamily: "Tajawal",
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 40),
-                                      const Row(
-                                        children: [
-                                          Expanded(
-                                            child: Divider(
-                                              color: Color(0xFFBBBBBB),
-                                              thickness: 1.0,
-                                              endIndent: 10.0,
-                                            ),
-                                          ),
-                                          Text(
-                                            "أو",
-                                            style: TextStyle(
-                                              color: Color(0xFFBBBBBB),
-                                              fontSize: 16,
-                                              fontFamily: "Tajawal",
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Divider(
-                                              color: Color(0xFFBBBBBB),
-                                              thickness: 1.0,
-                                              indent: 10.0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 40),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(onPressed: (){}, icon:
-                                           Image.asset("lib/images/google1.png",
-                                             height: 40,width: 40,),),
-
-                                          IconButton(onPressed: (){}, icon:
-                                           Image.asset("lib/images/linkedin.png",
-                                            height: 45,width: 45,),),
-                                        ],
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    "فرصتك في يدك",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Center(
+            child: Column(
+              children: [
+                const Expanded(
+                  flex: 8,
+                  child: SizedBox(height: 10),
+                ),
+                Expanded(
+                  flex: 12,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(50, 20, 50, 50),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 3,
+                            width: 149,
+                            color: Colors.grey,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 40.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                textField("اسم المستخدم",Icons.person,50,300,usernameController,false),
+                                const SizedBox(height: 16),
+                                textField("كلمة المرور",Icons.lock,50,300, passwordController,
+                                  true,),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    onPressed: () {},
+                                    child: buildText(
+                                      "نسيت كلمة المرور؟",
+                                      10,
+                                      FontWeight.bold,
+                                      Color(0xFFF59039),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
 
+                                    Align(alignment: Alignment.centerRight,
+                                    child: TextButton(onPressed: (){}, child: buildText("نسيت كلمة المرور؟",
+                                      10, FontWeight.bold,const Color(0xFFF59039),
+                                    ),)),
+
+                                const SizedBox(height: 16,),
+                                button("تسجيل الدخول",context,const TypeUser(),null,handleLogin),
+                                const SizedBox(height: 40),
+                                Row(
+                                  children: [
+                                    const Expanded(
+                                      child: Divider(
+                                        color: Color(0xFFBBBBBB),
+                                        thickness: 1.0,
+                                        endIndent: 10.0,
+                                      ),
+                                    ),
+                                    buildText(
+                                      "أو",
+                                      16,
+                                      FontWeight.normal,
+                                      Color(0xFFBBBBBB),
+                                    ),
+                                    const Expanded(
+                                      child: Divider(
+                                        color: Color(0xFFBBBBBB),
+                                        thickness: 1.0,
+                                        indent: 10.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 40),
+                                isLoading
+                                    ? CircularProgressIndicator()
+                                    : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () async {
+                                        await _googleSignIn(context);
+
+                                        // هنا يمكن التحقق من نوع المستخدم قبل الانتقال
+                                        if (isCompany) {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) => const ProfileCompany(), // شاشة الشركة
+                                            ),
+                                          );
+                                        } else {
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) => const ProfileCompany(), // شاشة انتيرستس للمستخدمين العاديين
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      icon: Image.asset(
+                                        "lib/images/google1.png",
+                                        height: 40,
+                                        width: 40,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
-}
+
+  void handleLogin(BuildContext context) {
+    final username = usernameController.text.trim();
+    final password = passwordController.text.trim();
+
+    print(username);
+    if (username.isEmpty || password.isEmpty) {
+      showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
+      return;
+    }
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const TypeUser()),
+    );
+  }
+
+
+  Future<void> _googleSignIn(BuildContext context) async {
+    const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
+    const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
+    Future<void> _googleSignIn(BuildContext context ) async {
+
+      setState(() {
+        isLoading = true;
+      });
+
+
+      const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
+      const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
+
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId: androidClientId,
+        serverClientId: webClientId,
+      );
+
+
+      try {
+        final googleUser = await googleSignIn.signIn();
+        if (googleUser == null) {
+          showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
+          setState(() {
+            isLoading = false;
+          });
+          return;
+        }
+        final googleAuth = await googleUser.authentication;
+
+        final accessToken = googleAuth.accessToken;
+        final idToken = googleAuth.idToken;
+
+        if (accessToken == null || idToken == null) {
+          throw 'لم يتم الحصول على رموز الدخول.';
+        }
+
+        final AuthResponse response = await supabase.auth.signInWithIdToken(
+          provider: OAuthProvider.google,
+          idToken: idToken,
+          accessToken: accessToken,
+        );
+
+        if (response.user != null) {
+          // تخزين البيانات في Supabase
+          await supabase.auth.updateUser(
+            UserAttributes(
+              data: {
+                'avatar_url': googleUser.photoUrl, // تخزين رابط الصورة
+                'full_name': googleUser.displayName, // تخزين الاسم الكامل
+              },
+            ),
+          );
+        }
+      } catch (e) {
+        print('Error during Google sign in: $e');
+         else {
+          showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+        }
+      }  finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+
+  }
+
+
+
+

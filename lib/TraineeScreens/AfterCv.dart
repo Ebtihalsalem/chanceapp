@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Core/App_theme.dart';
+import '../UI Components/BuildText.dart';
 import 'home.dart';
 
 class AfterCv extends StatefulWidget {
@@ -26,12 +28,10 @@ class _AfterCvState extends State<AfterCv> {
               const SizedBox(
                 width: 10,
               ),
-              const Text("فرصتك في يدك",
-                  style: TextStyle(
-                      fontFamily: "Tajawal",
-                      fontSize: 20,
-                      color: Color(0xFF4A4C4D),
-                      fontWeight: FontWeight.bold)),
+              buildTextTitle("فرصتك في يدك",
+                      20,
+                  FontWeight.bold
+              ),
             ],
           ),
         ),
@@ -46,9 +46,9 @@ class _AfterCvState extends State<AfterCv> {
               width: 280,
             ),
             const SizedBox(height: 25,),
-            _buildHeaderTextTitle("عمل جيد !!",26,FontWeight.bold),
+                buildTextTitle("عمل جيد !!",26,FontWeight.bold),
                 const SizedBox(height: 20,),
-                _buildHeaderTextTitle("الان هل تريد انشاء نسخة كــ سيرة ذاتية مبدئية؟",
+                buildTextTitle("الان هل تريد انشاء نسخة كــ سيرة ذاتية مبدئية؟",
                 15,FontWeight.normal),
                 const SizedBox(height: 20,),
             SizedBox(
@@ -59,14 +59,10 @@ class _AfterCvState extends State<AfterCv> {
                     backgroundColor: const Color(0xFFF59039),
                   ),
                   onPressed: () {},
-                  child: const Text(
-                    "نعم",
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: "Tajawal",
-                    ),
+                  child: buildText(
+                    "نعم", 16,
+                    FontWeight.normal,
+                      const Color(0xFFFDFDFD)
                   ),
                 ),
               ),
@@ -84,48 +80,14 @@ class _AfterCvState extends State<AfterCv> {
                       MaterialPageRoute(builder: (context) => const HomeScreen())
                   );
                 },
-                child: const Text(
-                  "تخطي",
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    color: Color(0xFFF59039),
-                    fontSize: 16,
-                    fontFamily: "Tajawal",
-                  ),
+                child: buildText(
+                  "تخطي", 16,FontWeight.bold,
+                    secondaryColor,
                 ),
               ),
             ),
           ]),
         ));
   }
-}
-
-Widget _buildHeaderTextTitle(
-    String text, double fontSize, FontWeight fontWeight) {
-  return Text(
-    text,
-    style: TextStyle(
-      color: const Color(0xff4A4C4D),
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      fontFamily: "Tajawal",
-    ),
-    textAlign: TextAlign.right,
-    textDirection: TextDirection.rtl,
-  );
-}
-
-Widget _buildHeaderText(String text, double fontSize, FontWeight fontWeight, Color fontColor) {
-  return Text(
-    text,
-    style: TextStyle(
-      color: fontColor,
-      fontSize: fontSize,
-      fontWeight: fontWeight,
-      fontFamily: "Tajawal",
-    ),
-    textAlign: TextAlign.center,
-    textDirection: TextDirection.rtl,
-  );
 }
 
