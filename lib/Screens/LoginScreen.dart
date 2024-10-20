@@ -9,10 +9,9 @@ import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
 import '../UI Components/TextField.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-final supabase = Supabase.instance.client;
+
+import 'Auth.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -26,6 +25,16 @@ class _LoginscreenState extends State<Loginscreen> {
   bool isLoading = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkIfUserIsSignedIn(context);
+    });
+  }
+
 
   @override
   void dispose() {
@@ -157,7 +166,8 @@ class _LoginscreenState extends State<Loginscreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () async {
-                                        await _googleSignIn(context);
+
+                                        await signInWithGoogle(context);
                                       },
                                       icon: Image.asset(
                                         "lib/images/google1.png",
@@ -188,6 +198,8 @@ class _LoginscreenState extends State<Loginscreen> {
     final username = usernameController.text.trim();
     final password = passwordController.text.trim();
 
+
+
     print(username);
     if (username.isEmpty || password.isEmpty) {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
@@ -200,65 +212,65 @@ class _LoginscreenState extends State<Loginscreen> {
   }
 
 
-  Future<void> _googleSignIn(BuildContext context ) async {
-
-    setState(() {
-      isLoading = true;
-    });
-
-
-    const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-    const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-
-
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: androidClientId,
-      serverClientId: webClientId,
-    );
-
-    try {
-      final googleUser = await googleSignIn.signIn();
-      if (googleUser == null) {
-        showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
-        setState(() {
-          isLoading = false;
-        });
-        return;
-      }
-      final googleAuth = await googleUser!.authentication;
-
-      final accessToken = googleAuth.accessToken;
-      final idToken = googleAuth.idToken;
-
-      if (accessToken == null || idToken == null) {
-        throw 'لم يتم الحصول على رموز الدخول.';
-      }
-
-      final AuthResponse response = await supabase.auth.signInWithIdToken(
-        provider: OAuthProvider.google,
-        idToken: idToken,
-        accessToken: accessToken,
-      );
-
-      print('Response: ${response.user}');
-      if (response.user != null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const TypeUser(),
-          ),
-        );
-      } else {
-        showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
-      }
-    } catch (e) {
-      showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول ');
-      print(e);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+  // Future<void> _googleSignIn(BuildContext context ) async {
+  //
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //
+  //
+  //   const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
+  //   const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
+  //
+  //
+  //   final GoogleSignIn googleSignIn = GoogleSignIn(
+  //     clientId: androidClientId,
+  //     serverClientId: webClientId,
+  //   );
+  //
+  //   try {
+  //     final googleUser = await googleSignIn.signIn();
+  //     if (googleUser == null) {
+  //       showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //       return;
+  //     }
+  //     final googleAuth = await googleUser!.authentication;
+  //
+  //     final accessToken = googleAuth.accessToken;
+  //     final idToken = googleAuth.idToken;
+  //
+  //     if (accessToken == null || idToken == null) {
+  //       throw 'لم يتم الحصول على رموز الدخول.';
+  //     }
+  //
+  //     final AuthResponse response = await supabase.auth.signInWithIdToken(
+  //       provider: OAuthProvider.google,
+  //       idToken: idToken,
+  //       accessToken: accessToken,
+  //     );
+  //
+  //     print('Response: ${response.user}');
+  //     if (response.user != null) {
+  //       Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(
+  //           builder: (context) => const TypeUser(),
+  //         ),
+  //       );
+  //     } else {
+  //       showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+  //     }
+  //   } catch (e) {
+  //     showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول ');
+  //     print(e);
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
 
 }

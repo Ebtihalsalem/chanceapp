@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "169186241301",
+    "project_id": "chanceapp-6826a",
+    "storage_bucket": "chanceapp-6826a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169186241301:android:cc160d048a9146c301971c",
+        "android_client_info": {
+          "package_name": "com.example.chanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169186241301-omkse9j1l83j3jfti8aqof43ketadmhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chanceapp",
+            "certificate_hash": "1be89dcdf21c4daa5f6c88f5deebed956d2be20c"
+          }
+        },
+        {
+          "client_id": "169186241301-5ec7rurk0e8r52fkn68kelt0j251v53u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKGFE5r8uk2drr7wDgjacm--0PoH9JxJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169186241301-5ec7rurk0e8r52fkn68kelt0j251v53u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
