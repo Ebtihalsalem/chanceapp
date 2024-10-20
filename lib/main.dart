@@ -62,6 +62,7 @@ import 'TraineeScreens/Steps.dart';
 import 'TraineeScreens/TrianingDetils.dart';
 import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
 import 'package:chanceapp/TraineeScreens/MyAccount.dart';
+import 'package:chanceapp/TraineeScreens/Boxes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -75,7 +76,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const CHomeScreen() ,
+      home: const PayScreen() ,
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

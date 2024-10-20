@@ -46,8 +46,7 @@ class _MyAccountState extends State<MyAccount> {
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar("الحساب","lib/images/logo.png",context,false),
         backgroundColor:primaryColor,
-        appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
-        backgroundColor: const Color(0xffEFEFEF),
+
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 35.0),
           child: Column(

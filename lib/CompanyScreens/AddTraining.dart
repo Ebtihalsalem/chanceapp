@@ -393,8 +393,8 @@ class _AddTrainingState extends State<AddTraining> {
         ],
       ),
 
-      title: _buildTitle(),
-      content: _buildContent(),
+     // title: _buildTitle(),
+      //content: _buildContent(),
     );
   }
 
