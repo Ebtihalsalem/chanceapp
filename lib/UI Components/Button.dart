@@ -18,7 +18,11 @@ Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,
           secondaryColor,
         ),
       ),
-      onPressed: onPressed,
+      onPressed: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => targetScreen)
+        );
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

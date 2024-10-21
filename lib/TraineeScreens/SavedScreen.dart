@@ -1,3 +1,4 @@
+import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/Cards.dart';
@@ -7,6 +8,7 @@ import '../../UI Components/BottomBar.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/SearchBar.dart';
+import 'CompanyScreen.dart';
 
 
 
@@ -46,13 +48,14 @@ class _SavedScreenState extends State<SavedScreen> {
                     child: buildCard(
                         context,
                         const TrainingDetailsCompany(),
+                        const CompanyScreen(),
                         secondaryColor,
                         primaryColor,
                         "lib/images/acadimic.jpg",
                         secondaryColor,
                         primaryColor,
                         skills,
-                        "مساعد مدير",
+                        "مهندس اتصالات",
                         "مصراتة",
                         "الاكاديمية الليبية",false),
                   );

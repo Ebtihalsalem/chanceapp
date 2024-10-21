@@ -21,10 +21,7 @@ class _RequestScreenState extends State<RequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: primaryColor,
-          title: centerAppBar("فرصتك في يدك")
-        ),
+        appBar: centerAppBar(context,"فرصتك في يدك"),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 18),
           child: Align(

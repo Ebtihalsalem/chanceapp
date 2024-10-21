@@ -13,11 +13,11 @@ List<List<String>> chunkedList(List<String> list, int chunkSize) {
   return chunks;
 }
 
-Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color fontColor,String img,
+Widget buildCard(BuildContext context,Widget targetScreen,Widget profileScreen,Color backColor,Color fontColor,String img,
     Color borderColor,Color boxes,List<String> skillsList,String role,String location,String company,bool isCompleted ) {
   return InkWell(
     onTap:(){
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => targetScreen)
       );
     },
@@ -36,14 +36,21 @@ Widget buildCard(BuildContext context,Widget targetScreen,Color backColor,Color 
           children: [
             Row(
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(img),
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => profileScreen)
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(img),
+                      ),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 Expanded(

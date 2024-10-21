@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:chanceapp/UI%20Components/BackgroundImg.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:chanceapp/UI%20Components/CircleImg.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,7 @@ class _TraineeProfileState extends State<TraineeProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: centerAppBar(context, ""),
         body: Stack(
           children: [
             buildBackgroundImage("lib/images/beautiful-young-woman-home-office-working-from-home-teleworking-concept 1.png",

@@ -1,3 +1,4 @@
+import 'package:chanceapp/Screens/PayScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import '../Core/App_theme.dart';
@@ -75,7 +76,7 @@ class _BouquetsState extends State<Bouquets> {
               button(
                   "الاستمرار",
                   context,
-                  HomeScreen(),
+                  PayScreen(),
                   Icon(
                     EvaIcons.arrowIosBack,
                     color: primaryColor,

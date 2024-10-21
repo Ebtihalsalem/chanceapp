@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/TraineeScreens/AvailableTrainings.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
@@ -44,6 +45,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: centerAppBar(context,""),
       body: Stack(
         children: [
           Image.asset(
@@ -72,7 +74,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
                 alignment: Alignment.topCenter,
                 children: [
                   Container(
-                    height: 630,
+                    height: 540,
                     width: double.infinity,
                     padding: const EdgeInsets.fromLTRB(18, 80, 18, 50),
                     decoration: BoxDecoration(

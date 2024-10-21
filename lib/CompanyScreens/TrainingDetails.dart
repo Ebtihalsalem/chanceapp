@@ -59,7 +59,7 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   cardDetails(context,secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-                      secondaryColor,null,"مساعد مدير " ),
+                      secondaryColor,null,"مهندس اتصالات" ),
               const SizedBox(height: 30),
               SizedBox(height: 70, width: double.infinity, child: _tabs()),
               Flexible(

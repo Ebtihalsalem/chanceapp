@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../Core/App_theme.dart';
 import '../TraineeScreens/home.dart';
 import '../UI Components/BuildText.dart';
+import 'Bouquets.dart';
 
 class YourPlan extends StatefulWidget {
   const YourPlan({super.key});
@@ -78,7 +79,7 @@ class _YourPlanState extends State<YourPlan> {
                   child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const HomeScreen())
+                          MaterialPageRoute(builder: (context) => const Bouquets())
                       );
                     },
                     child: buildText(
