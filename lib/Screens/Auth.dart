@@ -41,6 +41,8 @@ try {
 
   final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
+print(userCredential.user?.email);
+  print(userCredential.user?.displayName);
 
   Navigator.of(context).pushReplacement(
     MaterialPageRoute(builder: (context) => TypeUser()),
