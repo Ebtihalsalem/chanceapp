@@ -193,23 +193,21 @@ class _LoginscreenState extends State<Loginscreen> {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
       return;
     }
-
-    try {
-
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
-
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const TypeUser()),
-      );
-    } on FirebaseAuthException catch (e) {
-
-      if (e.code == 'user-not-found') {
-        print('المستخدم غير موجود، سيتم إنشاء حساب جديد.');
+    // try {
+    //   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //     email: email,
+    //     password: password,
+    //   );
+    //
+    //   print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+    //
+    //   Navigator.of(context).pushReplacement(
+    //     MaterialPageRoute(builder: (context) => const TypeUser()),
+    //   );
+    // } on FirebaseAuthException catch (e) {
+    //
+    //   if (e.code == 'user-not-found') {
+    //     print('المستخدم غير موجود، سيتم إنشاء حساب جديد.');
 
         try {
 
@@ -232,18 +230,85 @@ class _LoginscreenState extends State<Loginscreen> {
         } catch (e) {
           print(e);
         }
-      } else if (e.code == 'wrong-password') {
-        print('كلمة المرور المدخلة غير صحيحة.');
-        showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
-      } else {
-        print(e);
-      }
-    } catch (e) {
-      print(e);
-    }
+    //   } else if (e.code == 'wrong-password') {
+    //     print('كلمة المرور المدخلة غير صحيحة.');
+    //     showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
+    //   } else {
+    //     print(e);
+    //   }
+    // } catch (e) {
+    //   print(e);
+    // }
   }
 
-
+  // Future<void> handleLogin() async {
+  //   final email = emailController.text.trim();
+  //   final password = passwordController.text.trim();
+  //
+  //   if (email.isEmpty || password.isEmpty) {
+  //     showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
+  //     return;
+  //   }
+  //
+  //   // تحقق من وجود المستخدم في MongoDB
+  //   final response = await http.post(
+  //     Uri.parse('https://your-api-url.com/checkUser'), // استبدل بالـ API الخاصة بك
+  //     body: jsonEncode({
+  //       'email': email,
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //
+  //     if (data['exists'] == true) {
+  //       // المستخدم موجود، قم بتسجيل الدخول
+  //       try {
+  //         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //           email: email,
+  //           password: password,
+  //         );
+  //
+  //         print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+  //         Navigator.of(context).pushReplacement(
+  //           MaterialPageRoute(builder: (context) => const TypeUser()),
+  //         );
+  //       } on FirebaseAuthException catch (e) {
+  //         if (e.code == 'wrong-password') {
+  //           showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
+  //         } else {
+  //           print(e);
+  //         }
+  //       }
+  //     } else {
+  //       // المستخدم غير موجود، قم بإنشاء حساب جديد
+  //       try {
+  //         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //           email: email,
+  //           password: password,
+  //         );
+  //
+  //         print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
+  //         Navigator.of(context).pushReplacement(
+  //           MaterialPageRoute(builder: (context) => const TypeUser()),
+  //         );
+  //       } on FirebaseAuthException catch (e) {
+  //         if (e.code == 'weak-password') {
+  //           showSnackBar(context, 'The password provided is too weak.');
+  //         } else if (e.code == 'email-already-in-use') {
+  //           showSnackBar(context, 'The account already exists for that email.');
+  //         }
+  //       } catch (e) {
+  //         print(e);
+  //       }
+  //     }
+  //   } else {
+  //     showSnackBar(context, 'حدث خطأ أثناء التحقق من البريد الإلكتروني.');
+  //   }
+  // }
 
 }
 
