@@ -1,8 +1,6 @@
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
-import 'package:chanceapp/TraineeScreens/MyAccount.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
@@ -11,23 +9,32 @@ import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
 import '../UI Components/TextField.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
-final supabase = Supabase.instance.client;
+
+
+import 'Auth.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
+
 }
 
 class _LoginscreenState extends State<Loginscreen> {
-  bool isCompany = false; // متغير لتحديد نوع المستخدم
   bool isLoading = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkIfUserIsSignedIn(context);
+    });
+  }
+
 
   @override
   void dispose() {
@@ -111,7 +118,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             color: Colors.grey,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 40.0),
+                            padding: const EdgeInsets.only(top:40.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -120,24 +127,10 @@ class _LoginscreenState extends State<Loginscreen> {
                                 textField("كلمة المرور",Icons.lock,50,300, passwordController,
                                   true,),
                                 Align(
-                                  alignment: Alignment.centerRight,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: buildText(
-                                      "نسيت كلمة المرور؟",
-                                      10,
-                                      FontWeight.bold,
-                                      Color(0xFFF59039),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-
-                                    Align(alignment: Alignment.centerRight,
+                                    alignment: Alignment.centerRight,
                                     child: TextButton(onPressed: (){}, child: buildText("نسيت كلمة المرور؟",
                                       10, FontWeight.bold,const Color(0xFFF59039),
                                     ),)),
-
                                 const SizedBox(height: 16,),
                                 button("تسجيل الدخول",context,const TypeUser(),null,handleLogin),
                                 const SizedBox(height: 40),
@@ -173,22 +166,8 @@ class _LoginscreenState extends State<Loginscreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () async {
-                                        await _googleSignIn(context);
 
-                                        // هنا يمكن التحقق من نوع المستخدم قبل الانتقال
-                                        if (isCompany) {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) => const ProfileCompany(), // شاشة الشركة
-                                            ),
-                                          );
-                                        } else {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) => const ProfileCompany(), // شاشة انتيرستس للمستخدمين العاديين
-                                            ),
-                                          );
-                                        }
+                                        await signInWithGoogle(context);
                                       },
                                       icon: Image.asset(
                                         "lib/images/google1.png",
@@ -198,7 +177,6 @@ class _LoginscreenState extends State<Loginscreen> {
                                     ),
                                   ],
                                 ),
-
                               ],
                             ),
                           ),
@@ -212,14 +190,17 @@ class _LoginscreenState extends State<Loginscreen> {
           ),
         ],
       ),
+
     );
   }
 
-  void handleLogin(BuildContext context) {
+  void handleLogin() {
     final username = usernameController.text.trim();
     final password = passwordController.text.trim();
 
-    print(username);
+
+
+    print("username : $username");
     if (username.isEmpty || password.isEmpty) {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
       return;
@@ -231,73 +212,69 @@ class _LoginscreenState extends State<Loginscreen> {
   }
 
 
-  Future<void> _googleSignIn(BuildContext context) async {
-    const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-    const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-    Future<void> _googleSignIn(BuildContext context ) async {
+  // Future<void> _googleSignIn(BuildContext context ) async {
+  //
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //
+  //
+  //   const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
+  //   const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
+  //
+  //
+  //   final GoogleSignIn googleSignIn = GoogleSignIn(
+  //     clientId: androidClientId,
+  //     serverClientId: webClientId,
+  //   );
+  //
+  //   try {
+  //     final googleUser = await googleSignIn.signIn();
+  //     if (googleUser == null) {
+  //       showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //       return;
+  //     }
+  //     final googleAuth = await googleUser!.authentication;
+  //
+  //     final accessToken = googleAuth.accessToken;
+  //     final idToken = googleAuth.idToken;
+  //
+  //     if (accessToken == null || idToken == null) {
+  //       throw 'لم يتم الحصول على رموز الدخول.';
+  //     }
+  //
+  //     final AuthResponse response = await supabase.auth.signInWithIdToken(
+  //       provider: OAuthProvider.google,
+  //       idToken: idToken,
+  //       accessToken: accessToken,
+  //     );
+  //
+  //     print('Response: ${response.user}');
+  //     if (response.user != null) {
+  //       Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(
+  //           builder: (context) => const TypeUser(),
+  //         ),
+  //       );
+  //     } else {
+  //       showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
+  //     }
+  //   } catch (e) {
+  //     showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول ');
+  //     print(e);
+  //   } finally {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        isLoading = true;
-      });
 
+}
 
-      const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-      const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: androidClientId,
-        serverClientId: webClientId,
-      );
-
-
-      try {
-        final googleUser = await googleSignIn.signIn();
-        if (googleUser == null) {
-          showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
-          setState(() {
-            isLoading = false;
-          });
-          return;
-        }
-        final googleAuth = await googleUser.authentication;
-
-        final accessToken = googleAuth.accessToken;
-        final idToken = googleAuth.idToken;
-
-        if (accessToken == null || idToken == null) {
-          throw 'لم يتم الحصول على رموز الدخول.';
-        }
-
-        final AuthResponse response = await supabase.auth.signInWithIdToken(
-          provider: OAuthProvider.google,
-          idToken: idToken,
-          accessToken: accessToken,
-        );
-
-        if (response.user != null) {
-          // تخزين البيانات في Supabase
-          await supabase.auth.updateUser(
-            UserAttributes(
-              data: {
-                'avatar_url': googleUser.photoUrl, // تخزين رابط الصورة
-                'full_name': googleUser.displayName, // تخزين الاسم الكامل
-              },
-            ),
-          );
-        }
-      } catch (e) {
-        print('Error during Google sign in: $e');
-         else {
-          showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
-        }
-      }  finally {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-
-  }
 
 
 

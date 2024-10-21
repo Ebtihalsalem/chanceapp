@@ -189,12 +189,12 @@ class _MyAccountState extends State<MyAccount> {
                   ],
                 ),
               ),
-              // Scrollable section below the buttons
+
               Flexible(
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
-                    child: buildSettings(),
+                    child: buildSettings(context),
                   ),
                 ),
               ),
