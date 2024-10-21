@@ -15,6 +15,11 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          main ? IconButton(icon: Icon(null), onPressed: () {  },):
+          IconButton(icon: Icon(Icons.arrow_back_ios_new,color: secondaryColor,size: 18,),
+            onPressed: (){
+            Navigator.of(context).pop(false);
+            },),
           Image.asset(
             img,
             height: 25,
@@ -30,14 +35,14 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
     actions: main
         ? [
       _buildActionButton(EvaIcons.messageCircle, () {
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const MessageScreen()));
       }),
       const SizedBox(width: 10),
       Padding(
         padding: const EdgeInsets.only(left: 18.0),
         child: _buildActionButton(EvaIcons.bell, () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const NotifationScreen()));
         }),
       ),

@@ -1,5 +1,6 @@
 import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
 import 'package:chanceapp/UI%20Components/Button.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -21,23 +22,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: primaryColor,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "lib/images/logo.png",
-                height: 20,
-                width: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              buildText("الملف الشخصي", 20, FontWeight.bold, Color(0xFF4A4C4D)),
-            ],
-          ),
-        ),
+        appBar: centerAppBar(context, "الملف الشخصي"),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
           child: Container(

@@ -1,4 +1,5 @@
 import 'package:chanceapp/Core/App_theme.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:flutter/material.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/textFieldWithoutIcon.dart';
@@ -18,28 +19,7 @@ class _StepsState extends State<Steps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "lib/images/logo.png",
-              height: 20,
-              width: 20,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Text("الملف الشخصي",
-                style: TextStyle(
-                    fontFamily: "Tajawal",
-                    fontSize: 20,
-                    color: Color(0xFF4A4C4D),
-                    fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
+      appBar: centerAppBar(context, "الملف الشخصي"),
       body: Container(
         color: primaryColor,
         child: Theme(
@@ -630,10 +610,11 @@ class _StepsState extends State<Steps> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    buildTextTitle(
+                    buildText(
                       "النشاطات والاعمال الأخرى",
                       16,
                       FontWeight.bold,
+                      secondaryColor,
                     ),
                   ],
                 ),

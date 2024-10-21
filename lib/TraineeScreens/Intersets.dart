@@ -142,7 +142,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                   child: Visibility(
                     visible: selectedCards.length >= 3,
                     child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pushReplacement(
+                      onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Steps()),
                       ),
                       style: ButtonStyle(

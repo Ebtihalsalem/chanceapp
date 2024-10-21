@@ -1,3 +1,4 @@
+import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +27,11 @@ class _TrainingScreenState extends State<TrainingScreen> {
   {
     switch(_currentTab){
       case 0:
-        return buildCard(context,const TrianingDetils(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-    secondaryColor,primaryColor,skills,"مساعد المدير","مصراتة","الاكاديمية الليبية ",false );
+        return buildCard(context,const TrianingDetils(),const TraineeProfile(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
+    secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",false );
       case 1:
-        return buildCard(context,const TrianingDetils(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-            secondaryColor,primaryColor,skills,"مساعد المدير","مصراتة","الاكاديمية الليبية ",true );
+        return buildCard(context,const TrianingDetils(),const TraineeProfile(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
+            secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",true );
       default:
         return Container();
     }

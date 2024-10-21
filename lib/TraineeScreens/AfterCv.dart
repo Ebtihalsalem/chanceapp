@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
 import '../UI Components/BuildText.dart';
+import '../UI Components/CenterAppBar.dart';
 import 'home.dart';
 
 class AfterCv extends StatefulWidget {
@@ -15,26 +16,7 @@ class _AfterCvState extends State<AfterCv> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "lib/images/logo.png",
-                height: 20,
-                width: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              buildTextTitle("فرصتك في يدك",
-                      20,
-                  FontWeight.bold
-              ),
-            ],
-          ),
-        ),
+        appBar: centerAppBar(context,"فرصتك في يدك"),
         body: Align(
           alignment: Alignment.center,
           child: Column(

@@ -9,15 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../UI Components/Snackbar.dart';
 import 'TypeUser.dart';
 
-void checkIfUserIsSignedIn(BuildContext context) {
-
-  if (FirebaseAuth.instance.currentUser != null) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => TypeUser()),
-    );
-  }
-}
-
 Future<Object> signInWithGoogle(BuildContext context) async {
 
 try {

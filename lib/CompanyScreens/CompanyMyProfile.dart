@@ -40,7 +40,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
       case 0:
         return aboutTab(summary,information);
       case 1:
-        return availableTrainings(context,const TrainingDetailsCompany(),skills,"مساعد مدير","مصراتة","20","يوجد","شهرين");
+        return availableTrainings(context,const TrainingDetailsCompany(),skills,"مهندس اتصالات","مصراتة","20","يوجد","شهرين");
       default:
         return Container();
     }

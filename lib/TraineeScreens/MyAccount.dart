@@ -138,13 +138,13 @@ class _MyAccountState extends State<MyAccount> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Image.asset(
-                            "lib/images/Vector (1).png",
+                            "lib/images/profile.png",
                             height: 20,
                             width: 20,
                           ),
                           const SizedBox(height: 4),
                           buildText(
-                            "السيرة الذاتية",
+                            "ملفك المهني",
                             11,
                             FontWeight.bold,
                             Colors.white,

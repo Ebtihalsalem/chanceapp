@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:chanceapp/Screens/yourPlan.dart';
+import 'package:chanceapp/TraineeScreens/Intersets.dart';
 import 'package:flutter/material.dart';
 import '../CompanyScreens/HomeScreen.dart';
 import '../Core/App_theme.dart';
@@ -86,7 +88,7 @@ class _TypeUserState extends State<TypeUser> {
                             child: SizedBox(
                               width: 300,
                               height: 50,
-                              child: button("باحث عن خبرة",context,const StartedScreen(),null,null),
+                              child: button("باحث عن خبرة",context,const IntersetsScreen(),null,null),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -101,7 +103,7 @@ class _TypeUserState extends State<TypeUser> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(builder: (_) => const CHomeScreen())
+                                    MaterialPageRoute(builder: (_) => const YourPlan())
                                 );
                               },
                               child: buildText(

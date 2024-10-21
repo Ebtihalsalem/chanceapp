@@ -1,6 +1,7 @@
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
@@ -23,22 +24,12 @@ class Loginscreen extends StatefulWidget {
 
 class _LoginscreenState extends State<Loginscreen> {
   bool isLoading = false;
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkIfUserIsSignedIn(context);
-    });
-  }
-
-
-  @override
   void dispose() {
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -122,7 +113,7 @@ class _LoginscreenState extends State<Loginscreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                textField("اسم المستخدم",Icons.person,50,300,usernameController,false),
+                                textField("البريد الالكتروني",Icons.email,50,300,emailController,false),
                                 const SizedBox(height: 16),
                                 textField("كلمة المرور",Icons.lock,50,300, passwordController,
                                   true,),
@@ -147,7 +138,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                       "أو",
                                       16,
                                       FontWeight.normal,
-                                      Color(0xFFBBBBBB),
+                                      const Color(0xFFBBBBBB),
                                     ),
                                     const Expanded(
                                       child: Divider(
@@ -193,84 +184,65 @@ class _LoginscreenState extends State<Loginscreen> {
 
     );
   }
-
-  void handleLogin() {
-    final username = usernameController.text.trim();
+  Future<void> handleLogin() async {
+    final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-
-
-    print("username : $username");
-    if (username.isEmpty || password.isEmpty) {
+    print("email : $email");
+    if (email.isEmpty || password.isEmpty) {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
       return;
     }
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const TypeUser()),
-    );
+    try {
+
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const TypeUser()),
+      );
+    } on FirebaseAuthException catch (e) {
+
+      if (e.code == 'user-not-found') {
+        print('المستخدم غير موجود، سيتم إنشاء حساب جديد.');
+
+        try {
+
+          final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+
+          print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const TypeUser()),
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            showSnackBar(context,'The password provided is too weak.');
+          } else if (e.code == 'email-already-in-use') {
+            showSnackBar(context,'The account already exists for that email.');
+          }
+        } catch (e) {
+          print(e);
+        }
+      } else if (e.code == 'wrong-password') {
+        print('كلمة المرور المدخلة غير صحيحة.');
+        showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
+      } else {
+        print(e);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
-
-  // Future<void> _googleSignIn(BuildContext context ) async {
-  //
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //
-  //
-  //   const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-  //   const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-  //
-  //
-  //   final GoogleSignIn googleSignIn = GoogleSignIn(
-  //     clientId: androidClientId,
-  //     serverClientId: webClientId,
-  //   );
-  //
-  //   try {
-  //     final googleUser = await googleSignIn.signIn();
-  //     if (googleUser == null) {
-  //       showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       return;
-  //     }
-  //     final googleAuth = await googleUser!.authentication;
-  //
-  //     final accessToken = googleAuth.accessToken;
-  //     final idToken = googleAuth.idToken;
-  //
-  //     if (accessToken == null || idToken == null) {
-  //       throw 'لم يتم الحصول على رموز الدخول.';
-  //     }
-  //
-  //     final AuthResponse response = await supabase.auth.signInWithIdToken(
-  //       provider: OAuthProvider.google,
-  //       idToken: idToken,
-  //       accessToken: accessToken,
-  //     );
-  //
-  //     print('Response: ${response.user}');
-  //     if (response.user != null) {
-  //       Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(
-  //           builder: (context) => const TypeUser(),
-  //         ),
-  //       );
-  //     } else {
-  //       showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
-  //     }
-  //   } catch (e) {
-  //     showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول ');
-  //     print(e);
-  //   } finally {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
 
 
 }

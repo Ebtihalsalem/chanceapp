@@ -52,7 +52,7 @@ Widget buildSettings(BuildContext context) {
             child: TextButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                     MaterialPageRoute(builder: (_)=>Loginscreen())
                 );
               },
