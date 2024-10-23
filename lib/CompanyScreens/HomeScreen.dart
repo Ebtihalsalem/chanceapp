@@ -52,9 +52,12 @@ class _CHomeScreenState extends State<CHomeScreen> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TraineeProfile(),const TraineeProfile(),secondaryColor,
-                            primaryColor,"lib/images/portrait-smiling-woman.jpg",
-                            secondaryColor,primaryColor,personalSkillsList,"مهتمة بمجال شركتك","مصراتة","سارة أحمد ",false ),
+                        child:
+                        BuildCard(targetScreen: TraineeProfile(),profileScreen: TraineeProfile(),backColor: whiteApp,
+                            fontColor:  fontColorBlack,img: "lib/images/portrait-smiling-woman.jpg",
+                            boxes: secondaryColor,skillsList: personalSkillsList,role:"مهتمة بمجال شركتك",
+                            location: "مصراتة",
+                            company: "سارة أحمد ",isCompleted: false ),
                       );
                     },
                   ),

@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import '../CompanyScreens/TrainingDetails.dart';
 import '../Core/App_theme.dart';
 import '../UI Components/Cards.dart';
+import 'CompanyScreen.dart';
+import 'TrianingDetils.dart';
 
 
 List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
@@ -17,9 +19,10 @@ Widget trainingsApplied(){
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: buildCard(context, const TrainingDetailsCompany(),const TrainingDetailsCompany(), secondaryColor,
-              primaryColor, "lib/images/acadimic.jpg", secondaryColor, primaryColor,
-              skills, "مهندس اتصالات", "مصراتة", "الاكاديمية الليبية",false),
+          child: BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+              fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+              boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+              company: "الاكاديمية الليبية ",isCompleted: false ),
         );
       },
     ),

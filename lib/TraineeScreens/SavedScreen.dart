@@ -9,6 +9,7 @@ import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/SearchBar.dart';
 import 'CompanyScreen.dart';
+import 'TrianingDetils.dart';
 
 
 
@@ -45,19 +46,10 @@ class _SavedScreenState extends State<SavedScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: buildCard(
-                        context,
-                        const TrainingDetailsCompany(),
-                        const CompanyScreen(),
-                        secondaryColor,
-                        primaryColor,
-                        "lib/images/acadimic.jpg",
-                        secondaryColor,
-                        primaryColor,
-                        skills,
-                        "مهندس اتصالات",
-                        "مصراتة",
-                        "الاكاديمية الليبية",false),
+                    child: BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                        fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+                        boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+                        company: "الاكاديمية الليبية ",isCompleted: false ),
                   );
                 },
               ),

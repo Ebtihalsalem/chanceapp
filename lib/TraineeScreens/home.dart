@@ -27,15 +27,17 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
-        backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 buildSearchRow(),
-                const SizedBox(height: 26),
+                 Padding(
+                   padding: const EdgeInsets.only(top:10.0),
+                   child: buildSearchRow(),
+                 ),
+                const SizedBox(height: 28),
                 buildTextTitle('لأجلك', 20, FontWeight.bold),
                 const SizedBox(height: 22),
                 SizedBox(
@@ -46,8 +48,10 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TrianingDetils(),const CompanyScreen(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-                            secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",false ),
+                        child: BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                           fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+                            boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+                            company: "الاكاديمية الليبية ",isCompleted: false ),
                       );
                     },
                   ),
@@ -63,8 +67,11 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TrianingDetils(),const CompanyScreen(),primaryColor,secondaryColor,"lib/images/almadar.png",
-                            borderColor,secondaryColor,skills,"مهندس شبكات","مصراتة","المــدار ",false ),
+                        child:BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                            fontColor:  fontColorBlack,img: "lib/images/almadar.png",
+                            boxes: secondaryColor,skillsList: skills,role:"مهندس شبكات",location: "مصراتة",
+                            company: "المــدار ",isCompleted: false ),
+
                       );
                     },
                   ),

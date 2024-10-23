@@ -1,6 +1,7 @@
 import 'package:chanceapp/TraineeScreens/ReqScreen.dart';
 import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:chanceapp/UI%20Components/TextField.dart';
+import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -28,10 +29,9 @@ class _TrianingDetilsState extends State<TrianingDetils> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: buildAppBar("التدريب", "lib/images/logo.png", context, false),
-      backgroundColor: const Color(0xffEFEFEF),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 40.0),
+          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,37 +40,28 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: cardDetails(
                     context,
-                    secondaryColor,
-                    primaryColor,
                     "lib/images/acadimic.jpg",
-                    secondaryColor,
                     "مهندس اتصالات",
                     "الاكاديمية الليبية "),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: information(
+              information(
                     "شهرين",
                     "20",
-                    "يوجد",
-                    borderColor,
-                    primaryColor,
-                    secondaryColor,
-                    borderColor),
-              ),
+                    "يوجد"),
+
               const SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Icon(
-                      EvaIcons.starOutline, color: Color(0xFFF59039), size: 30),
-                  const Icon(
-                      EvaIcons.messageCircleOutline, color: Color(0xFFF59039),
+                  Icon(
+                      Icons.favorite_border, color: primaryColor, size: 30),
+                  Icon(
+                      EvaIcons.messageCircleOutline, color: primaryColor,
                       size: 26),
-                  textField("تعليقك..", null, 40, 270, null, false)
+                  textFieldWithoutIcon("تعليقك..", 45, 270)
                 ],
               ),
-              const SizedBox(height: 130,),
+              const SizedBox(height: 260,),
               Center(
                 child: SizedBox(
                   width: 300,

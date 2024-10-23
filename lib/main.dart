@@ -34,6 +34,7 @@ import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
 import 'package:chanceapp/Screens/Bouquets.dart';
+import 'package:chanceapp/Screens/IntroScreen.dart';
 import 'package:chanceapp/Screens/PayScreen.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
 import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
@@ -71,7 +72,7 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home:FirebaseAuth.instance.currentUser == null ? Loginscreen():TypeUser(),
+      home: FirebaseAuth.instance.currentUser == null ? IntroScreen():IntroScreen(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

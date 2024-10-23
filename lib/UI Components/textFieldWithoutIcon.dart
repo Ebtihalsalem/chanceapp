@@ -12,15 +12,15 @@ Widget textFieldWithoutIcon(String text,double h,double w){
         hintText: text,
         hintStyle: const TextStyle(color: Color(0xFFBBBBBB),fontFamily: "Tajawal"),
         filled: true,
-        fillColor: const Color(0xFFFDFDFD),
+        fillColor: whiteApp,
         border: OutlineInputBorder(
           borderSide: BorderSide(
-              color: borderColor),
+              color: Colors.transparent),
           borderRadius: BorderRadius.circular(30),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-              color: borderColor),
+              color: Colors.transparent),
           borderRadius: BorderRadius.circular(30),
         ),
         focusColor: secondaryColor,

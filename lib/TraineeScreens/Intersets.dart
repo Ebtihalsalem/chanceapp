@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import '../Core/App_theme.dart';
+import '../Screens/LoginScreen.dart';
+import '../Screens/Sheet.dart';
 import '../UI Components/BackgroundImg.dart';
 import '../UI Components/BuildText.dart';
+import 'CardIntersets.dart';
 import 'Steps.dart';
 
 class IntersetsScreen extends StatefulWidget {
@@ -14,267 +19,179 @@ class IntersetsScreen extends StatefulWidget {
 }
 
 class _IntersetsScreenState extends State<IntersetsScreen> {
-  Set<int> selectedCards = {};
-
-  final List<String> images = [
-    "lib/images/app-development.png",
-    "lib/images/software-development.png",
-    "lib/images/app-programming (1).png",
-    "lib/images/game-development.png",
-    "lib/images/cyber-security (3).png",
-    "lib/images/system.png",
-    "lib/images/social-media-marketing.png",
-    "lib/images/graphic-design-software.png",
-    "lib/images/ui.png",
-    "lib/images/ux-design (1).png",
+  List<String> sliderImg = [
+    "lib/images/Libyan-Spider2016-04.jpg",
+    "lib/images/2148222637.jpg",
+    "lib/images/2149930992.jpg",
+    "lib/images/b79e7388224459.5dcfccf0a3a99.jpeg"
   ];
 
-
-  final List<String> titles = [
-    "تطوير تطبيقات الويب",
-    "تطوير البرمجيات",
-    "تطوير التطبيقات",
-    "تطوير الألعاب",
-    "الأمن السيبراني",
-    "إدارة الأنظمة",
-    "التسويق الرقمي",
-    "التصميم الجرافيكي",
-    "تصميم واجهة المستخدم",
-    "تصميم تجربة المستخدم",
+  List<String> titles = [
+    "استكشف مجالك المهني",
+    "اكتشف فرص تريبية\nتناسبك !!",
+    "تحصل على المواهب\nالشابة",
+    "استكشف كل جديد !!"
   ];
+
+  int _selectedScreen = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _pageController.addListener(() {
+      var screen = _pageController.page?.round() ?? 0;
+
+      setState(() {
+        _selectedScreen = screen;
+      });
+    });
+
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_selectedScreen < sliderImg.length - 1) {
+        _selectedScreen++;
+      } else {
+        _selectedScreen = 0;
+      }
+      _pageController.animateToPage(
+        _selectedScreen,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
-            buildBlurOverlay(),
-            Positioned(
-              top: 20,
-              left: 350,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new,
-                    color: Colors.white, size: 30),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            Center(
-              child: Column(
-                children: [
-                  _buildTopLine(),
-                  const SizedBox(height: 90),
-                  Expanded(
-                    child: _buildFormContainer(),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          PageView.builder(
+            controller: _pageController,
+            physics: const BouncingScrollPhysics(),
+            itemCount: sliderImg.length,
+            itemBuilder: (context, index) {
+              return Stack(children: [
+                Image.asset(
+                  sliderImg[index],
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                ),
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: Colors.black.withOpacity(0.4),
+                ),
+                Positioned(
+                  top: 30,
+                  right: 18,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_ios_new,
+                        color: primaryColor, size: 20),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                    bottom: 130,
+                    right: 18,
+                    child: Text(titles[index],
+                        style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFF1F1F1)))),
+              ]);
+            },
+          ),
+          Positioned(
+            bottom: 80,
+            right: 170,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: sliderImg.map((data) {
+                var index = sliderImg.indexOf(data);
+                return Container(
+                  margin: const EdgeInsets.all(4),
+                  height: 6,
+                  width: _selectedScreen == index ? 16 : 6,
+                  decoration: BoxDecoration(
+                    color: _selectedScreen == index
+                        ? primaryColor
+                        : primaryColor.withOpacity(0.9),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                );
+              }).toList(),
             ),
-          ],
-        ),
+          ),
+          Sheet(
+            child: SizedBox(
+              height: 100,
+            ),
+            screen: CardIntersets(),
+            max: 0.90,
+            init: 0.90,
+          ),
+        ],
       ),
     );
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return SafeArea(
+  //     child: Scaffold(
+  //       resizeToAvoidBottomInset: false,
+  //       body: Stack(
+  //         children: [
+  //           buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
+  //           buildBlurOverlay(),
+  //           Positioned(
+  //             top: 20,
+  //             left: 350,
+  //             child: IconButton(
+  //               icon: const Icon(Icons.arrow_back_ios_new,
+  //                   color: Colors.white, size: 30),
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //             ),
+  //           ),
+  //           Center(
+  //             child: Column(
+  //               children: [
+  //                 _buildTopLine(),
+  //                 const SizedBox(height: 90),
+  //                 Expanded(
+  //                   child: _buildFormContainer(),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildTopLine() {
     return Container(
       height: 3,
       width: 140,
       color: Colors.grey,
-    );
-  }
-
-  Widget _buildFormContainer() {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(40.0),
-        topRight: Radius.circular(40.0),
-      ),
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(40, 18, 40, 18),
-        decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(40.0),
-            topRight: Radius.circular(40.0),
-          ),
-        ),
-        child: _buildForm(),
-      ),
-    );
-  }
-
-  Widget _buildForm() {
-    return Column(
-      children: [
-        Expanded(
-          flex: 7,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _buildTopLine(),
-                  const SizedBox(height: 40),
-                  buildTextTitle(
-                      "اختر مجالات اهتماماتك", 27, FontWeight.bold),
-                  const SizedBox(height: 16),
-                  buildTextTitle("أختر من 3-5 مجالات مهتم للتدريب فيها",
-                      18, FontWeight.normal),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child:
-                        _buildInterestsGrid(),
-                  ),
-                ],
-              ),
-              Positioned(
-                bottom: 16,
-                left: 0,
-                right: 0,
-                child: Center(
-                  // Center the button
-                  child: Visibility(
-                    visible: selectedCards.length >= 3,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Steps()),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStateProperty.all(const Color(0xFFF59039)),
-                        padding: WidgetStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10)),
-                      ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Expanded(
-                            // يسمح للنص بأن يأخذ المساحة المتبقية
-                            child: Text(
-                              "الــتـــالـي",
-                              textAlign: TextAlign.center,
-                              // محاذاة النص في المنتصف
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Tajawal",
-                                color:
-                                    Colors.white, // تعيين لون النص إلى الأبيض
-                              ),
-                            ),
-                          ),
-                          Icon(Icons.navigate_next, color: Colors.white),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildInterestsGrid() {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // عدد الأعمدة
-        mainAxisSpacing: 0.3, // المسافة العمودية بين الكروت
-        crossAxisSpacing: 0.2, // المسافة الأفقية بين الكروت
-        childAspectRatio: 555 / 530, // نسبة العرض إلى الارتفاع لكل كرت
-      ),
-      itemCount: titles.length,
-      itemBuilder: (context, index) {
-        // return _buildInterestCard(index, icons[index], titles[index]);
-        return _buildInterestCard(index, images[index], titles[index]);
-      },
-    );
-  }
-
-
-  Widget _buildInterestCard(int index, String imagePath, String title) {
-    bool isSelected =
-        selectedCards.contains(index); // التحقق من إذا تم اختيار البطاقة
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (isSelected) {
-            selectedCards
-                .remove(index); // إزالة من المختارة إذا تم النقر مرة أخرى
-          } else if (selectedCards.length < 5) {
-            selectedCards.add(index); // إضافة إلى المختارة
-          } else {
-            _showLimitExceededDialog(); // إظهار الرسالة إذا تم اختيار أكثر من 5
-          }
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: isSelected ? Colors.orange : Colors.transparent,
-              width: 2.0,
-            ),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Container(
-            color: const Color(0xffE9E9E9),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(alignment: Alignment.center, children: [
-                  Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE2E2E2),
-                      borderRadius: BorderRadius.circular(80),
-                    ),
-                  ),
-                  Image.asset(
-                    imagePath,
-                    width: 25,
-                    height: 25,
-                    color: isSelected ? Colors.orange : Colors.grey,
-                  ),
-                ]),
-                const SizedBox(height: 16),
-                buildText(title, 15, FontWeight.normal,isSelected ? Colors.orange : Colors.grey,),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showLimitExceededDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: buildTextTitle('حد الاهتمامات',20,FontWeight.bold),
-          content: buildTextTitle('لا يمكنك اختيار أكثر من 5 مجالات.',15,FontWeight.normal),
-          actions: [
-            TextButton(
-              child: buildText('حسنًا',15,FontWeight.bold,const Color(0xFFF59039)),
-              onPressed: () {
-                Navigator.of(context).pop(); // إغلاق الـ Dialog
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

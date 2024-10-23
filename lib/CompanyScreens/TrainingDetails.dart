@@ -26,7 +26,7 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
   Widget screensTabs() {
     switch (_currentTab) {
       case 0:
-        return information("شهرين","20","يوجد",borderColor,primaryColor,secondaryColor,borderColor);
+        return information("شهرين","20","يوجد");
       case 1:
         return SizedBox(
           height: 500,
@@ -58,8 +58,8 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  cardDetails(context,secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-                      secondaryColor,null,"مهندس اتصالات" ),
+                  cardDetails(context,"lib/images/acadimic.jpg",
+                      null,"مهندس اتصالات" ),
               const SizedBox(height: 30),
               SizedBox(height: 70, width: double.infinity, child: _tabs()),
               Flexible(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
+import '../TraineeScreens/CompanyScreen.dart';
 import '../TraineeScreens/TrainingApplied.dart';
 import '../TraineeScreens/TrianingDetils.dart';
 import '../UI Components/AppBar.dart';
@@ -27,11 +28,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
   {
     switch(_currentTab){
       case 0:
-        return buildCard(context,const TrianingDetils(),const TraineeProfile(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-    secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",false );
+        return BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+    fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+    boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+    company: "الاكاديمية الليبية ",isCompleted: false);
       case 1:
-        return buildCard(context,const TrianingDetils(),const TraineeProfile(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-            secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",true );
+        return BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+    fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+    boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+    company: "الاكاديمية الليبية ",isCompleted: true );
       default:
         return Container();
     }

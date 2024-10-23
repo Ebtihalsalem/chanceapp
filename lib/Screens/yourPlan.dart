@@ -17,7 +17,7 @@ class _YourPlanState extends State<YourPlan> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: primaryColor,
+          backgroundColor: backgroundColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -58,7 +58,7 @@ class _YourPlanState extends State<YourPlan> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF59039),
+                      backgroundColor:primaryColor,
                     ),
                     onPressed: () {},
                     child: buildText(
@@ -75,7 +75,7 @@ class _YourPlanState extends State<YourPlan> {
                   decoration: BoxDecoration(
                       color: Colors.transparent,
                       borderRadius: BorderRadius.circular(40),
-                      border: Border.all(color: const Color(0xFFF59039))),
+                      border: Border.all(color: primaryColor)),
                   child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
@@ -84,7 +84,7 @@ class _YourPlanState extends State<YourPlan> {
                     },
                     child: buildText(
                       "تغيير الباقة", 16,FontWeight.bold,
-                      secondaryColor,
+                      primaryColor,
                     ),
                   ),
                 ),

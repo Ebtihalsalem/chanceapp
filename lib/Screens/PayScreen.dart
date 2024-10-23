@@ -172,7 +172,7 @@ class _PayScreenState extends State<PayScreen> {
                   fillColor: WidgetStateProperty.resolveWith<Color>(
                     (states) {
                       if (states.contains(WidgetState.selected)) {
-                        return secondaryColor;
+                        return primaryColor;
                       }
                       return borderColor;
                     },

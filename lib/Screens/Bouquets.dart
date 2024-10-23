@@ -36,7 +36,7 @@ class _BouquetsState extends State<Bouquets> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: primaryColor,
+          backgroundColor: backgroundColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
