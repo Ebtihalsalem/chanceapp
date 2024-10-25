@@ -16,6 +16,7 @@ class PayScreen extends StatefulWidget {
 
 class _PayScreenState extends State<PayScreen> {
   String _paymentMethod = "";
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _PayScreenState extends State<PayScreen> {
                           FontWeight.bold,
                         ),
                       ),
-                      textFieldWithoutIcon("الاسم الاول", 45, 170),
+                      textFieldWithoutIcon("الاسم الاول", 45, 170,null,_formKey),
                     ],
                   ),
                   Column(
@@ -74,7 +75,7 @@ class _PayScreenState extends State<PayScreen> {
                           FontWeight.bold,
                         ),
                       ),
-                      textFieldWithoutIcon("الاسم الاخير", 45, 170),
+                      textFieldWithoutIcon("الاسم الاخير", 45, 170,null,_formKey),
                     ],
                   ),
                 ],
@@ -93,7 +94,7 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                 ],
               ),
-              textFieldWithoutIcon("example@gmail.com", 45, 360),
+              textFieldWithoutIcon("example@gmail.com", 45, 360,null,_formKey),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +109,7 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                 ],
               ),
-              textFieldWithoutIcon("0000000 218+ ", 45, 360),
+              textFieldWithoutIcon("0000000 218+ ", 45, 360,null,_formKey),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -123,7 +124,7 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                 ],
               ),
-              textFieldWithoutIcon("0000/00/00", 45, 360),
+              textFieldWithoutIcon("0000/00/00", 45, 360,null,_formKey),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +139,7 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                 ],
               ),
-              textFieldWithoutIcon("اسم المدينة", 45, 360),
+              textFieldWithoutIcon("اسم المدينة", 45, 360,null,_formKey),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -153,7 +154,7 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                 ],
               ),
-              textFieldWithoutIcon("المنطقة - الشارع", 45, 360),
+              textFieldWithoutIcon("المنطقة - الشارع", 45, 360,null,_formKey),
               const SizedBox(
                 height: 40,
               ),

@@ -17,7 +17,7 @@ import '../UI Components/TextField.dart';
 import 'package:http/http.dart' as http;
 import 'Auth.dart';
 
-const String apiUrl = "http://192.168.1.15:8085/users/data_user";
+const String apiUrl = "http://192.168.1.14:8085/users/data_user";
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});

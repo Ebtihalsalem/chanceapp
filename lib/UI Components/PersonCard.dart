@@ -1,3 +1,4 @@
+import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -26,9 +27,9 @@ Widget personCard(BuildContext context,Widget targetScreen,String img,
       height: 90,
       width: 344,
       decoration: BoxDecoration(
-          color: const Color(0xFFF3F3F3),
+          color: whiteApp,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFFBBBBBB))),
+          ),
       padding: const EdgeInsets.all(8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
@@ -49,10 +50,10 @@ Widget personCard(BuildContext context,Widget targetScreen,String img,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildText(name, 10, FontWeight.bold,
-                      const Color(0xFFF59039)),
+                      fontColorBlack),
                   train !=null?
                   buildText(train, 10,
-                      FontWeight.normal, const Color(0xFFF59039)): SizedBox(width: 1,),
+                      FontWeight.normal, fontColorBlack): SizedBox(width: 1,),
 
                   const Padding(
                     padding: EdgeInsets.only(top: 10),

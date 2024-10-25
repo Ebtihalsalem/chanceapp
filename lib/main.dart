@@ -72,7 +72,7 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: FirebaseAuth.instance.currentUser == null ? IntroScreen():IntroScreen(),
+      home: FirebaseAuth.instance.currentUser == null ? CHomeScreen():CHomeScreen(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

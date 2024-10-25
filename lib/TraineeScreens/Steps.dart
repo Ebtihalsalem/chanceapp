@@ -15,6 +15,8 @@ class Steps extends StatefulWidget {
 
 class _StepsState extends State<Steps> {
   int currentStep = 0;
+  final _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +169,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("الاسم كامل", 50, 320),
+                  textFieldWithoutIcon("الاسم كامل", 50, 320,null,_formKey),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -182,7 +184,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("example@gmail.com", 50, 320),
+                  textFieldWithoutIcon("example@gmail.com", 50, 320,null,_formKey),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -197,7 +199,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("0000000 218+ ", 50, 320),
+                  textFieldWithoutIcon("0000000 218+ ", 50, 320,null,_formKey),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -212,7 +214,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("0000/00/00", 50, 320),
+                  textFieldWithoutIcon("0000/00/00", 50, 320,null,_formKey),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -227,7 +229,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("اسم المدينة", 50, 320),
+                  textFieldWithoutIcon("اسم المدينة", 50, 320,null,_formKey),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -242,7 +244,7 @@ class _StepsState extends State<Steps> {
                       ),
                     ],
                   ),
-                  textFieldWithoutIcon("المنطقة - الشارع", 50, 320)
+                  textFieldWithoutIcon("المنطقة - الشارع", 50, 320,null,_formKey)
                 ],
               ),
             ],

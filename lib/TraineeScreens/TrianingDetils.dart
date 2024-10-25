@@ -24,6 +24,9 @@ class TrianingDetils extends StatefulWidget {
 
 class _TrianingDetilsState extends State<TrianingDetils> {
 
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +61,7 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                   Icon(
                       EvaIcons.messageCircleOutline, color: primaryColor,
                       size: 26),
-                  textFieldWithoutIcon("تعليقك..", 45, 270)
+                  textFieldWithoutIcon("تعليقك..", 45, 270,null,_formKey)
                 ],
               ),
               const SizedBox(height: 260,),
