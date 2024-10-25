@@ -22,23 +22,22 @@ Widget heatMap(BuildContext context,Map<DateTime, String> activities){
           },
           scrollable: true,
           colorMode: ColorMode.opacity,
-          defaultColor: const Color(0xfff1f1f1),
+          defaultColor: const Color(0xFFECECEC),
           textColor: Colors.black87,
           showColorTip: true,
           onClick: (value) {
             if (activities.containsKey(value)) {
-
               showActivityDialog(value, activities[value]!,context);
             } else {
               showActivityDialog(value, "لا توجد نشاطات مسجلة.",context);
             }
           },
           colorsets: const {
-            1: Color(0xFFFDC89A),
-            2: Color(0xFFFFBC82),
-            3: Color(0xFFFCAF6C),
-            4: Color(0xFFF5A057),
-            5: Color(0xFFF7923A),
+            1: Color(0xFFEC8D60),
+            2: Color(0xFFEE7F45),
+            3: Color(0xFFEF7531),
+            4: Color(0xFFF36E28),
+            5: Color(0xFFF26419),
           },
           margin: const EdgeInsets.all(1),
           borderRadius: 4,
@@ -52,14 +51,14 @@ void showActivityDialog(DateTime date, String activity,BuildContext context) {
   showDialog(
     builder: (context) {
       return AlertDialog(
-        title: Text("النشاط في ${date.day}/${date.month}"),
-        content: Text(activity),
+        title: buildTextTitle("النشاط في ${date.day}/${date.month}",16,FontWeight.bold),
+        content: buildTextTitle(activity,12,FontWeight.normal),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: buildText("حسنًا", 16, FontWeight.normal,const Color(0xFFF59039))
+              child: buildText("حسنًا", 14, FontWeight.normal,const Color(0xFFF59039))
           ),
         ],
       );

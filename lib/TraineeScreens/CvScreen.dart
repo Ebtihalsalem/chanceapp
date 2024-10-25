@@ -67,7 +67,7 @@ class _CvScreenState extends State<CvScreen> {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: aboutTabForTrainee(true),
+                  // child: aboutTabForTrainee(true),
                 ),
               ),
             ),
