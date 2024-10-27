@@ -23,23 +23,6 @@ class _MyAccountState extends State<MyAccount> {
   String? avatarUrl;
 
   @override
-  void initState() {
-    super.initState();
-    _fetchUserData();
-  }
-
-  Future<void> _fetchUserData() async {
-    final user = supabase.auth.currentUser;
-
-    if (user != null) {
-      setState(() {
-        fullName = user.userMetadata?['full_name']; // استرجاع الاسم الكامل
-        avatarUrl = user.userMetadata?['avatar_url']; // استرجاع رابط الصورة
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -211,8 +194,6 @@ class _MyAccountState extends State<MyAccount> {
       ),
     );
   }
-
-
 }
 // import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 // import 'package:flutter/material.dart';

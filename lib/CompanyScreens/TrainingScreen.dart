@@ -70,7 +70,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: BottomBar(),
+            //child: BottomBar(),
           ),
         ),
     );

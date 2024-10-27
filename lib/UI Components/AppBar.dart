@@ -117,7 +117,7 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
         padding: const EdgeInsets.only(left: 18.0),
         child: _buildActionButton(EvaIcons.bell, () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const NotifationScreen()));
+              builder: (context) => NotifationScreen()));
         }),
       ),
     ]

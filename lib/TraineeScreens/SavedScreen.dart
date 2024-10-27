@@ -24,6 +24,7 @@ class _SavedScreenState extends State<SavedScreen> {
   List<String> skills = ["شبكات واتصالات", "علوم الحاسوب"];
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -65,11 +66,11 @@ class _SavedScreenState extends State<SavedScreen> {
           ]),
         ),
       ),
-      bottomNavigationBar: const Padding(
-        padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-          child: BottomBar(),
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
+          child: BottomBar(), // Pass the isCompany parameter here
         ),
       ),
     );
