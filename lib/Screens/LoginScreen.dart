@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
@@ -10,272 +14,356 @@ import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
 import '../UI Components/TextField.dart';
 
-
+import 'package:http/http.dart' as http;
 import 'Auth.dart';
+
+const String apiUrl = "http://192.168.1.4:8085/users/data_user";
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
-
 }
 
 class _LoginscreenState extends State<Loginscreen> {
   bool isLoading = false;
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkIfUserIsSignedIn(context);
-    });
-  }
-
+  List<String> sliderImg = [
+    "lib/images/Libyan-Spider2016-04.jpg",
+    "lib/images/2148222637.jpg",
+    "lib/images/2149930992.jpg",
+    "lib/images/b79e7388224459.5dcfccf0a3a99.jpeg"
+  ];
 
   @override
   void dispose() {
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Image.asset(
-            "lib/images/backgroundFill3.jpg",
-            fit: BoxFit.cover,
-            width: 600,
-            height: 600,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Container(
+            height: 3,
+            width: 100,
+            color: borderColor,
           ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Colors.black.withOpacity(0.2),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 120.0),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'lib/images/logo.png',
-                    height: 119,
-                    width: 120,
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(50, 40, 50, 50),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              textField("البريد الالكتروني", Icons.email, 50, 300,
+                  emailController, false),
+              const SizedBox(height: 16),
+              textField(
+                "كلمة المرور",
+                Icons.lock,
+                50,
+                300,
+                passwordController,
+                true,
+              ),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: buildText(
+                      "نسيت كلمة المرور؟",
+                      10,
+                      FontWeight.bold,
+                      primaryColor,
+                    ),
+                  )),
+              const SizedBox(
+                height: 16,
+              ),
+              // button("تسجيل الدخول",context,const TypeUser(),null,handleLogin),
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      primaryColor,
+                    ),
                   ),
-                  const SizedBox(height: 15),
-                  const Text(
-                    "فرصتك في يدك",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                    onPressed: () async {
+                      setState(() { isLoading = true; });
+                      await handleLogin();
+                      setState(() { isLoading = false; });
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: buildText(
+                            "تسجيل",
+                            16,
+                            FontWeight.bold,
+                            backgroundColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Divider(
+                      color: Color(0xFFBBBBBB),
+                      thickness: 1.0,
+                      endIndent: 10.0,
+                    ),
+                  ),
+                  buildText(
+                    "أو",
+                    16,
+                    FontWeight.normal,
+                    const Color(0xFFBBBBBB),
+                  ),
+                  const Expanded(
+                    child: Divider(
+                      color: Color(0xFFBBBBBB),
+                      thickness: 1.0,
+                      indent: 10.0,
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-          Center(
-            child: Column(
-              children: [
-                const Expanded(
-                  flex: 8,
-                  child: SizedBox(height: 10),
-                ),
-                Expanded(
-                  flex: 12,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40.0),
-                      topRight: Radius.circular(40.0),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(50, 20, 50, 50),
-                      decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40.0),
-                          topRight: Radius.circular(40.0),
+              const SizedBox(height: 30),
+              isLoading
+                  ? CircularProgressIndicator()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () async {
+                            await signInWithGoogle(context);
+                          },
+                          icon: Image.asset(
+                            "lib/images/google1.png",
+                            height: 40,
+                            width: 40,
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 3,
-                            width: 149,
-                            color: Colors.grey,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top:40.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                textField("اسم المستخدم",Icons.person,50,300,usernameController,false),
-                                const SizedBox(height: 16),
-                                textField("كلمة المرور",Icons.lock,50,300, passwordController,
-                                  true,),
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: TextButton(onPressed: (){}, child: buildText("نسيت كلمة المرور؟",
-                                      10, FontWeight.bold,const Color(0xFFF59039),
-                                    ),)),
-                                const SizedBox(height: 16,),
-                                button("تسجيل الدخول",context,const TypeUser(),null,handleLogin),
-                                const SizedBox(height: 40),
-                                Row(
-                                  children: [
-                                    const Expanded(
-                                      child: Divider(
-                                        color: Color(0xFFBBBBBB),
-                                        thickness: 1.0,
-                                        endIndent: 10.0,
-                                      ),
-                                    ),
-                                    buildText(
-                                      "أو",
-                                      16,
-                                      FontWeight.normal,
-                                      Color(0xFFBBBBBB),
-                                    ),
-                                    const Expanded(
-                                      child: Divider(
-                                        color: Color(0xFFBBBBBB),
-                                        thickness: 1.0,
-                                        indent: 10.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 40),
-                                isLoading
-                                    ? CircularProgressIndicator()
-                                    : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () async {
-
-                                        await signInWithGoogle(context);
-                                      },
-                                      icon: Image.asset(
-                                        "lib/images/google1.png",
-                                        height: 40,
-                                        width: 40,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
+            ],
           ),
-        ],
-      ),
-
+        ),
+      ],
     );
+    //                 ),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    //
+    // );
   }
 
-  void handleLogin() {
-    final username = usernameController.text.trim();
+  Future<void> handleLogin() async {
+    final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-
-
-    print(username);
-    if (username.isEmpty || password.isEmpty) {
+    print("email : $email");
+    if (email.isEmpty || password.isEmpty) {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
       return;
     }
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const TypeUser()),
-    );
+    try {
+      final userExists = await checkIfUserExists(email);
+
+      print("Exists : $userExists");
+      if (userExists) {
+        print("المستخدم موجود، تسجيل الدخول");
+
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        print("photo : ${credential.user?.photoURL}");
+        print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const TypeUser()),
+        );
+      } else {
+        print("المستخدم غير موجود");
+        showSnackBar(context, 'البريد الإلكتروني غير موجود');
+        try {
+          final credential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+
+          print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
+
+          await sendUserData(email, credential.user?.displayName ?? '');
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const TypeUser()),
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            showSnackBar(context, 'كلمة المرور ضعيفة.');
+          } else if (e.code == 'email-already-in-use') {
+            showSnackBar(context, 'الحساب موجود بالفعل');
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showSnackBar(context, 'الحساب غير موجود لهذا البريد الإلكتروني');
+      } else if (e.code == 'wrong-password') {
+        showSnackBar(context, 'كلمة المرور غير صحيحة');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
-
-
-  // Future<void> _googleSignIn(BuildContext context ) async {
-  //
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //
-  //
-  //   const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-  //   const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-  //
-  //
-  //   final GoogleSignIn googleSignIn = GoogleSignIn(
-  //     clientId: androidClientId,
-  //     serverClientId: webClientId,
-  //   );
-  //
-  //   try {
-  //     final googleUser = await googleSignIn.signIn();
-  //     if (googleUser == null) {
-  //       showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //       return;
-  //     }
-  //     final googleAuth = await googleUser!.authentication;
-  //
-  //     final accessToken = googleAuth.accessToken;
-  //     final idToken = googleAuth.idToken;
-  //
-  //     if (accessToken == null || idToken == null) {
-  //       throw 'لم يتم الحصول على رموز الدخول.';
-  //     }
-  //
-  //     final AuthResponse response = await supabase.auth.signInWithIdToken(
-  //       provider: OAuthProvider.google,
-  //       idToken: idToken,
-  //       accessToken: accessToken,
-  //     );
-  //
-  //     print('Response: ${response.user}');
-  //     if (response.user != null) {
-  //       Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(
-  //           builder: (context) => const TypeUser(),
-  //         ),
-  //       );
-  //     } else {
-  //       showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
-  //     }
-  //   } catch (e) {
-  //     showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول ');
-  //     print(e);
-  //   } finally {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
-
-
 }
 
 
+Future<bool> checkIfUserExists(String email) async {
+  print("إرسال الطلب للتحقق من وجود المستخدم");
 
+  try {
+    final response = await http.post(
+      Uri.parse("http://192.168.1.15:8085/users/check_user"),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'email': email}),
+    );
 
+    print("Response status: ${response.statusCode}");
+    print("Response body: ${response.body}");
 
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("خطأ في فحص المستخدم: ${response.body}");
+      return false;
+    }
+  } catch (e) {
+    print("خطأ في فحص البريد الإلكتروني: $e");
+    return false;
+  }
+}
+
+Future<void> sendUserData(String email, String name) async {
+  final userData = {
+    'email': email,
+    'name': name,
+  };
+  print("Email: $email, name:$name");
+
+  try {
+
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode(userData),
+    );
+
+    if (response.statusCode == 201) {
+      print("تم إرسال بيانات المستخدم بنجاح");
+    } else {
+      print("فشل إرسال بيانات المستخدم: ${response.body}");
+    }
+  } catch (e) {
+    print("خطأ في إرسال البيانات: $e");
+  }
+
+  // Future<void> handleLogin() async {
+  //   final email = emailController.text.trim();
+  //   final password = passwordController.text.trim();
+  //
+  //   if (email.isEmpty || password.isEmpty) {
+  //     showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
+  //     return;
+  //   }
+  //
+  //   // تحقق من وجود المستخدم في MongoDB
+  //   final response = await http.post(
+  //     Uri.parse('https://your-api-url.com/checkUser'), // استبدل بالـ API الخاصة بك
+  //     body: jsonEncode({
+  //       'email': email,
+  //     }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //
+  //     if (data['exists'] == true) {
+  //       // المستخدم موجود، قم بتسجيل الدخول
+  //       try {
+  //         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //           email: email,
+  //           password: password,
+  //         );
+  //
+  //         print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+  //         Navigator.of(context).pushReplacement(
+  //           MaterialPageRoute(builder: (context) => const TypeUser()),
+  //         );
+  //       } on FirebaseAuthException catch (e) {
+  //         if (e.code == 'wrong-password') {
+  //           showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
+  //         } else {
+  //           print(e);
+  //         }
+  //       }
+  //     } else {
+  //       // المستخدم غير موجود، قم بإنشاء حساب جديد
+  //       try {
+  //         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //           email: email,
+  //           password: password,
+  //         );
+  //
+  //         print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
+  //         Navigator.of(context).pushReplacement(
+  //           MaterialPageRoute(builder: (context) => const TypeUser()),
+  //         );
+  //       } on FirebaseAuthException catch (e) {
+  //         if (e.code == 'weak-password') {
+  //           showSnackBar(context, 'The password provided is too weak.');
+  //         } else if (e.code == 'email-already-in-use') {
+  //           showSnackBar(context, 'The account already exists for that email.');
+  //         }
+  //       } catch (e) {
+  //         print(e);
+  //       }
+  //     }
+  //   } else {
+  //     showSnackBar(context, 'حدث خطأ أثناء التحقق من البريد الإلكتروني.');
+  //   }
+  // }
+}

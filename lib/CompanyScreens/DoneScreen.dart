@@ -1,4 +1,5 @@
 import 'package:chanceapp/CompanyScreens/AddTraining.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../UI Components/BuildText.dart';
@@ -18,24 +19,7 @@ class _DoneScreenState extends State<DoneScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "lib/images/logo.png",
-                height: 20,
-                width: 20,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              buildText("فرصتك في يدك",
-                  20,FontWeight.bold,Color(0xFF4A4C4D))
-            ],
-          ),
-        ),
+        appBar: centerAppBar(context, "فرصتك في يدك"),
         body: Align(
           alignment: Alignment.center,
           child: Column(

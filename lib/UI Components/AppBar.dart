@@ -8,13 +8,18 @@ import 'BuildText.dart';
 
 AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
   return AppBar(
-    backgroundColor: primaryColor,
+    backgroundColor: backgroundColor,
     automaticallyImplyLeading: false,
     title: Padding(
       padding: const EdgeInsets.only(top: 18, right: 18.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          main ? IconButton(icon: Icon(null), onPressed: () {},):
+          IconButton(icon: Icon(Icons.arrow_back_ios_new,color: borderColor,size: 18,),
+            onPressed: (){
+            Navigator.of(context).pop(false);
+            },),
           Image.asset(
             img,
             height: 25,
@@ -30,14 +35,14 @@ AppBar buildAppBar(String title,String img,BuildContext context,bool main) {
     actions: main
         ? [
       _buildActionButton(EvaIcons.messageCircle, () {
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const MessageScreen()));
       }),
       const SizedBox(width: 10),
       Padding(
         padding: const EdgeInsets.only(left: 18.0),
         child: _buildActionButton(EvaIcons.bell, () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const NotifationScreen()));
         }),
       ),
@@ -54,13 +59,13 @@ Widget _buildActionButton(IconData icon, VoidCallback onTap) {
       child: Container(
         height: 40,
         width: 40,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Color(0xffE7E7E7),
+          color: Color(0xFFE0E0E0),
         ),
         child: Icon(
           icon,
-          color: const Color(0xFFF59039),
+          color: primaryColor,
           size: 25,
         ),
       ),

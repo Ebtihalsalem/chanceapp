@@ -29,10 +29,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title:centerAppBar("تتبع الخبرة"),
-      ),
+      appBar: centerAppBar(context,"تتبع الخبرة"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
         child: Column(

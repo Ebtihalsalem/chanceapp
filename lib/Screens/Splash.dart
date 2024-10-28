@@ -2,6 +2,8 @@ import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../Core/App_theme.dart';
+
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -35,9 +37,9 @@ class _SplashState extends State<Splash> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-            Color(0xFFF59039), Color(0xFFF59039)
+            primaryColor, const Color(0xFFEA590C)
           ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft
@@ -50,9 +52,7 @@ class _SplashState extends State<Splash> {
               padding: const EdgeInsets.all(13.0),
               child: Image.asset("lib/images/logo white.png", height: 90, width: 90,),
             ),
-            // const Text("فرصتك في يدك", style: TextStyle(color: Colors.white70,fontFamily: "Tajawal",
-            //     fontSize: 18,
-            //     fontWeight: FontWeight.bold),),
+
           ],
         ),
       ),

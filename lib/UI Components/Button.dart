@@ -15,10 +15,15 @@ Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,
     child: ElevatedButton(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(
-          secondaryColor,
+          primaryColor,
         ),
       ),
-      onPressed: onPressed,
+      onPressed:() async {
+        onPressed;
+        //     ?? Navigator.of(context).push(
+        //   MaterialPageRoute(builder: (_)=>targetScreen)
+        // );
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -28,7 +33,7 @@ Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,
                 text,
                 16,
                 FontWeight.bold,
-                primaryColor,
+                backgroundColor,
               ),
             ),
           ),

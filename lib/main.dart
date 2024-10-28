@@ -26,6 +26,7 @@
 //     ],
 //   ));
 // }
+import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
 import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
 import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
@@ -34,8 +35,10 @@ import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
 import 'package:chanceapp/Screens/Bouquets.dart';
+import 'package:chanceapp/Screens/IntroScreen.dart';
 import 'package:chanceapp/Screens/PayScreen.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
+import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
 import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
 import 'package:chanceapp/TraineeScreens/MessageScreen.dart';
@@ -45,6 +48,7 @@ import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:chanceapp/TraineeScreens/SavedScreen.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -69,7 +73,7 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: const Loginscreen(),
+      home: FirebaseAuth.instance.currentUser == null ? const Steps():const Steps(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

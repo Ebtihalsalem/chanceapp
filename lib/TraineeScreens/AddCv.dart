@@ -16,6 +16,9 @@ class AddCv extends StatefulWidget {
 
 class _AddCvState extends State<AddCv> {
 
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -60,7 +63,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon(name, 50, 320),
+                textFieldWithoutIcon(name, 50, 320,null,),
                 const SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -75,7 +78,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon("0000/00/00", 50, 320),
+                textFieldWithoutIcon("0000/00/00", 50, 320,null,),
 
                 const SizedBox(height: 15,),
                 Row(
@@ -91,7 +94,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon("اسم الجهة", 50, 320),
+                textFieldWithoutIcon("اسم الجهة", 50, 320,null,),
                 const SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

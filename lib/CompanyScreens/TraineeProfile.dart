@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:chanceapp/UI%20Components/BackgroundImg.dart';
+import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:chanceapp/UI%20Components/CircleImg.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-
+import 'package:http/http.dart' as http;
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
 import '../TraineeScreens/Boxes.dart';
@@ -13,6 +15,7 @@ import '../TraineeScreens/HeatMap.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/TraineeActivatesTab.dart';
 import '../UI Components/aboutTabForTrainee.dart';
+import 'AboutTrainee/Data/User.dart';
 
 class TraineeProfile extends StatefulWidget {
   const TraineeProfile({super.key});
@@ -30,15 +33,45 @@ class _TraineeProfileState extends State<TraineeProfile> {
 
   int _currentTab = 0;
 
-  Widget screensTabs()
-  {
+
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+
+    fetchUserData('exampl3e@example.com').then((fetchedUser) {
+      setState(() {
+        user = fetchedUser;
+      });
+    });
+  }
+
+  Widget screensTabs() {
+    if (user == null) {
+      return CircularProgressIndicator(); // عرض مؤشر تحميل إذا لم يتم جلب البيانات بعد
+    }
+
     switch(_currentTab){
       case 0:
-        return aboutTabForTrainee(false);
+        return aboutTabForTrainee(false,user!);
       case 1:
         return traineeActivatesTab(context);
       default:
         return Container();
+    }
+  }
+
+
+  Future<User?> fetchUserData(String email) async {
+    final url = Uri.parse('http://192.168.1.18:8085/users/$email');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return User.fromJson(data);
+    } else {
+      throw Exception('Failed to load user data');
     }
   }
 
@@ -66,25 +99,19 @@ class _TraineeProfileState extends State<TraineeProfile> {
                       width: double.infinity,
                       padding: const EdgeInsets.fromLTRB(18, 90, 18, 50),
                       decoration: BoxDecoration(
-                        color: primaryColor,
+                        color: backgroundColor,
                       ),
                       child: Align(
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            buildTextTitle(
-                                "سارة أحمد",
-                                16,
-                                FontWeight.bold),
                             Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: buildText(
-                                  "لخدمات تقنية المعلومات والاستشارات\n في مجال تقنية المعلومات",
-                                  10,
-                                  FontWeight.normal,
-                                  const Color(0xFF848484)),
+                              padding: const EdgeInsets.only(bottom: 18.0),
+                              child: buildTextTitle(
+                                  "${user?.userInformation!.name}",
+                                  16,
+                                  FontWeight.bold),
                             ),
-
                             SizedBox(
                                 height: 70,
                                 width: double.infinity,
@@ -124,11 +151,7 @@ class _TraineeProfileState extends State<TraineeProfile> {
   }
 
   Widget _tabs() {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: tabs.map((tab) {
           int index = tabs.indexOf(tab);
@@ -152,13 +175,12 @@ class _TraineeProfileState extends State<TraineeProfile> {
                   margin: const EdgeInsets.only(top: 5),
                   height: 2,
                   width: 100,
-                  color: _currentTab == index ? const Color(0xFFF59039) : Colors.transparent,
+                  color: _currentTab == index ? primaryColor : Colors.transparent,
                 ),
               ],
             ),
           );
         }).toList(),
-      ),
     );
   }
 

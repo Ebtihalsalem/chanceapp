@@ -14,7 +14,7 @@ Widget boxesSkills(List<String> dataList, String maintitle,bool edit) {
        children: [
           buildTextTitle(maintitle, 16, FontWeight.bold),
           edit ?
-          Icon(EvaIcons.editOutline, color: secondaryColor, size: 20)
+          Icon(EvaIcons.editOutline, color: primaryColor, size: 20)
          : Icon(null),
         ],
       ),
@@ -27,8 +27,6 @@ Widget boxesSkills(List<String> dataList, String maintitle,bool edit) {
             padding: const EdgeInsets.all(4.0),
             child: buildOvalContainer(
               data,
-              const Color(0xFFF59039),
-              const Color(0xFFEAEAEA),
               false
             ),
           );
