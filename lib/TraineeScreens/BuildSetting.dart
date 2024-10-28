@@ -1,7 +1,9 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 
 
@@ -25,7 +27,7 @@ Widget _buildCategory(String title, IconData icon) {
 }
 
 
-Widget buildSettings() {
+Widget buildSettings(BuildContext context) {
   return Container(
     padding: const EdgeInsets.all(8),
     child: Column(
@@ -48,7 +50,12 @@ Widget buildSettings() {
           padding: const EdgeInsets.only(bottom: 20.0),
           child: Center(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_)=>Loginscreen())
+                );
+              },
               child: Container(
                 height: 34,
                 width: 200,

@@ -21,7 +21,7 @@ class _PayScreenState extends State<PayScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: centerAppBar("فرصتك في يدك"),
+        title: centerAppBar(context,"فرصتك في يدك"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 18),

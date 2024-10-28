@@ -11,7 +11,7 @@ Widget availableTrainings(BuildContext context,Widget targetScreen,
   return InkWell(
     onTap: ()
   {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => targetScreen)
     );
     },

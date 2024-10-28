@@ -17,9 +17,9 @@ Widget trainingsApplied(){
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
-          child: buildCard(context, const TrainingDetailsCompany(), secondaryColor,
+          child: buildCard(context, const TrainingDetailsCompany(),const TrainingDetailsCompany(), secondaryColor,
               primaryColor, "lib/images/acadimic.jpg", secondaryColor, primaryColor,
-              skills, "مساعد مدير", "مصراتة", "الاكاديمية الليبية",false),
+              skills, "مهندس اتصالات", "مصراتة", "الاكاديمية الليبية",false),
         );
       },
     ),

@@ -1,8 +1,7 @@
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
-import 'package:chanceapp/TraineeScreens/MyAccount.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
@@ -11,27 +10,26 @@ import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
 import '../UI Components/TextField.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
-final supabase = Supabase.instance.client;
+
+
+import 'Auth.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
+
 }
 
 class _LoginscreenState extends State<Loginscreen> {
-  bool isCompany = false; // متغير لتحديد نوع المستخدم
   bool isLoading = false;
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
-    usernameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -111,33 +109,19 @@ class _LoginscreenState extends State<Loginscreen> {
                             color: Colors.grey,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 40.0),
+                            padding: const EdgeInsets.only(top:40.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                textField("اسم المستخدم",Icons.person,50,300,usernameController,false),
+                                textField("البريد الالكتروني",Icons.email,50,300,emailController,false),
                                 const SizedBox(height: 16),
                                 textField("كلمة المرور",Icons.lock,50,300, passwordController,
                                   true,),
                                 Align(
-                                  alignment: Alignment.centerRight,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: buildText(
-                                      "نسيت كلمة المرور؟",
-                                      10,
-                                      FontWeight.bold,
-                                      Color(0xFFF59039),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-
-                                    Align(alignment: Alignment.centerRight,
+                                    alignment: Alignment.centerRight,
                                     child: TextButton(onPressed: (){}, child: buildText("نسيت كلمة المرور؟",
                                       10, FontWeight.bold,const Color(0xFFF59039),
                                     ),)),
-
                                 const SizedBox(height: 16,),
                                 button("تسجيل الدخول",context,const TypeUser(),null,handleLogin),
                                 const SizedBox(height: 40),
@@ -154,7 +138,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                       "أو",
                                       16,
                                       FontWeight.normal,
-                                      Color(0xFFBBBBBB),
+                                      const Color(0xFFBBBBBB),
                                     ),
                                     const Expanded(
                                       child: Divider(
@@ -173,22 +157,8 @@ class _LoginscreenState extends State<Loginscreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () async {
-                                        await _googleSignIn(context);
 
-                                        // هنا يمكن التحقق من نوع المستخدم قبل الانتقال
-                                        if (isCompany) {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) => const ProfileCompany(), // شاشة الشركة
-                                            ),
-                                          );
-                                        } else {
-                                          Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                              builder: (context) => const ProfileCompany(), // شاشة انتيرستس للمستخدمين العاديين
-                                            ),
-                                          );
-                                        }
+                                        await signInWithGoogle(context);
                                       },
                                       icon: Image.asset(
                                         "lib/images/google1.png",
@@ -198,7 +168,6 @@ class _LoginscreenState extends State<Loginscreen> {
                                     ),
                                   ],
                                 ),
-
                               ],
                             ),
                           ),
@@ -212,92 +181,72 @@ class _LoginscreenState extends State<Loginscreen> {
           ),
         ],
       ),
+
     );
   }
-
-  void handleLogin(BuildContext context) {
-    final username = usernameController.text.trim();
+  Future<void> handleLogin() async {
+    final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    print(username);
-    if (username.isEmpty || password.isEmpty) {
+    print("email : $email");
+    if (email.isEmpty || password.isEmpty) {
       showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
       return;
     }
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const TypeUser()),
-    );
-  }
+    try {
 
-
-  Future<void> _googleSignIn(BuildContext context) async {
-    const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-    const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-    Future<void> _googleSignIn(BuildContext context ) async {
-
-      setState(() {
-        isLoading = true;
-      });
-
-
-      const webClientId = '889566036592-3k6v89tb06mumcn17rsjur4koc7qgamg.apps.googleusercontent.com'; // استبدله بمعرف العميل الفعلي
-      const androidClientId = '889566036592-1tcelvjvvc3avto767ogd6jh6cu0238i.apps.googleusercontent.com';
-
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: androidClientId,
-        serverClientId: webClientId,
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
 
+      print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
 
-      try {
-        final googleUser = await googleSignIn.signIn();
-        if (googleUser == null) {
-          showSnackBar(context, 'تم إلغاء تسجيل الدخول بواسطة المستخدم.');
-          setState(() {
-            isLoading = false;
-          });
-          return;
-        }
-        final googleAuth = await googleUser.authentication;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const TypeUser()),
+      );
+    } on FirebaseAuthException catch (e) {
 
-        final accessToken = googleAuth.accessToken;
-        final idToken = googleAuth.idToken;
+      if (e.code == 'user-not-found') {
+        print('المستخدم غير موجود، سيتم إنشاء حساب جديد.');
 
-        if (accessToken == null || idToken == null) {
-          throw 'لم يتم الحصول على رموز الدخول.';
-        }
+        try {
 
-        final AuthResponse response = await supabase.auth.signInWithIdToken(
-          provider: OAuthProvider.google,
-          idToken: idToken,
-          accessToken: accessToken,
-        );
-
-        if (response.user != null) {
-          // تخزين البيانات في Supabase
-          await supabase.auth.updateUser(
-            UserAttributes(
-              data: {
-                'avatar_url': googleUser.photoUrl, // تخزين رابط الصورة
-                'full_name': googleUser.displayName, // تخزين الاسم الكامل
-              },
-            ),
+          final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
           );
-        }
-      } catch (e) {
-        print('Error during Google sign in: $e');
-         else {
-          showSnackBar(context, 'فشل تسجيل الدخول. الرجاء المحاولة مرة أخرى.');
-        }
-      }  finally {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
 
+          print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
+
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const TypeUser()),
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            showSnackBar(context,'The password provided is too weak.');
+          } else if (e.code == 'email-already-in-use') {
+            showSnackBar(context,'The account already exists for that email.');
+          }
+        } catch (e) {
+          print(e);
+        }
+      } else if (e.code == 'wrong-password') {
+        print('كلمة المرور المدخلة غير صحيحة.');
+        showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
+      } else {
+        print(e);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
+
+
+
+}
+
 
 
 

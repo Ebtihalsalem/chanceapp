@@ -52,7 +52,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TraineeProfile(),secondaryColor,
+                        child: buildCard(context,const TraineeProfile(),const TraineeProfile(),secondaryColor,
                             primaryColor,"lib/images/portrait-smiling-woman.jpg",
                             secondaryColor,primaryColor,personalSkillsList,"مهتمة بمجال شركتك","مصراتة","سارة أحمد ",false ),
                       );
@@ -85,7 +85,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
           padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(30)),
-            child: BottomBar(),
+            //child: BottomBar(),
           ),
         ),
           floatingActionButton: Padding(
@@ -105,84 +105,6 @@ class _CHomeScreenState extends State<CHomeScreen> {
           ),
     );
   }
-
-  // Widget _buildForYouSection() {
-  //   return InkWell(
-  //     onTap: () {},
-  //     child: Container(
-  //       width: 340,
-  //       height: 200,
-  //       decoration: BoxDecoration(
-  //         color: const Color(0xFFF59039),
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       padding: const EdgeInsets.all(8),
-  //       child: Column(
-  //         children: [
-  //           Row(
-  //             children: [
-  //               Container(
-  //                 width: 50,
-  //                 height: 50,
-  //                 decoration: BoxDecoration(
-  //                   image: const DecorationImage(
-  //                     image:
-  //                         AssetImage('lib/images/portrait-smiling-woman.jpg'),
-  //                   ),
-  //                   borderRadius: BorderRadius.circular(10),
-  //                 ),
-  //               ),
-  //               Expanded(
-  //                 child: Padding(
-  //                   padding: const EdgeInsets.only(right: 10.0),
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       buildText('ساره أحمد', 12, FontWeight.bold,
-  //                           const Color(0xffEFEFEF)),
-  //                       buildText('مهتمة بمجال شركتك', 12,
-  //                           FontWeight.normal, const Color(0xffEFEFEF)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //               const Padding(
-  //                 padding: EdgeInsets.only(left: 8.0),
-  //                 child:
-  //                     Icon(EvaIcons.bookmarkOutline, color: Color(0xffEFEFEF)),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(height: 26),
-  //           Padding(
-  //             padding: const EdgeInsets.only(right: 60.0, bottom: 8),
-  //             child: Row(
-  //               children: [
-  //                 Image.asset(
-  //                   "lib/images/tdesign_location.png",
-  //                   height: 15,
-  //                   width: 15,
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.only(right: 4.0),
-  //                   child: buildText('مصراتة', 12, FontWeight.normal,
-  //                       const Color(0xffEFEFEF)),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           const SizedBox(height: 8),
-  //           Row(
-  //             children: [
-  //               const SizedBox(width: 60),
-  //               _boxesSkills(personalSkillsList),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _buildOvalContainer(
       String text, Color color, Color borderColor, Color fontColor) {
@@ -313,3 +235,4 @@ class _CHomeScreenState extends State<CHomeScreen> {
     );
   }
 }
+

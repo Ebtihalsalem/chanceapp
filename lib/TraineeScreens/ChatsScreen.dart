@@ -178,7 +178,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   // دالة لجلب الرسائل من الـ API
   Future<void> fetchChats() async {
-    final response = await http.get(Uri.parse('http://192.168.1.14:8085/chats/chat/$senderId/$receiverId'));
+    final response = await http.get(Uri.parse('http://192.168.88.247:8085/chats/chat/$senderId/$receiverId'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -201,7 +201,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
     );
 
     final response = await http.post(
-      Uri.parse('http://192.168.1.14:8085/chats/chat'),
+      Uri.parse('http://192.168.88.247:8085/chats/chat'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -221,7 +221,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   // دالة لحذف الرسالة
   Future<void> deleteMessage(String messageId) async {
     final response = await http.delete(
-      Uri.parse('http://192.168.1.14:8085/chats/chat/$messageId'),
+      Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
     );
 
     if (response.statusCode == 200) {
@@ -236,7 +236,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   // دالة لتعديل الرسالة
   Future<void> editMessage(String messageId, String newMessage) async {
     final response = await http.put(
-      Uri.parse('http://192.168.1.14:8085/chats/chat/$messageId'),
+      Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -421,7 +421,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(30)),
-          child: BottomBar(),
+          //child: BottomBar(),
         ),
       ),
     );

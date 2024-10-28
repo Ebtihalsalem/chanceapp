@@ -48,7 +48,7 @@ class _CvScreenState extends State<CvScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: centerAppBar("الملف الشخصي")
+        title: centerAppBar(context,"الملف الشخصي")
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 35.0),
