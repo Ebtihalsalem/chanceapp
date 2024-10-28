@@ -54,8 +54,8 @@ class _WhoState extends State<Who> {
               border: Border.all(color: primaryColor)),
           child: TextButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => const YourPlan()));
+              // Navigator.of(context).pushReplacement(
+              //     MaterialPageRoute(builder: (_) => const YourPlan()));
             },
             child: buildText(
               "شركة",

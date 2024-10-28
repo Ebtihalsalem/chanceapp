@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/UI%20Components/PersonCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
 import '../UI Components/AppBar.dart';
@@ -10,9 +12,11 @@ import '../UI Components/BuildText.dart';
 import '../UI Components/CardDetails.dart';
 import '../UI Components/TitleCards.dart';
 import '../UI Components/aboutTabForTrainee.dart';
+import 'MyAccountForCompany/Data/Trainings.dart';
 
 class TrainingDetailsCompany extends StatefulWidget {
-  const TrainingDetailsCompany({super.key});
+  final int id;
+  const TrainingDetailsCompany({super.key,required this.id});
 
   @override
   State<TrainingDetailsCompany> createState() => _TrainingDetailsCompanyState();
@@ -23,10 +27,18 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
 
   int _currentTab = 0;
 
-  Widget screensTabs() {
+  late Future<Training> trainingDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    trainingDetails = fetchInfoTraining(widget.id);
+  }
+
+  Widget screensTabs(Training trainings) {
     switch (_currentTab) {
       case 0:
-        return information("شهرين","20","يوجد");
+        return information(trainings);
       case 1:
         return SizedBox(
           height: 500,
@@ -47,6 +59,16 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
     }
   }
 
+  Future<Training> fetchInfoTraining(int id) async {
+    final response = await http.get(Uri.parse('http://192.168.1.4:8085/trainings/$id'));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return Training.fromJson(data);
+    } else {
+      throw Exception('Failed to load training');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,21 +78,35 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  cardDetails(context,"lib/images/acadimic.jpg",
-                      null,"مهندس اتصالات" ),
-              const SizedBox(height: 30),
-              SizedBox(height: 70, width: double.infinity, child: _tabs()),
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: screensTabs(),
-                  ),
-                ),
-              ),
-            ]),
+            child: FutureBuilder<Training>(
+              future: trainingDetails,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text("فشل في تحميل البيانات"));
+                } else if (snapshot.hasData) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      cardDetails(context, "lib/images/acadimic.jpg", null, "مهندس اتصالات"),
+                      const SizedBox(height: 30),
+                      SizedBox(height: 70, width: double.infinity, child: _tabs()),
+                      Flexible(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: screensTabs(snapshot.data!),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Center(child: Text("لا توجد بيانات متاحة"));
+                }
+              },
+            ),
           ),
         ),
         bottomNavigationBar: const Padding(

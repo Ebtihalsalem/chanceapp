@@ -63,7 +63,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon(name, 50, 320,null,_formKey),
+                textFieldWithoutIcon(name, 50, 320,null,),
                 const SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -78,7 +78,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon("0000/00/00", 50, 320,null,_formKey),
+                textFieldWithoutIcon("0000/00/00", 50, 320,null,),
 
                 const SizedBox(height: 15,),
                 Row(
@@ -94,7 +94,7 @@ class _AddCvState extends State<AddCv> {
                     ),
                   ],
                 ),
-                textFieldWithoutIcon("اسم الجهة", 50, 320,null,_formKey),
+                textFieldWithoutIcon("اسم الجهة", 50, 320,null,),
                 const SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

@@ -123,7 +123,7 @@ void dispose() {
                   height: 6,
                   width: _selectedScreen == index ? 16:6,
                   decoration: BoxDecoration(
-                    color: _selectedScreen == index ? primaryColor:backgroundColor.withOpacity(0.9),
+                    color: _selectedScreen == index ? backgroundColor:borderColor.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 );

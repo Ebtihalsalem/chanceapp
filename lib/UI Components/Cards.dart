@@ -1,7 +1,6 @@
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import 'BuildText.dart';
 
 List<List<String>> chunkedList(List<String> list, int chunkSize) {
@@ -27,7 +26,7 @@ class BuildCard extends StatefulWidget {
   final bool isCompleted;
 
   const BuildCard({
-    Key? key,
+    super.key,
     required this.targetScreen,
     required this.profileScreen,
     required this.backColor,
@@ -39,14 +38,14 @@ class BuildCard extends StatefulWidget {
     required this.location,
     required this.company,
     required this.isCompleted,
-  }) : super(key: key);
+  });
 
   @override
-  _BuildCardState createState() => _BuildCardState();
+  BuildCardState createState() => BuildCardState();
 }
 
-class _BuildCardState extends State<BuildCard> {
-  bool isSaved = false; // حالة تتبع ما إذا كانت الأيقونة محفوظة أم لا
+class BuildCardState extends State<BuildCard> {
+  bool isSaved = false;
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +149,6 @@ class _BuildCardState extends State<BuildCard> {
                               padding: const EdgeInsets.all(2.0),
                               child: buildOvalContainer(
                                 data,
-                                widget.boxes,
-                                widget.backColor,
                                 widget.isCompleted,
                               ),
                             );
@@ -170,14 +167,13 @@ class _BuildCardState extends State<BuildCard> {
   }
 }
 
-Widget buildOvalContainer(String text, Color color,
-    Color fontColor, bool isCompleted) {
+Widget buildOvalContainer(String text, bool isCompleted) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
-      color: color,
+      color: secondaryColor,
       borderRadius: BorderRadius.circular(10),
     ),
-    child: buildText(text, 10, FontWeight.bold, isCompleted ? Colors.grey : fontColor),
+    child: buildText(text, 10, FontWeight.bold, isCompleted ? Colors.grey : whiteApp),
   );
 }

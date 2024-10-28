@@ -222,7 +222,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
 
   Future<List<User>> fetchAllUsers() async {
     final response =
-        await http.get(Uri.parse('http://192.168.1.14:8085/users'));
+        await http.get(Uri.parse('http://192.168.1.5:8085/users'));
 
     if (response.statusCode == 200) {
       List<dynamic> usersJson = json.decode(response.body);
@@ -234,7 +234,7 @@ class _CHomeScreenState extends State<CHomeScreen> {
 
   Future<List<UserInformation>> fetchAllUsersforinfo() async {
     final url = Uri.parse(
-        'http://192.168.1.14:8085/users'); // استبدل بـ رابط الـ API الخاص بجلب جميع المستخدمين
+        'http://192.168.1.5:8085/users');
 
     try {
       // إرسال الطلب (GET request)

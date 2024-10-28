@@ -13,9 +13,9 @@ import '../UI Components/CardDetails.dart';
 
 
 class TrianingDetils extends StatefulWidget {
+
   const TrianingDetils({super.key});
 
-//تمرير له لون والبيانات اللون حسب اذا كان من التوصيات او لاجلك
 
 
   @override
@@ -47,10 +47,10 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                     "مهندس اتصالات",
                     "الاكاديمية الليبية "),
               ),
-              information(
-                    "شهرين",
-                    "20",
-                    "يوجد"),
+              // information(
+              //       "شهرين",
+              //       "20",
+              //       "يوجد"),
 
               const SizedBox(height: 15,),
               Row(
@@ -61,7 +61,7 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                   Icon(
                       EvaIcons.messageCircleOutline, color: primaryColor,
                       size: 26),
-                  textFieldWithoutIcon("تعليقك..", 45, 270,null,_formKey)
+                  textFieldWithoutIcon("تعليقك..", 45, 270,null)
                 ],
               ),
               const SizedBox(height: 260,),

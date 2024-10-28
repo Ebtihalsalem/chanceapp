@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
 
-Widget textFieldWithoutIcon(String text,double h,double w, TextEditingController? controller,GlobalKey<FormState> formKey){
+Widget textFieldWithoutIcon(String text,double h,double w, TextEditingController? controller){
   return SizedBox(
       width: w,
       height: h,

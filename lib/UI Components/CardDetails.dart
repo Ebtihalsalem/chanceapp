@@ -1,3 +1,4 @@
+import 'package:chanceapp/CompanyScreens/MyAccountForCompany/Data/Trainings.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,7 +58,7 @@ Widget cardDetails(BuildContext context,String img,
   );
 }
 
-Widget information(String time,String num,String money) {
+Widget information(Training training) {
   return Wrap(
     children: [
       Container(
@@ -82,7 +83,7 @@ Widget information(String time,String num,String money) {
                       padding: const EdgeInsets.only(top:8.0,bottom: 8),
                       child: buildText("المدة", 10, FontWeight.normal,fontColorBlack),
                     ),
-                    buildTextTitle(time, 12, FontWeight.bold),
+                    buildTextTitle(training.startDate, 12, FontWeight.bold),
                   ],
                 ),
                 Column(
@@ -92,25 +93,30 @@ Widget information(String time,String num,String money) {
                       padding: const EdgeInsets.only(top:8.0,bottom: 8),
                       child: buildText("العدد المطلوب", 10, FontWeight.normal,fontColorBlack),
                     ),
-                    buildTextTitle(num, 12, FontWeight.bold),
+                    buildTextTitle("$training.numberOfPositions", 12, FontWeight.bold),
                   ],
                 ),
-                Column(
-                  children: [
-                    Icon(Icons.monetization_on_outlined,color: primaryColor,size: 25,),
-                    Padding(
-                      padding: const EdgeInsets.only(top:8.0,bottom: 8),
-                      child: buildText("الراتب", 10, FontWeight.normal,fontColorBlack),
-                    ),
-                    buildTextTitle(money, 12, FontWeight.bold),
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     Icon(Icons.monetization_on_outlined,color: primaryColor,size: 25,),
+                //     Padding(
+                //       padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                //       child: buildText("الراتب", 10, FontWeight.normal,fontColorBlack),
+                //     ),
+                //     buildTextTitle(tr, 12, FontWeight.bold),
+                //   ],
+                // ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top:26.0,right: 18),
-            child: buildTextTitle("الوصف", 16, FontWeight.bold),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top:26.0,right: 18),
+                child: buildTextTitle("الوصف", 16, FontWeight.bold),
+              ),
+              buildTextTitle(training.description, 13, FontWeight.normal),
+            ],
           ),
         ],
       ),

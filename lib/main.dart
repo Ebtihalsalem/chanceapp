@@ -26,6 +26,7 @@
 //     ],
 //   ));
 // }
+import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
 import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
 import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
@@ -72,7 +73,7 @@ Future<void> main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: FirebaseAuth.instance.currentUser == null ? TraineeProfile():TraineeProfile(),
+      home: FirebaseAuth.instance.currentUser == null ? const Steps():const Steps(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

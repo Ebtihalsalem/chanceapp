@@ -27,8 +27,6 @@ Widget boxesSkills(List<String> dataList, String maintitle,bool edit) {
             padding: const EdgeInsets.all(4.0),
             child: buildOvalContainer(
               data,
-              secondaryColor,
-              const Color(0xFFEAEAEA),
               false
             ),
           );

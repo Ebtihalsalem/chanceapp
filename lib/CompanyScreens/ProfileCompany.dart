@@ -94,7 +94,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("الاسم", 50, 320,nameController,_formKey),
+                    textFieldWithoutIcon("الاسم", 50, 320,nameController),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +112,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("example@gmail.com", 50, 320,emailController,_formKey),
+                    textFieldWithoutIcon("example@gmail.com", 50, 320,emailController),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -130,7 +130,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("0000000 218+ ", 50, 320,phoneNumberController,_formKey),
+                    textFieldWithoutIcon("0000000 218+ ", 50, 320,phoneNumberController),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +148,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("0000/00/00", 50, 320,foundedYearController,_formKey),
+                    textFieldWithoutIcon("0000/00/00", 50, 320,foundedYearController),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -166,7 +166,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("اسم المدينة", 50, 320,locationController,_formKey),
+                    textFieldWithoutIcon("اسم المدينة", 50, 320,locationController),
                     const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -184,7 +184,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("المنطقة - الشارع", 50, 320,headquartersController,_formKey),
+                    textFieldWithoutIcon("المنطقة - الشارع", 50, 320,headquartersController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -204,7 +204,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("اسم المجال", 50, 320,industryController,_formKey),
+                    textFieldWithoutIcon("اسم المجال", 50, 320,industryController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -224,7 +224,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("عدد الموظفين", 50, 320,sizeController,_formKey),
+                    textFieldWithoutIcon("عدد الموظفين", 50, 320,sizeController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -244,7 +244,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("https://example", 50, 320,websiteController,_formKey),
+                    textFieldWithoutIcon("https://example", 50, 320,websiteController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -263,7 +263,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("عامة/خاصة", 50, 320,typeCompanyController,_formKey),
+                    textFieldWithoutIcon("عامة/خاصة", 50, 320,typeCompanyController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -283,7 +283,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                         ),
                       ],
                     ),
-                    textFieldWithoutIcon("اكتب التخصصات..", 50, 320,specializationsController,_formKey),
+                    textFieldWithoutIcon("اكتب التخصصات..", 50, 320,specializationsController),
                     const SizedBox(
                       height: 16,
                     ),
@@ -305,7 +305,7 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                             ),
                           ],
                         ),
-                        textFieldWithoutIcon("اكتب ملخص عن شركتك.. ", 50, 320,descriptionController,_formKey),
+                        textFieldWithoutIcon("اكتب ملخص عن شركتك.. ", 50, 320,descriptionController),
                       ],
                     ),
                     const SizedBox(height: 26),

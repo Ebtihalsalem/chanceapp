@@ -17,7 +17,7 @@ import '../UI Components/TextField.dart';
 import 'package:http/http.dart' as http;
 import 'Auth.dart';
 
-const String apiUrl = "http://192.168.1.14:8085/users/data_user";
+const String apiUrl = "http://192.168.1.4:8085/users/data_user";
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -97,8 +97,10 @@ class _LoginscreenState extends State<Loginscreen> {
                       primaryColor,
                     ),
                   ),
-                  onPressed: () async {
-                    handleLogin();
+                    onPressed: () async {
+                      setState(() { isLoading = true; });
+                      await handleLogin();
+                      setState(() { isLoading = false; });
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +201,7 @@ class _LoginscreenState extends State<Loginscreen> {
           email: email,
           password: password,
         );
-
+        print("photo : ${credential.user?.photoURL}");
         print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
 
         Navigator.of(context).pushReplacement(
