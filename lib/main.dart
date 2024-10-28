@@ -154,7 +154,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       //home: FirebaseAuth.instance.currentUser == null ? Loginscreen() : TypeUser(),
-      home: MyTraining(),
+      home: TrainingScreen(),
       //home: NotifationScreen(),
       locale: const Locale('ar'),
       supportedLocales: const [
