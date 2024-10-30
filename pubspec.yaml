@@ -41,7 +41,7 @@ dependencies:
   eva_icons_flutter: ^3.0.0
   google_nav_bar: ^5.0.6
   font_awesome_flutter: ^10.5.0
-  line_awesome_flutter: ^3.0.1
+  line_awesome_flutter: ^1.0.0
   chat_bubbles: ^1.6.0
   flutter_heatmap_calendar: ^1.0.5
   equatable: ^2.0.5
@@ -54,13 +54,15 @@ dependencies:
   firebase_messaging: ^15.1.3
   firebase_auth: ^5.3.1
   google_sign_in: ^6.2.1
-  json_annotation: ^4.9.0
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  cool_stepper: ^1.2.1
+  carousel_slider: ^5.0.0
+  smooth_page_indicator: ^1.2.0+3
+  introduction_screen: ^3.1.14
+  wolt_modal_sheet: ^0.9.3
   json_serializable: ^6.8.0
+  riverpod_annotation: ^2.6.1
+  flutter_riverpod: ^2.6.1
   provider: ^6.1.2
-  persistent_bottom_nav_bar: ^5.0.2
-
 
 dev_dependencies:
   flutter_test:
@@ -71,10 +73,10 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
-  build_runner: ^2.4.13
+  flutter_lints: ^4.0.0
+  riverpod_lint: ^2.6.2
   custom_lint: ^0.7.0
-  riverpod_lint: ^2.6.1
+  build_runner: ^2.4.13
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -123,3 +125,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+analyzer:
+  plugins:
+    - custom_lint

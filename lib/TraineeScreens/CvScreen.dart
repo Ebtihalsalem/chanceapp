@@ -5,11 +5,15 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
+import '../CompanyScreens/AboutTrainee/Data/User.dart';
 import '../Core/App_theme.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 
 class CvScreen extends StatefulWidget {
-  const CvScreen({super.key});
+  String email;
+  User user;
+  CvScreen({super.key, required this.email,required this.user});
 
   @override
   State<CvScreen> createState() => _CvScreenState();
@@ -17,57 +21,41 @@ class CvScreen extends StatefulWidget {
 
 class _CvScreenState extends State<CvScreen> {
 
-
-  List<Map<String, String>> educationList = [
-    {"title": "الشهادة الثانوية", "year": "2018","place": "أسماء للبنات"},
-    {"title": "الشهادة الجامعية", "year": "2022","place": "جامعة مصراتة - كلية تقنية المعلومات"},
-  ];
-
-  List<Map<String, String>> ExList = [
-    {"title": "مصممة UI", "year": "2022-2023","place": "شركة لمة"},
-  ];
-  List<Map<String, String>> detailsList = [
-    {"phone": "092 4575363", "email": "sara1@gmail.com","place": "مصراتة-شارع طرابلس","birth":"12/4/2000"},
-  ];
-
-  List<String> personalSkillsList = [
-    "حس المسؤولية", "التواصل مع الأخرين", "العمل مع فريق","قدرات إبداعية",
-  ];
-
-  List<String> langList = [
-    "العربية", "الانجليزية"
-  ];
-
-  List<String> skillsList = [
-    "أدوبي فوتوشوب", "أدوبي xd","فيجما","ميكروسوفت اوفس","C++","Dart","Flutter","Kotlin","C#",
-    "python","Java","JS"
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: centerAppBar(context,"الملف الشخصي")
-      ),
+      appBar:centerAppBar(context,"الملف الشخصي"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 35.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
-            circleImg("lib/images/portrait-smiling-woman.jpg"),
+            Container(
+              height: 125,
+              width: 125,
+              decoration: const BoxDecoration(
+                color: Color(0xFFE7E7E7),
+                shape: BoxShape.circle,
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Image.network(
+                urlPhoto,
+                fit: BoxFit.cover,
+              ),
+            ),
+            // circleImg("lib/images/portrait-smiling-woman.jpg"),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child:
-                    buildTextTitle('ســارة أحمد', 18, FontWeight.bold),
+                    buildTextTitle(widget.user.userInformation!.name, 18, FontWeight.bold),
               ),
             ),
             Flexible(
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
-                  child: aboutTabForTrainee(true),
+                  child: aboutTabForTrainee(true,widget.user),
                 ),
               ),
             ),

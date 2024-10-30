@@ -11,11 +11,11 @@ void showSnackBar(BuildContext context, String message, {bool isError = false}) 
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(
-              isError ? EvaIcons.alertTriangle : EvaIcons.checkmarkCircle2Outline,
+              isError ? EvaIcons.alertTriangle : EvaIcons.alertCircleOutline,
               color: isError ? Colors.red : const Color(0xFFF0F0F0),
             ),
           ),
-          Expanded( // استخدام Expanded لتجنب التجاوز
+          Expanded(
             child: Align(
               alignment: Alignment.centerLeft,
               child: buildText(
@@ -29,7 +29,7 @@ void showSnackBar(BuildContext context, String message, {bool isError = false}) 
         ],
       ),
       duration: const Duration(seconds: 3),
-      backgroundColor: isError ? Colors.red[700] : Colors.black54, // تغيير لون الخلفية بناءً على الخطأ
+      backgroundColor: isError ? Colors.red[700] : Colors.black54,
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

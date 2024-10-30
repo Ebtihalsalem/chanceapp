@@ -35,9 +35,10 @@
 // import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 // import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
 // import 'package:chanceapp/Screens/Bouquets.dart';
+// import 'package:chanceapp/Screens/IntroScreen.dart';
 // import 'package:chanceapp/Screens/PayScreen.dart';
+// import 'package:chanceapp/Screens/Splash.dart';
 // import 'package:chanceapp/Screens/yourPlan.dart';
-// import 'package:chanceapp/TraineeScreens/AfterCv.dart';
 // import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
 // import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 // import 'package:chanceapp/TraineeScreens/Intersets.dart';
@@ -51,7 +52,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 //
 // import 'package:chanceapp/Core/App_theme.dart';
@@ -62,7 +62,6 @@
 // import 'TraineeScreens/ReqScreen.dart';
 // import 'TraineeScreens/Steps.dart';
 // import 'TraineeScreens/TrianingDetils.dart';
-// import 'UI Components/TraineeActivatesTab.dart';
 //
 //
 // Future<void> main() async {
@@ -72,12 +71,10 @@
 //   );
 //
 //   runApp(
-//
 //     MaterialApp(
 //       debugShowCheckedModeBanner: false,
 //       theme: appTheme,
-//       //home:FirebaseAuth.instance.currentUser == null ? Loginscreen():TypeUser(),
-//       home:NotifationScreen(),
+//       home: FirebaseAuth.instance.currentUser == null ?  Splash(): Splash(),
 //       locale: const Locale('ar'),
 //       supportedLocales: const [
 //         Locale('ar'),
@@ -99,10 +96,14 @@ import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
+import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/Screens/Bouquets.dart';
+import 'package:chanceapp/Screens/IntroScreen.dart';
 import 'package:chanceapp/Screens/PayScreen.dart';
+import 'package:chanceapp/Screens/Splash.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
-import 'package:chanceapp/TraineeScreens/AfterCv.dart';
+import 'package:chanceapp/Screens/LoginScreen.dart';
+import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
 import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
@@ -113,26 +114,16 @@ import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:chanceapp/TraineeScreens/SavedScreen.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
 import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
+import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-
-import 'package:chanceapp/Core/App_theme.dart';
-import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
-import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
-import 'package:chanceapp/TraineeScreens/home.dart';
-import 'CompanyScreens/jsontraining.dart';
-import 'TraineeScreens/ReqScreen.dart';
-import 'TraineeScreens/Steps.dart';
-import 'TraineeScreens/TrianingDetils.dart';
-import 'TraineeScreens/saved_trainings_provider.dart';
-import 'UI Components/TraineeActivatesTab.dart';
-import 'package:chanceapp/TraineeScreens/notification_provider.dart'; // استيراد NotificationProvider
-import 'package:chanceapp/TraineeScreens/saved_trainings_provider.dart'; // استيراد SavedTrainingProvider
+
+import 'Screens/UserTypeProvider.dart';// استبدل هذا بمسار UserTypeProvider الخاص بك
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -141,8 +132,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => NotificationProvider()),
-        ChangeNotifierProvider(create: (_) => SavedTrainingProvider()), // إضافة SavedTrainingProvider هنا
+        ChangeNotifierProvider(create: (_) => UserTypeProvider()),
       ],
       child: MyApp(),
     ),
@@ -150,17 +140,12 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final myTrainingObject = Training(
-    trainingPosition: "مهندس برمجيات",
-    city: "الرياض",
-    requiredSkills: [],
-  );
-
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home:HomeScreen(),
+      home: FirebaseAuth.instance.currentUser == null ? Splash() : Splash(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),
@@ -174,148 +159,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// import 'package:chanceapp/CompanyScreens/AddTraining.dart';
-// import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
-// import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
-// import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
-// import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
-// import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
-// import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
-// import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
-// import 'package:chanceapp/Screens/Bouquets.dart';
-// import 'package:chanceapp/Screens/PayScreen.dart';
-// import 'package:chanceapp/Screens/yourPlan.dart';
-// import 'package:chanceapp/TraineeScreens/AfterCv.dart';
-// import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
-// import 'package:chanceapp/TraineeScreens/CvScreen.dart';
-// import 'package:chanceapp/TraineeScreens/Intersets.dart';
-// import 'package:chanceapp/TraineeScreens/MessageScreen.dart';
-// import 'package:chanceapp/TraineeScreens/MyAccount.dart';
-// import 'package:chanceapp/TraineeScreens/MyTraining.dart';
-// import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
-// import 'package:chanceapp/TraineeScreens/SavedScreen.dart';
-// import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
-// import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:provider/provider.dart'; // استيراد مكتبة Provider
-//
-// import 'package:chanceapp/Core/App_theme.dart';
-// import 'package:chanceapp/Screens/LoginScreen.dart';
-// import 'package:chanceapp/Screens/TypeUser.dart';
-// import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
-// import 'package:chanceapp/TraineeScreens/home.dart';
-// import 'CompanyScreens/jsontraining.dart';
-// import 'TraineeScreens/ReqScreen.dart';
-// import 'TraineeScreens/Steps.dart';
-// import 'TraineeScreens/TrianingDetils.dart';
-// import 'UI Components/TraineeActivatesTab.dart';
-//
-// import 'package:chanceapp/TraineeScreens/notification_provider.dart'; // استيراد NotificationProvider
-//
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//
-//   runApp(
-//     MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider(create: (_) => NotificationProvider()), // إضافة NotificationProvider هنا
-//       ],
-//       child: MyApp(),
-//     ),
-//   );
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   // إنشاء كائن Training
-//   final myTrainingObject = Training(
-//     trainingPosition: "مهندس برمجيات",
-//     city: "الرياض", requiredSkills: [],
-//   );
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: appTheme,
-//       //home: FirebaseAuth.instance.currentUser == null ? Loginscreen() : TypeUser(),
-//       //home: TrianingDetils(training: myTrainingObject),
-//       home: HomeScreen(),
-//       locale: const Locale('ar'),
-//       supportedLocales: const [
-//         Locale('ar'),
-//         Locale('en'),
-//       ],
-//       localizationsDelegates: const [
-//         GlobalMaterialLocalizations.delegate,
-//         GlobalCupertinoLocalizations.delegate,
-//         GlobalWidgetsLocalizations.delegate,
-//       ],
-//     );
-//   }
-// }
-
-// import 'package:chanceapp/CompanyScreens/CompanyMyProfile.dart';
-// import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
-// import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
-// import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
-// import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
-// import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
-// import 'package:chanceapp/CompanyScreens/TrainingScreen.dart';
-// import 'package:chanceapp/Screens/Bouquets.dart';
-// import 'package:chanceapp/Screens/PayScreen.dart';
-// import 'package:chanceapp/Screens/yourPlan.dart';
-// import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
-// import 'package:chanceapp/TraineeScreens/CvScreen.dart';
-// import 'package:chanceapp/TraineeScreens/Intersets.dart';
-// import 'package:chanceapp/TraineeScreens/MessageScreen.dart';
-// import 'package:chanceapp/TraineeScreens/MyAccount.dart';
-// import 'package:chanceapp/TraineeScreens/MyTraining.dart';
-// import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
-// import 'package:chanceapp/TraineeScreens/SavedScreen.dart';
-// import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
-// import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
-//
-// import 'package:chanceapp/Core/App_theme.dart';
-// import 'package:chanceapp/Screens/LoginScreen.dart';
-// import 'package:chanceapp/Screens/TypeUser.dart';
-// import 'package:chanceapp/TraineeScreens/ChatsScreen.dart';
-// import 'package:chanceapp/TraineeScreens/home.dart';
-// import 'TraineeScreens/ReqScreen.dart';
-// import 'TraineeScreens/Steps.dart';
-// import 'TraineeScreens/TrianingDetils.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart'; // إضافة flutter_riverpod
-//
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//
-//   runApp(
-//     ProviderScope( // تغليف التطبيق بـ ProviderScope
-//       child: MaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         theme: appTheme,
-//         //home:FirebaseAuth.instance.currentUser == null ? Loginscreen():TypeUser(),
-//         home: const TrianingDetils(),
-//         locale: const Locale('ar'),
-//         supportedLocales: const [
-//           Locale('ar'),
-//           Locale('en'),
-//         ],
-//         localizationsDelegates: const [
-//           GlobalMaterialLocalizations.delegate,
-//           GlobalCupertinoLocalizations.delegate,
-//           GlobalWidgetsLocalizations.delegate,
-//         ],
-//       ),
-//     ),
-//   );
-// }

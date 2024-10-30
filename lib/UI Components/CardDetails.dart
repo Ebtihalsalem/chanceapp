@@ -1,17 +1,20 @@
+import 'package:chanceapp/CompanyScreens/MyAccountForCompany/Data/Trainings.dart';
+import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'BuildText.dart';
 
-Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String img,
-    Color borderColor,String? role,String company) {
+Widget cardDetails(BuildContext context,String img,
+    String? role,String company) {
   return Container(
       height: 70,
       width: 370,
       decoration: BoxDecoration(
-        color: backColor,
-        borderRadius: BorderRadius.circular(20),
+        color: whiteApp,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),
+            topRight:Radius.circular(20)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
@@ -39,11 +42,11 @@ Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String i
                             company,
                             12,
                             FontWeight.bold,
-                            fontColor),
+                            fontColorBlack),
 
                         role != null?
                         buildText(role, 12, FontWeight.normal,
-                            fontColor):SizedBox(width: 1,),
+                            fontColorBlack):SizedBox(width: 1,),
                       ],
                     ),
                   ),
@@ -55,16 +58,15 @@ Widget cardDetails(BuildContext context,Color backColor,Color fontColor,String i
   );
 }
 
-Widget information(String time,String num,String money,Color fontColorTitle,Color backColor,Color iconColor,Color borderColor) {
+Widget information(Training training) {
   return Wrap(
     children: [
       Container(
-      height: 260,
-      width: 370,
+      width: 367,
       decoration: BoxDecoration(
-          color: backColor,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: borderColor)),
+          color: whiteApp,
+          borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20),
+              bottomRight:Radius.circular(20)),),
       padding: const EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,40 +78,45 @@ Widget information(String time,String num,String money,Color fontColorTitle,Colo
               children: [
                 Column(
                   children: [
-                    Icon(EvaIcons.clockOutline,color: iconColor,size: 25,),
+                    Icon(EvaIcons.clockOutline,color: primaryColor,size: 25,),
                     Padding(
                       padding: const EdgeInsets.only(top:8.0,bottom: 8),
-                      child: buildText("المدة", 10, FontWeight.normal,fontColorTitle),
+                      child: buildText("المدة", 10, FontWeight.normal,fontColorBlack),
                     ),
-                    buildTextTitle(time, 12, FontWeight.bold),
+                    buildTextTitle(training.startDate, 12, FontWeight.bold),
                   ],
                 ),
                 Column(
                   children: [
-                    const Icon(EvaIcons.peopleOutline,color: Color(0xFFF59039),size: 25,),
+                    Icon(EvaIcons.peopleOutline,color: primaryColor,size: 25,),
                     Padding(
                       padding: const EdgeInsets.only(top:8.0,bottom: 8),
-                      child: buildText("العدد المطلوب", 10, FontWeight.normal,fontColorTitle),
+                      child: buildText("العدد المطلوب", 10, FontWeight.normal,fontColorBlack),
                     ),
-                    buildTextTitle(num, 12, FontWeight.bold),
+                    buildTextTitle("$training.numberOfPositions", 12, FontWeight.bold),
                   ],
                 ),
-                Column(
-                  children: [
-                    const Icon(Icons.monetization_on_outlined,color: Color(0xFFF59039),size: 25,),
-                    Padding(
-                      padding: const EdgeInsets.only(top:8.0,bottom: 8),
-                      child: buildText("الراتب", 10, FontWeight.normal,fontColorTitle),
-                    ),
-                    buildTextTitle(money, 12, FontWeight.bold),
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     Icon(Icons.monetization_on_outlined,color: primaryColor,size: 25,),
+                //     Padding(
+                //       padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                //       child: buildText("الراتب", 10, FontWeight.normal,fontColorBlack),
+                //     ),
+                //     buildTextTitle(tr, 12, FontWeight.bold),
+                //   ],
+                // ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top:26.0,right: 18),
-            child: buildTextTitle("الوصف", 16, FontWeight.bold),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top:26.0,right: 18),
+                child: buildTextTitle("الوصف", 16, FontWeight.bold),
+              ),
+              buildTextTitle(training.description, 13, FontWeight.normal),
+            ],
           ),
         ],
       ),
