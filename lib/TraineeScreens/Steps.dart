@@ -13,6 +13,7 @@ import '../UI Components/textFieldWithoutIcon.dart';
 import 'AddCv.dart';
 import 'AfterCv.dart';
 import "package:http/http.dart" as http;
+import 'Data/API/StepsAPI.dart';
 
 class Steps extends StatefulWidget {
   const Steps( {super.key,});
@@ -47,30 +48,13 @@ class _StepsState extends State<Steps> {
   List<Education> volunteerActivities = [];
   List<Education> projects = [];
 
-  late UserInformation user;
+  //late UserInformation user;
 
   // void updateStepData(String step, Map<String, dynamic> stepData) {
   //
   // }
 
-  Future<void> sendAllData() async {
-    final apiUrl = 'http://192.168.1.4:8085/users/data_user';
-    try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(user),
-      );
 
-      if (response.statusCode == 200) {
-        print("تم إرسال جميع البيانات بنجاح");
-      } else {
-        print("فشل إرسال جميع البيانات: ${response.body}");
-      }
-    } catch (e) {
-      print("خطأ في الإرسال: $e");
-    }
-  }
 
   void onStep1Completed() {
 user.name = fullNameController.text;

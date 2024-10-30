@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
-import '../TraineeScreens/CompanyScreen.dart';
+import '../UI Components/CompanyScreen.dart';
 import '../TraineeScreens/TrainingApplied.dart';
 import '../TraineeScreens/TrianingDetils.dart';
 import '../UI Components/AppBar.dart';
@@ -15,7 +13,6 @@ import '../UI Components/Cards.dart';
 import '../UI Components/SearchBar.dart';
 import 'MyAccountForCompany/Data/Trainings.dart';
 import 'package:http/http.dart' as http;
-
 import 'TrainingDetails.dart';
 
 class TrainingScreen extends StatefulWidget {

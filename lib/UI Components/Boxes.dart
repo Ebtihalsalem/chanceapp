@@ -2,8 +2,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../Core/App_theme.dart';
-import '../UI Components/BuildText.dart';
-import '../UI Components/Cards.dart';
+import 'BuildText.dart';
+import 'Cards.dart';
 
 Widget boxesSkills(List<String> dataList, String maintitle,bool edit) {
   return Column(

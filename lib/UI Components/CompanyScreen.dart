@@ -1,13 +1,12 @@
 import 'dart:ui';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
-import 'package:chanceapp/TraineeScreens/AvailableTrainings.dart';
+import 'package:chanceapp/UI%20Components/AvailableTrainings.dart';
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:flutter/material.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
-import '../UI Components/BuildText.dart';
-import 'AboutCompany.dart';
+import 'BuildText.dart';
+import '../TraineeScreens/AboutCompany.dart';
 
 class CompanyScreen extends StatefulWidget {
   const CompanyScreen({super.key});

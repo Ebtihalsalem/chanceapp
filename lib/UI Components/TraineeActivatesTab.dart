@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../TraineeScreens/HeatMap.dart';
+import 'HeatMap.dart';
 import 'BuildText.dart';
 
 

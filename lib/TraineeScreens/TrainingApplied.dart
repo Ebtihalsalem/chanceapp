@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../CompanyScreens/TrainingDetails.dart';
 import '../Core/App_theme.dart';
 import '../UI Components/Cards.dart';
-import 'CompanyScreen.dart';
+import '../UI Components/CompanyScreen.dart';
 import 'TrianingDetils.dart';
 
 

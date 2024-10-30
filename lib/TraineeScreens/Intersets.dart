@@ -1,15 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
 import '../Core/App_theme.dart';
 import '../Screens/Auth.dart';
 import '../Screens/LoginScreen.dart';
 import '../Screens/Sheet.dart';
 import '../UI Components/BackgroundImg.dart';
 import '../UI Components/BuildText.dart';
-import 'CardIntersets.dart';
+import '../UI Components/CardIntersets.dart';
 import 'Steps.dart';
 
 class IntersetsScreen extends StatefulWidget {
@@ -150,43 +148,6 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SafeArea(
-  //     child: Scaffold(
-  //       resizeToAvoidBottomInset: false,
-  //       body: Stack(
-  //         children: [
-  //           buildBackgroundImage("lib/images/backgroundFill3.jpg",600,600),
-  //           buildBlurOverlay(),
-  //           Positioned(
-  //             top: 20,
-  //             left: 350,
-  //             child: IconButton(
-  //               icon: const Icon(Icons.arrow_back_ios_new,
-  //                   color: Colors.white, size: 30),
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //             ),
-  //           ),
-  //           Center(
-  //             child: Column(
-  //               children: [
-  //                 _buildTopLine(),
-  //                 const SizedBox(height: 90),
-  //                 Expanded(
-  //                   child: _buildFormContainer(),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   Widget _buildTopLine() {
     return Container(

@@ -12,13 +12,11 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
 import '../TraineeScreens/Intersets.dart';
-import '../TraineeScreens/ProfileTrainee.dart';
 import '../TraineeScreens/Steps.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
 import '../UI Components/TextField.dart';
-
 import 'package:http/http.dart' as http;
 import 'Auth.dart';
 

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 import 'package:chanceapp/TraineeScreens/TrackingScreen.dart';
@@ -11,8 +10,10 @@ import '../Screens/LoginScreen.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/CircleImg.dart';
-import 'BuildSetting.dart';
+import '../UI Components/BuildSetting.dart';
 import 'package:http/http.dart' as http;
+
+import 'Data/API/MyAccountAPI.dart';
 
 
 class MyAccount extends StatefulWidget {
@@ -36,18 +37,6 @@ class _MyAccountState extends State<MyAccount> {
         user = fetchedUser;
       });
     });
-  }
-
-  Future<User?> fetchUserData(String email) async {
-    final url = Uri.parse('http://192.168.1.4:8085/users/$email');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      return User.fromJson(data);
-    } else {
-      throw Exception('Failed to load user data');
-    }
   }
 
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
 import 'package:chanceapp/Screens/Auth.dart';
 import 'package:chanceapp/UI%20Components/Button.dart';
@@ -9,7 +8,6 @@ import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import '../Core/App_theme.dart';
 import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
@@ -40,23 +38,6 @@ class _ProfileCompanyState extends State<ProfileCompany> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController foundedYearController = TextEditingController();
   final TextEditingController extendedDescriptionController = TextEditingController();
-
-  //
-  // bool isValid() =>
-  //     nameController.text.isNotEmpty &&
-  //         emailController.text.isNotEmpty &&
-  //         phoneNumberController.text.isNotEmpty &&
-  //         headquartersController.text.isNotEmpty &&
-  //         industryController.text.isNotEmpty &&
-  //         websiteController.text.isNotEmpty &&
-  //         sizeController.text.isNotEmpty &&
-  //         specializationsController.text.isNotEmpty &&
-  //         foundedYearController.text.isNotEmpty &&
-  //         locationController.text.isNotEmpty &&
-  //         descriptionController.text.isNotEmpty &&
-  //         extendedDescriptionController.text.isNotEmpty &&
-  //         typeCompanyController.text.isNotEmpty;
-  //
 
   @override
   Widget build(BuildContext context) {

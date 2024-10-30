@@ -3,15 +3,12 @@ import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/Cards.dart';
 import 'package:flutter/material.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/SearchBar.dart';
-import 'CompanyScreen.dart';
+import '../UI Components/CompanyScreen.dart';
 import 'TrianingDetils.dart';
-
-
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});

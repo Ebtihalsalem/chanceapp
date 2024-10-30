@@ -5,7 +5,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../CompanyScreens/AboutTrainee/Data/User.dart';
-import '../TraineeScreens/Boxes.dart';
+import 'Boxes.dart';
 import 'BuildText.dart';
 import 'Cards.dart';
 import 'ContentText.dart';

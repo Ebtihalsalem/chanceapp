@@ -3,12 +3,13 @@ import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:chanceapp/UI Components/Cards.dart' as cards;
 import '../CompanyScreens/MyAccountForCompany/Data/Trainings.dart';
-import '../UI Components/BuildText.dart';
-import '../UI Components/Cards.dart';
-import '../UI Components/PersonCard.dart';
-
+import 'BuildText.dart';
+import 'Cards.dart';
+import 'PersonCard.dart';
+import 'package:chanceapp/UI Components/Cards.dart' as cards;
+import 'package:chanceapp/UI Components/PersonCard.dart' as person;
 Widget availableTrainings(BuildContext context, Widget targetScreen,
     Future<List<Training>> trainings) {
   return InkWell(
@@ -112,25 +113,19 @@ Widget availableTrainings(BuildContext context, Widget targetScreen,
                         ),
                         const SizedBox(height: 10),
                         Row(
-                          children: [
-                            const SizedBox(width: 60),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: chunkedList(training.requiredSkills, 2)
-                                  .map((chunk) {
-                                return Wrap(
-                                  spacing: 1.0,
-                                  runSpacing: 1.0,
-                                  children: chunk.map((data) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: buildOvalContainer(data,false),
-                                    );
-                                  }).toList(),
+                          children: person.chunkedList(training.requiredSkills, 2)
+                              .map((chunk) {
+                            return Wrap(
+                              spacing: 1.0,
+                              runSpacing: 1.0,
+                              children: chunk.map((data) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: buildOvalContainer(data, false),
                                 );
                               }).toList(),
-                            ),
-                          ],
+                            );
+                          }).toList(),
                         ),
                       ],
                     ),

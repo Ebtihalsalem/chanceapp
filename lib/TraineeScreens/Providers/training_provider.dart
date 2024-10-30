@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:chanceapp/TraineeScreens/training.dart'; // تأكد من أن الملف يحتوي على نموذج Training
+
+
+import '../Data/training.dart'; // تأكد من أن الملف يحتوي على نموذج Training
 
 class TrainingProvider with ChangeNotifier {
   Training? _selectedTraining;

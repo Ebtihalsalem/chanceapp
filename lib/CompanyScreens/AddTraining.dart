@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';

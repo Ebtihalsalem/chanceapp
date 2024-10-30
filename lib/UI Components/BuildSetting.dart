@@ -3,10 +3,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../Screens/LoginScreen.dart';
-import '../UI Components/BuildText.dart';
-
+import 'BuildText.dart';
 
 Widget _buildCategory(String title, IconData icon) {
   return Padding(
@@ -26,7 +24,6 @@ Widget _buildCategory(String title, IconData icon) {
     ),
   );
 }
-
 
 Widget buildSettings(BuildContext context) {
   return Container(

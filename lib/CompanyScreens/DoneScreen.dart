@@ -1,7 +1,6 @@
 import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:flutter/material.dart';
-
 import '../Core/App_theme.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
@@ -13,10 +12,7 @@ class DoneScreen extends StatefulWidget {
   @override
   State<DoneScreen> createState() => _DoneScreenState();
 }
-
 class _DoneScreenState extends State<DoneScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

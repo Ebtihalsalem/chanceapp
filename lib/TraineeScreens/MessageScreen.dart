@@ -2,7 +2,6 @@ import 'package:chanceapp/Core/App_theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';

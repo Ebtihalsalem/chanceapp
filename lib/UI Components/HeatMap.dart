@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
-import '../UI Components/BuildText.dart';
+import 'BuildText.dart';
 
 Widget heatMap(BuildContext context,Map<DateTime, String> activities){
   return SingleChildScrollView(

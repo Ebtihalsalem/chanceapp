@@ -4,7 +4,6 @@ import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:flutter/material.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Snackbar.dart';
-
 class AddCv extends StatefulWidget {
   final String title;
   final String name;

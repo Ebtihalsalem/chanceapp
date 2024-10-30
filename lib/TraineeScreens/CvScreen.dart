@@ -3,7 +3,6 @@ import 'package:chanceapp/UI%20Components/CircleImg.dart';
 import 'package:chanceapp/UI%20Components/aboutTabForTrainee.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../CompanyScreens/AboutTrainee/Data/User.dart';
 import '../Core/App_theme.dart';

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:ui';
-
 import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/TraineeScreens/TrainingApplied.dart';
@@ -13,7 +12,7 @@ import '../Core/App_theme.dart';
 import '../Screens/Auth.dart';
 import '../Screens/LoginScreen.dart';
 import '../TraineeScreens/AboutCompany.dart';
-import '../TraineeScreens/AvailableTrainings.dart';
+import '../UI Components/AvailableTrainings.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/CircleImg.dart';
 import 'MyAccountForCompany/Data/CompanyUser.dart';
@@ -70,8 +69,6 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
       throw Exception('Failed to load trainings');
     }
   }
-
-
   Future<CompanyUser?> getCompanyInfo(String email) async {
     final response = await http.get(Uri.parse('http://192.168.88.42:8085/companies/$email'));
 
@@ -81,20 +78,6 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
       throw Exception('Failed to load company information');
     }
   }
-
-  //
-  // Widget screensTabs()
-  // {
-  //   switch(_currentTab){
-  //     case 0:
-  //       return aboutTab(summary,information);
-  //     case 1:
-  //       return availableTrainings(context,const TrainingDetailsCompany(),skills,"مهندس اتصالات","مصراتة","20","يوجد","شهرين");
-  //     default:
-  //       return Container();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

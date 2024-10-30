@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
@@ -9,29 +8,23 @@ import '../Core/App_theme.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import 'package:http/http.dart' as http;
-
 import 'Data/chats.dart';
-
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({super.key});
-
   @override
   State<ChatsScreen> createState() => _ChatsScreenState();
 }
-
 class _ChatsScreenState extends State<ChatsScreen> {
   late TextEditingController value = TextEditingController();
   List<Chats> chats = [];
-  final String senderId = "user123"; // معرف المرسل
-  final String receiverId = "user456"; // معرف المستقبل
+  final String senderId = "user123";
+  final String receiverId = "user456";
 
   @override
   void initState() {
     super.initState();
-    fetchChats(); // جلب الرسائل عند تحميل الشاشة
+    fetchChats();
   }
-
-  // دالة لجلب الرسائل من الـ API
   Future<void> fetchChats() async {
     final response = await http.get(Uri.parse('http://192.168.88.247:8085/chats/chat/$senderId/$receiverId'));
 
@@ -44,17 +37,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
       throw Exception('فشل في جلب الرسائل من الـ API');
     }
   }
-
-  // دالة لإرسال الرسائل إلى الـ API وتخزينها في قاعدة البيانات
   Future<void> sendMessage(String message) async {
     final chatMessage = Chats(
-      messageId: DateTime.now().millisecondsSinceEpoch.toString(), // توليد ID فريد
+      messageId: DateTime.now().millisecondsSinceEpoch.toString(),
       senderId: senderId,
       receiverId: receiverId,
       message: message,
       timestamp: DateTime.now().toIso8601String(),
     );
-
     final response = await http.post(
       Uri.parse('http://192.168.88.247:8085/chats/chat'),
       headers: <String, String>{
@@ -62,18 +52,15 @@ class _ChatsScreenState extends State<ChatsScreen> {
       },
       body: jsonEncode(chatMessage.toJson()),
     );
-
     if (response.statusCode == 201) {
       setState(() {
-        chats.add(chatMessage); // إضافة الرسالة إلى القائمة
-        value.clear(); // مسح حقل الإدخال
+        chats.add(chatMessage);
+        value.clear();
       });
     } else {
       throw Exception('فشل في إرسال الرسالة');
     }
   }
-
-  // دالة لحذف الرسالة
   Future<void> deleteMessage(String messageId) async {
     final response = await http.delete(
       Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
@@ -87,8 +74,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
       throw Exception('فشل في حذف الرسالة');
     }
   }
-
-  // دالة لتعديل الرسالة
   Future<void> editMessage(String messageId, String newMessage) async {
     final response = await http.put(
       Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
@@ -97,12 +82,11 @@ class _ChatsScreenState extends State<ChatsScreen> {
       },
       body: jsonEncode({'message': newMessage}),
     );
-
     if (response.statusCode == 200) {
       setState(() {
         final index = chats.indexWhere((chat) => chat.messageId == messageId);
         if (index != -1) {
-          chats[index].message = newMessage; // تعديل الرسالة
+          chats[index].message = newMessage;
         }
       });
     } else {
@@ -110,12 +94,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
     }
   }
 
-  // دالة لتظهر الوقت
   String getTime(String timestamp) {
     DateTime dateTime = DateTime.parse(timestamp);
     return "${dateTime.hour}:${dateTime.minute}";
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +131,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onLongPress: () {
-                        // إظهار قائمة خيارات عند الضغط المطول
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -161,13 +142,13 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                   child: Text('تعديل'),
                                   onPressed: () {
                                     Navigator.of(context).pop();
-                                    _showEditDialog(chats[index]); // عرض حوار التعديل
+                                    _showEditDialog(chats[index]);
                                   },
                                 ),
                                 TextButton(
                                   child: Text('حذف'),
                                   onPressed: () {
-                                    deleteMessage(chats[index].messageId); // حذف الرسالة
+                                    deleteMessage(chats[index].messageId);
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -228,8 +209,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         height: 45,
                         child: TextField(
                           controller: value,
-                          textDirection: TextDirection.rtl, // الاتجاه من اليمين إلى اليسار
-                          textAlign: TextAlign.right, // محاذاة النص إلى اليمين
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.right,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: const Color(0xFFF3F3F3),
@@ -241,7 +222,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                               borderSide: const BorderSide(color: Color(0xFFBCBCBC)),
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            hintText: "أدخل رسالتك هنا", // نص تلميحي بالعربية
+                            hintText: "أدخل رسالتك هنا",
                           ),
                         ),
                       ),
@@ -281,11 +262,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
       ),
     );
   }
-
-  // دالة لإظهار حوار التعديل
   void _showEditDialog(Chats chat) {
     TextEditingController editController = TextEditingController(text: chat.message);
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -303,7 +281,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
             TextButton(
               child: Text('تعديل'),
               onPressed: () {
-                editMessage(chat.messageId, editController.text); // تعديل الرسالة
+                editMessage(chat.messageId, editController.text);
                 Navigator.of(context).pop();
               },
             ),

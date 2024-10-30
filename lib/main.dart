@@ -104,7 +104,7 @@ import 'package:chanceapp/Screens/Splash.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
 import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
-import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
+import 'package:chanceapp/UI%20Components/CompanyScreen.dart';
 import 'package:chanceapp/TraineeScreens/CvScreen.dart';
 import 'package:chanceapp/TraineeScreens/Intersets.dart';
 import 'package:chanceapp/TraineeScreens/MessageScreen.dart';
@@ -145,7 +145,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      home: FirebaseAuth.instance.currentUser == null ? Splash() : Splash(),
+      home: FirebaseAuth.instance.currentUser == null ? AddTraining() : AddTraining(),
       locale: const Locale('ar'),
       supportedLocales: const [
         Locale('ar'),

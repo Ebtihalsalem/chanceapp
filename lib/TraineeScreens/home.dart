@@ -1,6 +1,6 @@
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/Core/App_theme.dart';
-import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
+import 'package:chanceapp/UI%20Components/CompanyScreen.dart';
 import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../Core/App_theme.dart';
 import '../Screens/Auth.dart';
 import '../Screens/LoginScreen.dart';
-import '../UI Components/BuildText.dart';
-import 'Steps.dart';
+import 'BuildText.dart';
+import '../TraineeScreens/Steps.dart';
 
 class CardIntersets extends StatefulWidget {
   const CardIntersets(String urlPhoto, {super.key, required email});
@@ -121,8 +120,6 @@ class _CardIntersetsState extends State<CardIntersets> {
       },
     );
   }
-
-
   Widget _buildInterestCard(int index, String imagePath, String title) {
     bool isSelected =
     selectedCards.contains(index);
