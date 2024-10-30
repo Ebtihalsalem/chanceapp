@@ -1,8 +1,13 @@
 import 'dart:convert';
 
+import 'package:chanceapp/CompanyScreens/AboutTrainee/Data/Education.dart';
+import 'package:chanceapp/CompanyScreens/HomeScreenForCompany/Data/UserInformation.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
+import 'package:chanceapp/UI%20Components/Snackbar.dart';
 import 'package:flutter/material.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/textFieldWithoutIcon.dart';
 import 'AddCv.dart';
@@ -10,7 +15,7 @@ import 'AfterCv.dart';
 import "package:http/http.dart" as http;
 
 class Steps extends StatefulWidget {
-  const Steps({super.key});
+  const Steps( {super.key,});
 
   @override
   State<Steps> createState() => _StepsState();
@@ -24,22 +29,37 @@ class _StepsState extends State<Steps> {
   final birthDateController = TextEditingController();
   final cityController = TextEditingController();
   final addressController = TextEditingController();
+  final skillController = TextEditingController();
+  final skillComputerController = TextEditingController();
+  final languageController = TextEditingController();
+
+  List<String> personalSkills = [];
+  List<String> computerSkills = [];
+  List<String> languages = [];
 
 
   int currentStep = 0;
-  Map<String, dynamic> allUserData = {};
 
-  void updateStepData(String step, Map<String, dynamic> stepData) {
-    allUserData[step] = stepData;
-  }
+  List<Education> listEducation = [];
+  List<Education> listWork = [];
+  List<Education> listTrainings = [];
+  List<Education> activates = [];
+  List<Education> volunteerActivities = [];
+  List<Education> projects = [];
+
+  late UserInformation user;
+
+  // void updateStepData(String step, Map<String, dynamic> stepData) {
+  //
+  // }
 
   Future<void> sendAllData() async {
-    final apiUrl = 'http://10.60.5.183:8085/users/data_user';
+    final apiUrl = 'http://192.168.1.4:8085/users/data_user';
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/json'},
-        body: json.encode(allUserData),
+        body: json.encode(user),
       );
 
       if (response.statusCode == 200) {
@@ -53,13 +73,43 @@ class _StepsState extends State<Steps> {
   }
 
   void onStep1Completed() {
-    final step1Data = {'field1': 'value1', 'field2': 'value2'};
-    updateStepData("step1", step1Data);
+user.name = fullNameController.text;
+name = fullNameController.text;
+if(emailController.text == emailGeneral) {
+  user.email = emailController.text;
+}
+else { showSnackBar(context, "يرجى كتابة البريد الالكتروني الذي تم تسجيل الدخول به");}
+user.phoneNumber = phoneNumberController.text;
+user.birthDate = birthDateController.text;
+user.city = cityController.text;
+user.address = addressController.text;
+    // final step1Data = {'name': fullNameController.text, 'email': emailController.text,'phoneNumber':phoneNumberController.text,
+    // 'birthDate':birthDateController.text,'city':cityController.text,'address':addressController};
+    // updateStepData("step1", step1Data);
   }
 
   void onStep2Completed() {
-    final step2Data = {'field3': 'value3', 'field4': 'value4'};
-    updateStepData("step2", step2Data);
+    user.education = listEducation;
+    user.workExperience = listWork;
+    user.trainingCourses = listTrainings;
+    // final step2Data = {'education': listEducation, 'workExperience': listWork,'trainingCourses':listTrainings};
+    // updateStepData("step2", step2Data);
+  }
+
+  void onStep3Completed() {
+    user.personalSkills = personalSkills;
+    user.computerSkills = computerSkills;
+    user.language = languages;
+    // final step3Data = {'personalSkills': personalSkills, 'computerSkills': computerSkills,'language':languages};
+    // updateStepData("step3", step3Data);
+  }
+
+  void onStep4Completed() {
+    user.activities = activates;
+    user.volunteerActivities = volunteerActivities;
+    user.projects = projects;
+    // final step4Data = {'education': listEducation, 'workExperience': listWork,'trainingCourses':listTrainings};
+    // updateStepData("step4", step4Data);
   }
 
   void onFinalStepCompleted() {
@@ -87,6 +137,7 @@ class _StepsState extends State<Steps> {
               if (currentStep != 3) {
                 setState(() => currentStep += 1);
               } else {
+                sendAllData();
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const AfterCv()));
               }
@@ -110,7 +161,7 @@ class _StepsState extends State<Steps> {
                         width: 70,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: const Color(0xFFF59039))),
+                            border: Border.all(color: primaryColor)),
                         child: TextButton(
                           onPressed: details.onStepCancel,
                           style: TextButton.styleFrom(
@@ -128,14 +179,14 @@ class _StepsState extends State<Steps> {
                         height: 35,
                         width: 45,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF59039),
+                          color: primaryColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: IconButton(
                           onPressed: details.onStepContinue,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_forward,
-                            color: Colors.white,
+                            color: backgroundColor,
                             size: 20,
                           ),
                         ),
@@ -180,7 +231,8 @@ Step step1(){
                   ),
                 ),
                 Image.asset(
-                  "lib/images/ion_camera.png",
+                  urlPhoto,
+                  // "lib/images/ion_camera.png",
                   height: 50,
                   width: 50,
                 )
@@ -367,9 +419,10 @@ Step step2(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "التعليم",
                                 name: "نوع الشهادة",
+                                list: listEducation,
                               );
                             });
                       },
@@ -416,9 +469,10 @@ Step step2(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "الخبرة العملية",
                                 name: "نوع العمل",
+                                list:listWork
                               );
                             });
                       },
@@ -465,9 +519,10 @@ Step step2(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "الدورات التدريبة",
                                 name: "اسم الدورة",
+                                  list: listTrainings,
                               );
                             });
                       },
@@ -522,39 +577,77 @@ Step step3(){
                 ),
               ],
             ),
-            Container(
-              width: 320,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFDFDFD),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: const Color(0xFFBCBCBC))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(children: [
+              Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 15.0),
-                    child: Text(
-                      "اضافة..",
-                      style: TextStyle(
-                        color: Color(0xFFBBBBBB),
+                  SizedBox(
+                    width: 270,
+                    height: 50,
+                    child: TextField(
+                      controller: skillController,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),
-                  IconButton(
+                  const SizedBox(width: 10,),
+                  Container(
+                    height: 40,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.add,color: backgroundColor,),
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AddCv(
-                                title: "المهارات الشخصية",
-                                name: "المهارة",
-                              );
-                            });
+                        if (skillController.text.isNotEmpty) {
+                          setState(() {
+                            personalSkills.add(skillController.text);
+                            skillController.clear();
+                          });
+                        }
                       },
-                      icon: const Icon(Icons.add,
-                          color: Color(0xFFBBBBBB))),
+                    ),
+                  ),
                 ],
+              ),
+
+            ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                children: personalSkills
+                    .map((skill) => Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Chip(
+                    backgroundColor: secondaryColor,
+                    deleteIcon: Icon(Icons.cancel,color: backgroundColor,),
+                    labelStyle: TextStyle(color: backgroundColor ),
+                    side: const BorderSide(color: Colors.transparent),
+                    label: Text(skill),
+                    onDeleted: () {
+                      setState(() {
+                        personalSkills.remove(skill);
+                      });
+                    },
+                  ),
+                ))
+                    .toList(),
               ),
             ),
             const SizedBox(height: 16),
@@ -571,39 +664,77 @@ Step step3(){
                 ),
               ],
             ),
-            Container(
-              width: 320,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFDFDFD),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: const Color(0xFFBCBCBC))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(children: [
+              Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 15.0),
-                    child: Text(
-                      "اضافة..",
-                      style: TextStyle(
-                        color: Color(0xFFBBBBBB),
+                  SizedBox(
+                    width: 270,
+                    height: 50,
+                    child: TextField(
+                      controller: skillComputerController,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),
-                  IconButton(
+                  const SizedBox(width: 10,),
+                  Container(
+                    height: 40,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.add,color: backgroundColor,),
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AddCv(
-                                title: "مهارات الحاسوب",
-                                name: "المهارة",
-                              );
-                            });
+                        if (skillComputerController.text.isNotEmpty) {
+                          setState(() {
+                            computerSkills.add(skillComputerController.text);
+                            skillComputerController.clear();
+                          });
+                        }
                       },
-                      icon: const Icon(Icons.add,
-                          color: Color(0xFFBBBBBB))),
+                    ),
+                  ),
                 ],
+              ),
+
+            ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                children: computerSkills
+                    .map((skill) => Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Chip(
+                    backgroundColor: secondaryColor,
+                    deleteIcon: Icon(Icons.cancel,color: backgroundColor,),
+                    labelStyle: TextStyle(color: backgroundColor ),
+                    side: const BorderSide(color: Colors.transparent),
+                    label: Text(skill),
+                    onDeleted: () {
+                      setState(() {
+                        computerSkills.remove(skill);
+                      });
+                    },
+                  ),
+                ))
+                    .toList(),
               ),
             ),
             const SizedBox(height: 16),
@@ -620,39 +751,77 @@ Step step3(){
                 ),
               ],
             ),
-            Container(
-              width: 320,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFDFDFD),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: const Color(0xFFBCBCBC))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(children: [
+              Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 15.0),
-                    child: Text(
-                      "اضافة..",
-                      style: TextStyle(
-                        color: Color(0xFFBBBBBB),
+                  SizedBox(
+                    width: 270,
+                    height: 50,
+                    child: TextField(
+                      controller: languageController,
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Color(0xFFBCBCBC)),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
                   ),
-                  IconButton(
+                  const SizedBox(width: 10,),
+                  Container(
+                    height: 40,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.add,color: backgroundColor,),
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AddCv(
-                                title: "اللغات",
-                                name: "اللغة",
-                              );
-                            });
+                        if (languageController.text.isNotEmpty) {
+                          setState(() {
+                            languages.add(languageController.text);
+                            languageController.clear();
+                          });
+                        }
                       },
-                      icon: const Icon(Icons.add,
-                          color: Color(0xFFBBBBBB))),
+                    ),
+                  ),
                 ],
+              ),
+
+            ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Wrap(
+                children: languages
+                    .map((skill) => Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Chip(
+                    backgroundColor: secondaryColor,
+                    deleteIcon: Icon(Icons.cancel,color: backgroundColor,),
+                    labelStyle: TextStyle(color: backgroundColor ),
+                    side: const BorderSide(color: Colors.transparent),
+                    label: Text(skill),
+                    onDeleted: () {
+                      setState(() {
+                        languages.remove(skill);
+                      });
+                    },
+                  ),
+                ))
+                    .toList(),
               ),
             ),
           ],
@@ -723,9 +892,10 @@ Step step4(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "النشاطات",
                                 name: "اسم النشاط",
+                                list:activates,
                               );
                             });
                       },
@@ -772,9 +942,10 @@ Step step4(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "الاعمال التطوعية",
                                 name: "اسم العمل",
+                                list:volunteerActivities
                               );
                             });
                       },
@@ -821,9 +992,10 @@ Step step4(){
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return const AddCv(
+                              return AddCv(
                                 title: "المشاريع",
                                 name: "اسم المشروع",
+                                list: projects,
                               );
                             });
                       },

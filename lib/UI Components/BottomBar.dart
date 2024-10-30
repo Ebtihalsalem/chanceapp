@@ -15,37 +15,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
    int _selectedIndex = 0;
-
-   // void _navigateToPage(int index) {
-   //   // بناء التوجيه استنادًا إلى الفهرس المختار
-   //   switch (index) {
-   //     case 0:
-   //       Navigator.pushReplacement(
-   //         context,
-   //         MaterialPageRoute(builder: (context) => const HomeScreen()),
-   //       );
-   //       break;
-   //     case 1:
-   //       Navigator.pushReplacement(
-   //         context,
-   //         MaterialPageRoute(builder: (context) => const SavedScreen()),
-   //       );
-   //       break;
-   //     case 2:
-   //       Navigator.pushReplacement(
-   //         context,
-   //         MaterialPageRoute(builder: (context) => const MyTraining()),
-   //       );
-   //       break;
-   //     case 3:
-   //       Navigator.pushReplacement(
-   //         context,
-   //         MaterialPageRoute(builder: (context) => const MyAccount()),
-   //       );
-   //       break;
-   //   }
-   // }
-
   @override
   Widget build(BuildContext context) {
      return Container(

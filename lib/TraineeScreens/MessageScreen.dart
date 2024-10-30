@@ -24,7 +24,7 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("الرسائل","lib/images/logo.png",context,false),
+        appBar: buildAppBar("الرسائل","lib/images/Asset 6.png",context,false),
         backgroundColor: primaryColor,
         body: SafeArea(
           child: Padding(

@@ -120,7 +120,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("الاكاديمية الليبية","lib/images/acadimic.jpg",context,false),
+      appBar: buildAppBar("الاكاديمية الليبية","lib/images/Asset 6.png",context,false),
       backgroundColor: const Color(0xffEFEFEF),
       body: SafeArea(
         child: Padding(

@@ -3,7 +3,7 @@ import 'UserInformation.dart';
 class User {
   final String email;
   final String name;
-  final UserInformation? userInformation; // يمكن أن يكون null
+  final UserInformation? userInformation;
 
   User({
     required this.email,
@@ -13,11 +13,11 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      email: json['email'] ?? '', // إذا كانت القيمة null سيتم وضع قيمة افتراضية
-      name: json['name'] ?? '', // استخدام قيمة افتراضية في حالة null
+      email: json['email'] ?? '',
+      name: json['name'] ?? '',
       userInformation: json['userInformation'] != null
           ? UserInformation.fromJson(json['userInformation'])
-          : null, // إذا كانت null، اجعلها null
+          : null,
     );
   }
 }
@@ -26,7 +26,7 @@ class User {
 //   final String? phoneNumber;
 //   final String? city;
 //   final String? address;
-//   final List<String>? personalSkills; // يمكن أن يكون null
+//   final List<String>? personalSkills;
 //
 //   UserInformation({
 //     this.phoneNumber,
@@ -37,12 +37,12 @@ class User {
 //
 //   factory UserInformation.fromJson(Map<String, dynamic> json) {
 //     return UserInformation(
-//       phoneNumber: json['phoneNumber'] ?? '', // قيمة افتراضية إذا كانت null
-//       city: json['city'] ?? '', // قيمة افتراضية إذا كانت null
-//       address: json['address'] ?? '', // قيمة افتراضية إذا كانت null
+//       phoneNumber: json['phoneNumber'] ?? '',
+//       city: json['city'] ?? '',
+//       address: json['address'] ?? '',
 //       personalSkills: json['personalSkills'] != null
 //           ? List<String>.from(json['personalSkills'])
-//           : [], // قائمة فارغة إذا كانت null
+//           : [],
 //     );
 //   }
 // }

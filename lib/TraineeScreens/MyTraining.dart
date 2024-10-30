@@ -37,7 +37,7 @@ class _MyTrainingState extends State<MyTraining> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("التدريبات","lib/images/logo.png",context,false),
+        appBar: buildAppBar("التدريبات","lib/images/Asset 6.png",context,false),
         backgroundColor: primaryColor,
         body: SafeArea(
           child: Padding(

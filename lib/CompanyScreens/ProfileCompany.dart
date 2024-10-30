@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:chanceapp/CompanyScreens/DoneScreen.dart';
+import 'package:chanceapp/Screens/Auth.dart';
 import 'package:chanceapp/UI%20Components/Button.dart';
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
@@ -9,13 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../Core/App_theme.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Snackbar.dart';
 
-const String apiUrl = 'http://192.168.1.8:8085/companies';
+String apiUrl = 'http://192.168.88.42:8085/companies/$emailGeneral';
 
 class ProfileCompany extends StatefulWidget {
-  const ProfileCompany({super.key});
+  const ProfileCompany(String urlPhoto,{super.key, required String email});
 
   @override
   State<ProfileCompany> createState() => _ProfileCompanyState();
@@ -23,7 +26,6 @@ class ProfileCompany extends StatefulWidget {
 
 class _ProfileCompanyState extends State<ProfileCompany> {
 
-  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -39,6 +41,23 @@ class _ProfileCompanyState extends State<ProfileCompany> {
   final TextEditingController foundedYearController = TextEditingController();
   final TextEditingController extendedDescriptionController = TextEditingController();
 
+  //
+  // bool isValid() =>
+  //     nameController.text.isNotEmpty &&
+  //         emailController.text.isNotEmpty &&
+  //         phoneNumberController.text.isNotEmpty &&
+  //         headquartersController.text.isNotEmpty &&
+  //         industryController.text.isNotEmpty &&
+  //         websiteController.text.isNotEmpty &&
+  //         sizeController.text.isNotEmpty &&
+  //         specializationsController.text.isNotEmpty &&
+  //         foundedYearController.text.isNotEmpty &&
+  //         locationController.text.isNotEmpty &&
+  //         descriptionController.text.isNotEmpty &&
+  //         extendedDescriptionController.text.isNotEmpty &&
+  //         typeCompanyController.text.isNotEmpty;
+  //
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,26 +72,21 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: 125,
-                          width: 125,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE7E7E7),
-                            borderRadius: BorderRadius.circular(80),
-                          ),
-                        ),
-                        Image.asset(
-                          "lib/images/ion_camera.png",
-                          height: 50,
-                          width: 50,
-                        )
+                    Container(
+                      height: 125,
+                      width: 125,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE7E7E7),
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.network(
+                        urlPhoto,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                       ],
                     ),
-                  ],
-                ),
                 const SizedBox(
                   height: 40,
                 ),
@@ -322,8 +336,9 @@ class _ProfileCompanyState extends State<ProfileCompany> {
                   ),
                 ),
                 onPressed:() async {
+                  // isValid()?
                  addCompany();
-
+                      // showSnackBar(context, "الرجاء تعبئة جميع الحقول");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -351,77 +366,51 @@ class _ProfileCompanyState extends State<ProfileCompany> {
       ),
     );
   }
+
   Future<void> addCompany() async {
-
-    final email = emailController.text.trim();
-    final name = nameController.text.trim();
-    final industry = industryController.text.trim();
-    final size = sizeController.text.trim();
-    final location = locationController.text.trim();
-    final description = descriptionController.text.trim();
-    final foundedYear = foundedYearController.text.trim();
-    final phoneNumber = phoneNumberController.text.trim();
-    final headquarters = headquartersController.text.trim();
-    final website = websiteController.text.trim();
-    final typeCompany = typeCompanyController.text.trim();
-    final specializations = specializationsController.text.trim();
-
-    if (email.isEmpty || name.isEmpty ||industry.isEmpty || size.isEmpty
-    || location.isEmpty || description.isEmpty || foundedYear.isEmpty || phoneNumber.isEmpty || headquarters.isEmpty
-    || specializations.isEmpty) {
-      showSnackBar(context,"يرجى تعبئة جميع الحقول");
-      return;
-    }
-
-      final companyData = {
-        "email": email,
-        "name": name,
-        "industry":industry,
-        "size": size,
-        "location": location,
-        "description": description,
-        "foundedYear": foundedYear,
-        "phoneNumber": phoneNumber,
-        "headquarters": headquarters,
-        "website" :website,
-        "typeCompany":typeCompany,
-        "specializations":specializations,
-        "trainings":[]
-      };
-
-      try {
-
-        final response = await http.post(
-          Uri.parse(apiUrl),
-          headers: {'Content-Type': 'application/json'},
-          body: json.encode(companyData),
-        );
-
-        if (response.statusCode == 201) {
-          print("تم اضافة الشركة بنجاح");
-          showSnackBar(context, "سيتم وضع البيانات في الملف الشخصي");
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   content: Text('تم إضافة الشركة بنجاح!'),
-          // ));
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (_)=>DoneScreen())
-          );
-        } else {
-          // التعامل مع الفشل
-          print("Failed : ${response.body}");
-          showSnackBar(context, "لم تتم الاضافة، حاول مرة اخرى!!",isError: true);
-          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   content: Text('فشل في إضافة الشركة.'),
-          // ));
-        }
-      } catch (e) {
-        print("Error: $e");
-        showSnackBar(context, "حدث خطأ أثناء إضافة الشركة.",isError: true);
-        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //   content: Text('حدث خطأ أثناء إضافة الشركة.'),
-        // ));
+    final companyData = {
+      "email": emailController.text.trim(),
+      "name": nameController.text.trim(),
+      "company": {
+        "industry": industryController.text.trim(),
+        "size": sizeController.text.trim(),
+        "location": locationController.text.trim(),
+        "description": descriptionController.text.trim(),
+        "foundedYear": foundedYearController.text.trim(),
+        "phoneNumber": phoneNumberController.text.trim(),
+        "headquarters": headquartersController.text.trim(),
+        "website": websiteController.text.trim(),
+        "typeCompany": typeCompanyController.text.trim(),
+        "specializations": specializationsController.text.trim(),
+        "trainings": []
       }
+    };
+
+
+    try {
+      showSnackBar(context, "جاري إضافة الشركة...");
+
+      final response = await http.put(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(companyData),
+      ).timeout(const Duration(seconds: 10));
+
+      if (response.statusCode == 200) {
+        print("تم اضافة الشركة بنجاح");
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => DoneScreen()));
+      } else {
+        print("فشل في الإضافة: ${response.body}");
+        showSnackBar(context, "لم تتم الإضافة، حاول مرة أخرى!", isError: true);
+      }
+    } on TimeoutException catch (_) {
+      showSnackBar(context, "انتهت مدة الاتصال، تأكد من الشبكة وحاول مرة أخرى", isError: true);
+    } catch (e) {
+      print("خطأ: $e");
+      showSnackBar(context, "حدث خطأ غير متوقع، حاول مرة أخرى", isError: true);
     }
+  }
+
 
 
 }

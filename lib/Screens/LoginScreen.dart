@@ -1,14 +1,19 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chanceapp/CompanyScreens/HomeScreen.dart';
+import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:chanceapp/TraineeScreens/StartedScreen.dart';
+import 'package:chanceapp/TraineeScreens/home.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../Core/App_theme.dart';
 import '../TraineeScreens/Intersets.dart';
+import '../TraineeScreens/ProfileTrainee.dart';
+import '../TraineeScreens/Steps.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/Snackbar.dart';
@@ -17,10 +22,12 @@ import '../UI Components/TextField.dart';
 import 'package:http/http.dart' as http;
 import 'Auth.dart';
 
-const String apiUrl = "http://192.168.1.4:8085/users/data_user";
-
+late String emailGeneral;
+String urlPhoto = "توجد صورة";
+late String name;
 class Loginscreen extends StatefulWidget {
-  const Loginscreen({super.key});
+  final bool isCompany;
+  const Loginscreen({super.key,required this.isCompany});
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
@@ -102,7 +109,9 @@ class _LoginscreenState extends State<Loginscreen> {
                       await handleLogin();
                       setState(() { isLoading = false; });
                   },
-                  child: Row(
+                  child: isLoading
+                      ? CircularProgressIndicator():
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
@@ -152,7 +161,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       children: [
                         IconButton(
                           onPressed: () async {
-                            await signInWithGoogle(context);
+                            await signInWithGoogle(context,widget.isCompany);
                           },
                           icon: Image.asset(
                             "lib/images/google1.png",
@@ -167,16 +176,7 @@ class _LoginscreenState extends State<Loginscreen> {
         ),
       ],
     );
-    //                 ),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    //
-    // );
+
   }
 
   Future<void> handleLogin() async {
@@ -191,39 +191,62 @@ class _LoginscreenState extends State<Loginscreen> {
 
     try {
       final userExists = await checkIfUserExists(email);
-
       print("Exists : $userExists");
       if (userExists) {
         print("المستخدم موجود، تسجيل الدخول");
 
-        final credential =
-            await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-        print("photo : ${credential.user?.photoURL}");
-        print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
-
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const TypeUser()),
-        );
-      } else {
-        print("المستخدم غير موجود");
-        showSnackBar(context, 'البريد الإلكتروني غير موجود');
         try {
           final credential =
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+          print("photo : ${credential.user?.photoURL}");
+          print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
+
+          emailGeneral = email;
+          urlPhoto = credential.user?.photoURL ?? "";
+          name = credential.user?.displayName ?? "";
+
+          widget.isCompany
+              ? Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => CHomeScreen()),
+          )
+              : Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeScreen()));
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'invalid-credential') {
+            showSnackBar(context, 'كلمة المرور غير صحيحة',isError: true);
+          } else {
+            print(" كود الخطأ $e.code");
+            showSnackBar(context, 'حدث خطأ أثناء تسجيل الدخول: ${e.message}',isError: true);
+          }
+        }
+      } else {
+        print("المستخدم غير موجود");
+        try {
+          final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: email,
             password: password,
           );
 
           print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
 
-          await sendUserData(email, credential.user?.displayName ?? '');
+          await sendUserData(email, credential.user?.displayName ?? "");
 
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const TypeUser()),
-          );
+          emailGeneral = email;
+          urlPhoto = credential.user?.photoURL ?? "";
+          name = credential.user?.displayName ?? "";
+
+          widget.isCompany
+              ? Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) =>
+                    ProfileCompany(urlPhoto, email: emailGeneral)),
+          )
+              : Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Steps()));
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
             showSnackBar(context, 'كلمة المرور ضعيفة.');
@@ -236,134 +259,91 @@ class _LoginscreenState extends State<Loginscreen> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        showSnackBar(context, 'الحساب غير موجود لهذا البريد الإلكتروني');
-      } else if (e.code == 'wrong-password') {
-        showSnackBar(context, 'كلمة المرور غير صحيحة');
+        showSnackBar(context, 'الحساب غير موجود لهذا البريد الإلكتروني',isError: true);
       }
     } catch (e) {
       print(e);
     }
   }
-}
 
+    Future<bool> checkIfUserExists(String email) async {
+    print("إرسال الطلب للتحقق من وجود المستخدم ");
 
-Future<bool> checkIfUserExists(String email) async {
-  print("إرسال الطلب للتحقق من وجود المستخدم");
-
-  try {
-    final response = await http.post(
-      Uri.parse("http://192.168.1.15:8085/users/check_user"),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'email': email}),
-    );
-
-    print("Response status: ${response.statusCode}");
-    print("Response body: ${response.body}");
-
-    if (response.statusCode == 200) {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      print("المستخدم موجود ");
       return true;
-    } else {
-      print("خطأ في فحص المستخدم: ${response.body}");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print("المستخدم غير موجود");
+        return false;
+      } else {
+        print("خطأ غير متوقع: ${e.message}");
+        return false;
+      }
+    } catch (e) {
+      print("خطأ في فحص البريد الإلكتروني: $e");
       return false;
     }
-  } catch (e) {
-    print("خطأ في فحص البريد الإلكتروني: $e");
-    return false;
   }
-}
-
-Future<void> sendUserData(String email, String name) async {
-  final userData = {
-    'email': email,
-    'name': name,
-  };
-  print("Email: $email, name:$name");
-
-  try {
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode(userData),
-    );
-
-    if (response.statusCode == 201) {
-      print("تم إرسال بيانات المستخدم بنجاح");
-    } else {
-      print("فشل إرسال بيانات المستخدم: ${response.body}");
-    }
-  } catch (e) {
-    print("خطأ في إرسال البيانات: $e");
-  }
-
-  // Future<void> handleLogin() async {
-  //   final email = emailController.text.trim();
-  //   final password = passwordController.text.trim();
   //
-  //   if (email.isEmpty || password.isEmpty) {
-  //     showSnackBar(context, 'يرجى إدخال اسم المستخدم وكلمة المرور');
-  //     return;
-  //   }
+  // Future<bool> checkIfUserExists(String email) async {
+  //   print("إرسال الطلب للتحقق من وجود المستخدم");
   //
-  //   // تحقق من وجود المستخدم في MongoDB
-  //   final response = await http.post(
-  //     Uri.parse('https://your-api-url.com/checkUser'), // استبدل بالـ API الخاصة بك
-  //     body: jsonEncode({
-  //       'email': email,
-  //     }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   );
+  //   try {
+  //     final response = await http.post(
+  //       widget.isCompany?
+  //       Uri.parse("http://192.168.1.4:8085/companies/check_user")
+  //       : Uri.parse("http://192.168.1.4:8085/users/check_user"),
   //
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: json.encode({'email': email}),
+  //     );
   //
-  //     if (data['exists'] == true) {
-  //       // المستخدم موجود، قم بتسجيل الدخول
-  //       try {
-  //         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //           email: email,
-  //           password: password,
-  //         );
+  //     print("Response status: ${response.statusCode}");
+  //     print("Response body: ${response.body}");
   //
-  //         print("تم تسجيل الدخول بنجاح: ${credential.user?.email}");
-  //         Navigator.of(context).pushReplacement(
-  //           MaterialPageRoute(builder: (context) => const TypeUser()),
-  //         );
-  //       } on FirebaseAuthException catch (e) {
-  //         if (e.code == 'wrong-password') {
-  //           showSnackBar(context, 'كلمة المرور المدخلة غير صحيحة.');
-  //         } else {
-  //           print(e);
-  //         }
-  //       }
+  //     if (response.statusCode == 200) {
+  //       return true;
   //     } else {
-  //       // المستخدم غير موجود، قم بإنشاء حساب جديد
-  //       try {
-  //         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //           email: email,
-  //           password: password,
-  //         );
-  //
-  //         print("تم إنشاء الحساب بنجاح: ${credential.user?.email}");
-  //         Navigator.of(context).pushReplacement(
-  //           MaterialPageRoute(builder: (context) => const TypeUser()),
-  //         );
-  //       } on FirebaseAuthException catch (e) {
-  //         if (e.code == 'weak-password') {
-  //           showSnackBar(context, 'The password provided is too weak.');
-  //         } else if (e.code == 'email-already-in-use') {
-  //           showSnackBar(context, 'The account already exists for that email.');
-  //         }
-  //       } catch (e) {
-  //         print(e);
-  //       }
+  //       print("خطأ في فحص المستخدم: ${response.body}");
+  //       return false;
   //     }
-  //   } else {
-  //     showSnackBar(context, 'حدث خطأ أثناء التحقق من البريد الإلكتروني.');
+  //   } catch (e) {
+  //     print("خطأ في فحص البريد الإلكتروني: $e");
+  //     return false;
   //   }
   // }
+
+  Future<void> sendUserData(String email, String name) async {
+    final userData = {
+      'email': email,
+      'name': name,
+    };
+    print("Email: $email, name:$name");
+
+    try {
+
+      final response = await http.post(
+        widget.isCompany?
+        Uri.parse("http://192.168.88.42:8085/companies/data_user"):
+        Uri.parse("http://192.168.88.42:8085/users/data_user"),
+
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(userData),
+      );
+
+      if (response.statusCode == 201) {
+        print("تم إرسال بيانات المستخدم بنجاح");
+      } else {
+        print("فشل إرسال بيانات المستخدم: ${response.body}");
+      }
+    } catch (e) {
+      print("خطأ في إرسال البيانات: $e");
+    }
+
+  }
+
 }

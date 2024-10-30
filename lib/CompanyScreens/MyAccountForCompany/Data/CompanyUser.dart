@@ -9,7 +9,7 @@ class CompanyUser {
 
   factory CompanyUser.fromJson(Map<String, dynamic> json) {
     return CompanyUser(
-      email: json['_id'],
+      email: json['email'],
       name: json['name'],
       company: Company.fromJson(json['company']),
     );
@@ -25,6 +25,8 @@ class Company {
   final String description;
   final String website;
   final String typeCompany;
+  final String phoneNumber;
+  final String headquarters;
   final List<Training> trainings;
 
   Company({
@@ -36,6 +38,8 @@ class Company {
     required this.description,
     required this.website,
     required this.typeCompany,
+    required this.phoneNumber,
+    required this.headquarters,
     required this.trainings,
   });
 
@@ -49,6 +53,8 @@ class Company {
       description: json['description'],
       website: json['website'],
       typeCompany: json['typeCompany'],
+      phoneNumber: json['phoneNumber'],
+      headquarters: json['headquarters'],
       trainings: (json['trainings'] as List)
           .map((item) => Training.fromJson(item))
           .toList(),

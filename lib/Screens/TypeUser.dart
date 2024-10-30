@@ -8,6 +8,7 @@ import '../Core/App_theme.dart';
 import '../TraineeScreens/StartedScreen.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
+import 'Auth.dart';
 import 'Sheet.dart';
 import 'Who.dart';
 
@@ -35,7 +36,6 @@ class _TypeUserState extends State<TypeUser> {
     "تحصل على المواهب\nالشابة",
     "استكشف كل جديد !!"
   ];
-
 
 
   int _selectedScreen = 0;
@@ -122,7 +122,7 @@ class _TypeUserState extends State<TypeUser> {
                   height: 6,
                   width: _selectedScreen == index ? 16:6,
                   decoration: BoxDecoration(
-                    color: _selectedScreen == index ? primaryColor:primaryColor.withOpacity(0.9),
+                    color: _selectedScreen == index ? backgroundColor:backgroundColor.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 );
@@ -130,7 +130,7 @@ class _TypeUserState extends State<TypeUser> {
             ),
           ),
 
-          Sheet(child:SizedBox(height: 100,),screen: Who(),max: 0.3,init: 0.3,)
+          Sheet(child:SizedBox(height: 100,),screen: Who(),max: 0.3,init: 0.05,)
         ],
       ),
     );

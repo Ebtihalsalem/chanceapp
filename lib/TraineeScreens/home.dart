@@ -5,6 +5,8 @@ import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import '../../UI Components/BottomBar.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Cards.dart';
@@ -26,7 +28,8 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
+        // appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
+      appBar: buildAppBar("مرحبًا، $name!","lib/images/Asset 6.png",context,true),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),

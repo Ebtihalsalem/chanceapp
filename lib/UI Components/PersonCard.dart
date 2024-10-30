@@ -19,7 +19,7 @@ Widget personCard(BuildContext context,Widget targetScreen,String img,
    String name,String? train) {
   return InkWell(
     onTap:(){
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => targetScreen)
       );
     },

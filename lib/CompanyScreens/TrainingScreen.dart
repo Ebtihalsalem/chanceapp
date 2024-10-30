@@ -30,7 +30,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   Future<List<Training>> fetchTrainings(String email) async {
     final response = await http
-        .get(Uri.parse('http://192.168.1.4:8085/trainings/company/$email'));
+        .get(Uri.parse('http://192.168.88.42:8085/trainings/company/$email'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -88,7 +88,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("التدريبات", "lib/images/logo.png", context, false),
+      appBar: buildAppBar("التدريبات", "lib/images/Asset 6.png", context, false),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 40.0),

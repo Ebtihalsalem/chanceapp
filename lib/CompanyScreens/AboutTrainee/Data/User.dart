@@ -21,20 +21,23 @@ class User {
 }
 
 class UserInformation {
-  final String name;
-  final String phoneNumber;
-  final String birthDate;
-  final String city;
-  final String address;
+  late final String name;
+  late final String phoneNumber;
+  late final String urlPhoto;
+  late final String birthDate;
+  late final String city;
+  late final String address;
   final List<String> personalSkills;
-  final List<WorkExperience> workExperience;
-  final List<Education> education;
+  final List<Education> workExperience;
+  late final List<Education> education;
   final List<String> computerSkills;
 
   UserInformation({
     required this.name,
+
     required this.phoneNumber,
     required this.birthDate,
+    required this.urlPhoto,
     required this.city,
     required this.address,
     required this.personalSkills,
@@ -47,13 +50,14 @@ class UserInformation {
     return UserInformation(
       name:json["name"] ?? "Marwa",
       phoneNumber: json['phoneNumber'],
+      urlPhoto: json['urlPhoto'],
       birthDate: json['birthDate'],
       city: json['city'],
       address: json['address'],
       personalSkills: List<String>.from(json['personalSkills']),
       computerSkills: List<String>.from(json['computerSkills']),
       workExperience: (json['workExperience'] as List<dynamic>)
-          .map((item) => WorkExperience.fromJson(item as Map<String, dynamic>))
+          .map((item) => Education.fromJson(item as Map<String, dynamic>))
           .toList(),
       education: (json['education'] as List<dynamic>)
           .map((item) => Education.fromJson(item as Map<String, dynamic>))

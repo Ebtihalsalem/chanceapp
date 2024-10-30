@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
+import 'package:chanceapp/Screens/Auth.dart';
 import 'package:chanceapp/UI%20Components/PersonCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/CardDetails.dart';
@@ -48,7 +50,7 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
-                child: personCard(context, TraineeProfile(),
+                child: personCard(context, TraineeProfile(email:emailGeneral),
                     "lib/images/portrait-smiling-woman.jpg","ســارة أحمد",null),
               );
             },
@@ -73,7 +75,7 @@ class _TrainingDetailsCompanyState extends State<TrainingDetailsCompany> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("التدريب","lib/images/logo.png",context,false),
+        appBar: buildAppBar("التدريب","lib/images/Asset 6.png",context,false),
         backgroundColor: const Color(0xffEFEFEF),
         body: SafeArea(
           child: Padding(

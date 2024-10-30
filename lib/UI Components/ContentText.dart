@@ -5,7 +5,8 @@ import '../CompanyScreens/AboutTrainee/Data/WorkExperience.dart';
 import '../Core/App_theme.dart';
 import 'BuildText.dart';
 
-Widget contentText(String title1,String title2,String title3,String? date,String maintitle, bool edit) {
+Widget contentText(String title1,String title2,String title3,
+    String? date,String maintitle, bool edit) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -14,7 +15,7 @@ Widget contentText(String title1,String title2,String title3,String? date,String
         children: [
           buildTextTitle(maintitle, 16, FontWeight.bold),
           edit
-              ? Icon(EvaIcons.editOutline, color: secondaryColor, size: 20)
+              ? Icon(EvaIcons.editOutline, color: primaryColor, size: 20)
               : Icon(null),
         ],
       ),

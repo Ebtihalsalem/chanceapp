@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 import '../Core/App_theme.dart';
+import '../Screens/Auth.dart';
 import '../Screens/LoginScreen.dart';
 import '../Screens/Sheet.dart';
 import '../UI Components/BackgroundImg.dart';
@@ -12,7 +13,7 @@ import 'CardIntersets.dart';
 import 'Steps.dart';
 
 class IntersetsScreen extends StatefulWidget {
-  const IntersetsScreen({super.key});
+  const IntersetsScreen(String urlPhoto, {super.key, required email});
 
   @override
   State<IntersetsScreen> createState() => _IntersetsScreenState();
@@ -99,7 +100,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
                   right: 18,
                   child: IconButton(
                     icon: Icon(Icons.arrow_back_ios_new,
-                        color: primaryColor, size: 20),
+                        color: backgroundColor, size: 20),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -141,7 +142,7 @@ class _IntersetsScreenState extends State<IntersetsScreen> {
             child: SizedBox(
               height: 100,
             ),
-            screen: CardIntersets(),
+            screen: CardIntersets(email:emailGeneral,urlPhoto),
             max: 0.90,
             init: 0.90,
           ),

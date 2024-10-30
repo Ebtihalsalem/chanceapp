@@ -1,3 +1,4 @@
+import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,7 +54,7 @@ Widget buildSettings(BuildContext context) {
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_)=>Loginscreen())
+                    MaterialPageRoute(builder: (_)=>TypeUser())
                 );
               },
               child: Container(

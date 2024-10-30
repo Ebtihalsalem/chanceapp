@@ -18,7 +18,7 @@ AppBar centerAppBar(BuildContext context,String title)
             Navigator.of(context).pop();
           },),
         Image.asset(
-          "lib/images/logo.png",
+          "lib/images/Asset 6.png",
           height: 20,
           width: 20,
         ),

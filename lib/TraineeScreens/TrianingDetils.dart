@@ -24,14 +24,12 @@ class TrianingDetils extends StatefulWidget {
 
 class _TrianingDetilsState extends State<TrianingDetils> {
 
-  final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("التدريب", "lib/images/logo.png", context, false),
+      appBar: buildAppBar("التدريب", "lib/images/Asset 6.png", context, false),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
@@ -47,10 +45,6 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                     "مهندس اتصالات",
                     "الاكاديمية الليبية "),
               ),
-              // information(
-              //       "شهرين",
-              //       "20",
-              //       "يوجد"),
 
               const SizedBox(height: 15,),
               Row(

@@ -15,7 +15,7 @@ Widget contentTextGeneral(String email,String phone,String location,String birth
         children: [
           buildTextTitle(maintitle, 16, FontWeight.bold),
           edit?
-          Icon(EvaIcons.editOutline, color: secondaryColor, size: 20): Icon(null),
+          Icon(EvaIcons.editOutline, color: primaryColor, size: 20): Icon(null),
         ],
       ),
       const SizedBox(height: 18.0),

@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../TraineeScreens/AboutCompany.dart';
 import '../TraineeScreens/AvailableTrainings.dart';
 import '../UI Components/BuildText.dart';
@@ -35,7 +37,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
   @override
   void initState() {
     super.initState();
-    getCompanyInfo('company@example.com').then((getCompanyInfo) {
+    getCompanyInfo(emailGeneral).then((getCompanyInfo) {
       setState(() {
         userCompany = getCompanyInfo;
       });
@@ -58,7 +60,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
   }
 
   Future<List<Training>> fetchTrainings(String email) async {
-    final response = await http.get(Uri.parse('http://192.168.1.18:8085/trainings/company/$email'));
+    final response = await http.get(Uri.parse('http://192.168.88.42:8085/trainings/company/$email'));
 
     if (response.statusCode == 200) {
 
@@ -71,7 +73,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
 
 
   Future<CompanyUser?> getCompanyInfo(String email) async {
-    final response = await http.get(Uri.parse('http://192.168.1.18:8085/companies/$email'));
+    final response = await http.get(Uri.parse('http://192.168.88.42:8085/companies/$email'));
 
     if (response.statusCode == 200) {
       return CompanyUser.fromJson(jsonDecode(response.body));
@@ -187,7 +189,19 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                   ),
                   Positioned(
                     top: -70,
-                    child: circleImg("lib/images/acadimic.jpg"),
+                    child: Container(
+                      height: 125,
+                      width: 125,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE7E7E7),
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.network(
+                        urlPhoto,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ],
               ),

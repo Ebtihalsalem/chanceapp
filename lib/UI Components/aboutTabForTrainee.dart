@@ -69,9 +69,9 @@ Widget aboutTabForTrainee(bool edit, User user) {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: contentTextGeneral(
               user.email,
-              user.userInformation!.phoneNumber,
-              user.userInformation!.city,
-              user.userInformation!.birthDate,
+              user.userInformation?.phoneNumber??"",
+              user.userInformation?.city??"",
+              user.userInformation?.birthDate??"",
               "التفاصيل العامة",
               edit),
         ),
@@ -84,7 +84,7 @@ Widget aboutTabForTrainee(bool edit, User user) {
               borderRadius: BorderRadius.circular(20), color: whiteApp),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: boxesSkills(
-              user.userInformation!.personalSkills, "المهارات الشخصية", edit),
+              user.userInformation?.personalSkills??[], "المهارات الشخصية", edit),
         ),
         const SizedBox(
           height: 20,
@@ -101,8 +101,8 @@ Widget aboutTabForTrainee(bool edit, User user) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ...?user.userInformation?.workExperience.map((data) {
-                return contentText(data.jobTitle, data.company, data.startDate,data.endDate,
-                    "الخبرة", edit);
+                return contentText(data.degreeName, data.institution, data.obtainedDate,
+                    null,"الخبرة", edit);
               }),
             ],
           ),

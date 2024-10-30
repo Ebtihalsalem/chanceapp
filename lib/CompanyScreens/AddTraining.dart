@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../Core/App_theme.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 
 class AddTraining extends StatefulWidget {
@@ -18,10 +20,8 @@ class AddTraining extends StatefulWidget {
 class _AddTrainingState extends State<AddTraining> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController typeController = TextEditingController();
   final TextEditingController startDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
-  final TextEditingController positionController = TextEditingController();
   final TextEditingController skillController = TextEditingController();
   final TextEditingController numberOfPositionsController =
       TextEditingController();
@@ -31,14 +31,12 @@ class _AddTrainingState extends State<AddTraining> {
   Future<void> addTraining(
       String title,
       String description,
-      String type,
       String startDate,
       String endDate,
-      String position,
       List<String> requiredSkills,
       int numberOfPositions,
       String city) async {
-    final url = Uri.parse('http://192.168.1.5:8085/trainings/Addtraining');
+    final url = Uri.parse('http://192.168.88.42:8085/trainings/Addtraining');
 
     final response = await http.post(
       url,
@@ -46,13 +44,12 @@ class _AddTrainingState extends State<AddTraining> {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
+        '_id':5,
         'title': title,
         'description': description,
-        'type': type,
-        'companyEmail': "company@example.com",
+        'companyEmail': emailGeneral,
         'startDate': startDate,
         'endDate': endDate,
-        'position': position,
         'requiredSkills': requiredSkills,
         'numberOfPositions': numberOfPositions,
         'city': city,
@@ -60,10 +57,9 @@ class _AddTrainingState extends State<AddTraining> {
     );
 
     if (response.statusCode == 201) {
-      // النجاح
       print('Training added successfully');
     } else {
-      // الفشل
+
       print('Failed to add training: ${response.body}');
     }
   }
@@ -102,7 +98,7 @@ class _AddTrainingState extends State<AddTraining> {
                           width: 320,
                           height: 50,
                           child: TextField(
-                            controller: positionController,
+                            controller: titleController,
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             decoration: InputDecoration(
@@ -328,7 +324,7 @@ class _AddTrainingState extends State<AddTraining> {
                           width: 320,
                           height: 50,
                           child: TextField(
-                            controller: cityController,
+                            controller: descriptionController,
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.right,
                             decoration: InputDecoration(
@@ -462,18 +458,17 @@ class _AddTrainingState extends State<AddTraining> {
                                   color: primaryColor,
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextButton(
-                                onPressed: () {
-                                  addTraining(
+                                onPressed: () async {
+                                  await addTraining(
                                     titleController.text,
                                     descriptionController.text,
-                                    typeController.text,
                                     startDateController.text,
                                     endDateController.text,
-                                    positionController.text,
                                     requiredSkills,
                                     int.parse(numberOfPositionsController.text),
                                     cityController.text,
                                   );
+                                  Navigator.of(context).pop();
                                 },
                                 child: buildText(
                                     "اضافة", 15, FontWeight.bold, Colors.white),

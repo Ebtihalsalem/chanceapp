@@ -15,7 +15,8 @@ import '../UI Components/Button.dart';
 import 'Sheet.dart';
 
 class IntroScreen extends StatefulWidget {
-  const IntroScreen({super.key});
+  bool isCompany;
+   IntroScreen({super.key, required this.isCompany});
 
   @override
   State<IntroScreen> createState() => _IntroScreenState();
@@ -130,7 +131,7 @@ void dispose() {
               }).toList(),
             ),
           ),
-       Sheet(child:SizedBox(height: 100,),screen: Loginscreen(),max: 0.6,init: 0.05,),
+       Sheet(child:SizedBox(height: 100,),screen: Loginscreen(isCompany:widget.isCompany),max: 0.6,init: 0.6,),
         ],
       ),
     );

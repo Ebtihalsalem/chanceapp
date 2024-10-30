@@ -1,3 +1,4 @@
+import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:chanceapp/Screens/TypeUser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +28,7 @@ class _SplashState extends State<Splash> {
 
   @override
   void dispose() {
+    super.dispose();
     SystemChrome.setEnabledSystemUIMode(
         SystemUiMode.manual, overlays: SystemUiOverlay.values);
   }

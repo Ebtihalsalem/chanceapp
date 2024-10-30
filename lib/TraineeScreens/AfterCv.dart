@@ -38,7 +38,7 @@ class _AfterCvState extends State<AfterCv> {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF59039),
+                    backgroundColor: primaryColor,
                   ),
                   onPressed: () {},
                   child: buildText(
@@ -55,7 +55,7 @@ class _AfterCvState extends State<AfterCv> {
               decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: const Color(0xFFF59039))),
+                  border: Border.all(color: primaryColor)),
               child: TextButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
@@ -64,7 +64,7 @@ class _AfterCvState extends State<AfterCv> {
                 },
                 child: buildText(
                   "تخطي", 16,FontWeight.bold,
-                    secondaryColor,
+                    primaryColor,
                 ),
               ),
             ),

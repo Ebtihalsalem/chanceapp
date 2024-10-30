@@ -1,3 +1,6 @@
+import 'package:chanceapp/CompanyScreens/ProfileCompany.dart';
+import 'package:chanceapp/Screens/IntroScreen.dart';
+import 'package:chanceapp/Screens/LoginScreen.dart';
 import 'package:chanceapp/Screens/yourPlan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,7 @@ import '../Core/App_theme.dart';
 import '../TraineeScreens/Intersets.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';
+import 'Auth.dart';
 
 class Who extends StatefulWidget {
   const Who({super.key});
@@ -41,7 +45,7 @@ class _WhoState extends State<Who> {
             width: 300,
             height: 50,
             child: button(
-                "باحث عن خبرة", context, const IntersetsScreen(), null, null),
+                "باحث عن خبرة", context, IntroScreen(isCompany:false), null, null),
           ),
         ),
         const SizedBox(height: 20),
@@ -54,8 +58,8 @@ class _WhoState extends State<Who> {
               border: Border.all(color: primaryColor)),
           child: TextButton(
             onPressed: () {
-              // Navigator.of(context).pushReplacement(
-              //     MaterialPageRoute(builder: (_) => const YourPlan()));
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => IntroScreen(isCompany:true)));
             },
             child: buildText(
               "شركة",

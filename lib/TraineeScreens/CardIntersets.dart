@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Core/App_theme.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/BuildText.dart';
 import 'Steps.dart';
 
 class CardIntersets extends StatefulWidget {
-  const CardIntersets({super.key});
+  const CardIntersets(String urlPhoto, {super.key, required email});
 
   @override
   State<CardIntersets> createState() => _CardIntersetsState();
@@ -63,44 +65,36 @@ class _CardIntersetsState extends State<CardIntersets> {
             buildTextTitle("أختر من 3-5 مجالات مهتم للتدريب فيها", 18, FontWeight.normal),
             const SizedBox(height: 8),
             SizedBox(
-              height: 640, // تحديد ارتفاع معين للـ GridView
+              height: 640,
               child: _buildInterestsGrid(),
             ),
           ],
         ),
         Positioned(
           bottom: 36,
-          left: 0,
           right: 0,
+          left: 0,
           child: Center(
             // Center the button
             child: Visibility(
               visible: selectedCards.length >= 3,
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const Steps()),
+                  MaterialPageRoute(builder: (context) => Steps()),
                 ),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(const Color(0xFFF59039)),
+                  backgroundColor: WidgetStateProperty.all(primaryColor),
                   padding: WidgetStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
                     SizedBox(width: 10),
                     Expanded(
-                      // يسمح للنص بأن يأخذ المساحة المتبقية
-                      child: Text(
-                        "الــتـــالـي",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Tajawal",
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: buildText("الــتـــالـي", 20, FontWeight.bold,backgroundColor)
+
                     ),
+
                     Icon(Icons.navigate_next, color: Colors.white),
                   ],
                 ),
@@ -122,7 +116,7 @@ class _CardIntersetsState extends State<CardIntersets> {
       ),
       itemCount: titlesCard.length,
       itemBuilder: (context, index) {
-        // return _buildInterestCard(index, icons[index], titles[index]);
+
         return _buildInterestCard(index, images[index], titlesCard[index]);
       },
     );
@@ -150,7 +144,7 @@ class _CardIntersetsState extends State<CardIntersets> {
         child: Card(
           shape: RoundedRectangleBorder(
             side: BorderSide(
-              color: isSelected ? Colors.orange : Colors.transparent,
+              color: isSelected ? primaryColor : Colors.transparent,
               width: 2.0,
             ),
             borderRadius: BorderRadius.circular(15),
@@ -165,7 +159,7 @@ class _CardIntersetsState extends State<CardIntersets> {
                     height: 45,
                     width: 45,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE2E2E2),
+                      color: const Color(0xFFE7E7E7),
                       borderRadius: BorderRadius.circular(80),
                     ),
                   ),
@@ -173,11 +167,11 @@ class _CardIntersetsState extends State<CardIntersets> {
                     imagePath,
                     width: 25,
                     height: 25,
-                    color: isSelected ? Colors.orange : Colors.grey,
+                    color: isSelected ? primaryColor : Colors.grey,
                   ),
                 ]),
                 const SizedBox(height: 16),
-                buildText(title, 15, FontWeight.normal,isSelected ? Colors.orange : Colors.grey,),
+                buildText(title, 15, FontWeight.normal,isSelected ? primaryColor : Colors.grey,),
               ],
             ),
           ),
@@ -195,9 +189,9 @@ class _CardIntersetsState extends State<CardIntersets> {
           content: buildTextTitle('لا يمكنك اختيار أكثر من 5 مجالات.',15,FontWeight.normal),
           actions: [
             TextButton(
-              child: buildText('حسنًا',15,FontWeight.bold,const Color(0xFFF59039)),
+              child: buildText('حسنًا',16,FontWeight.bold,primaryColor),
               onPressed: () {
-                Navigator.of(context).pop(); // إغلاق الـ Dialog
+                Navigator.of(context).pop();
               },
             ),
           ],

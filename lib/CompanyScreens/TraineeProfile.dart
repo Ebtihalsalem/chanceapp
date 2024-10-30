@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:chanceapp/Screens/Auth.dart';
 import 'package:chanceapp/UI%20Components/BackgroundImg.dart';
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:chanceapp/UI%20Components/CircleImg.dart';
@@ -18,7 +19,9 @@ import '../UI Components/aboutTabForTrainee.dart';
 import 'AboutTrainee/Data/User.dart';
 
 class TraineeProfile extends StatefulWidget {
-  const TraineeProfile({super.key});
+
+  String email;
+  TraineeProfile({super.key,required this.email});
 
   @override
   State<TraineeProfile> createState() => _TraineeProfileState();
@@ -40,7 +43,7 @@ class _TraineeProfileState extends State<TraineeProfile> {
   void initState() {
     super.initState();
 
-    fetchUserData('exampl3e@example.com').then((fetchedUser) {
+    fetchUserData(widget.email).then((fetchedUser) {
       setState(() {
         user = fetchedUser;
       });
@@ -49,7 +52,7 @@ class _TraineeProfileState extends State<TraineeProfile> {
 
   Widget screensTabs() {
     if (user == null) {
-      return CircularProgressIndicator(); // عرض مؤشر تحميل إذا لم يتم جلب البيانات بعد
+      return CircularProgressIndicator();
     }
 
     switch(_currentTab){
@@ -62,9 +65,8 @@ class _TraineeProfileState extends State<TraineeProfile> {
     }
   }
 
-
   Future<User?> fetchUserData(String email) async {
-    final url = Uri.parse('http://192.168.1.18:8085/users/$email');
+    final url = Uri.parse('http://192.168.88.42:8085/users/$email');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -108,7 +110,7 @@ class _TraineeProfileState extends State<TraineeProfile> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 18.0),
                               child: buildTextTitle(
-                                  "${user?.userInformation!.name}",
+                                  user?.userInformation!.name?? "غير معرف",
                                   16,
                                   FontWeight.bold),
                             ),
