@@ -104,26 +104,20 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../UI Components/BottomBar.dart';
+import '../CompanyScreens/jsontraining.dart';
 import '../Core/App_theme.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/Button.dart';
 import '../UI Components/CardDetails.dart';
 
-class TrianingDetils extends StatefulWidget {
-  const TrianingDetils({super.key});
+class TrianingDetils extends StatelessWidget {
+  final Training training; // Accepting a Training object
 
-  @override
-  State<TrianingDetils> createState() => _TrianingDetilsState();
-}
-
-class _TrianingDetilsState extends State<TrianingDetils> {
-  // Replace this with your actual logic to determine if the user is a company or a trainee
-  // Set to true if the user is a company
+  const TrianingDetils({super.key, required this.training}); // Modified constructor
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: buildAppBar("التدريب", "lib/images/logo.png", context, false),
       backgroundColor: const Color(0xffEFEFEF),
       body: SafeArea(
@@ -139,10 +133,10 @@ class _TrianingDetilsState extends State<TrianingDetils> {
                   context,
                   secondaryColor,
                   primaryColor,
-                  "lib/images/acadimic.jpg",
+                  training.companyLogo ?? '', // استخدام القيمة الافتراضية إذا كانت فارغة
                   secondaryColor,
-                  "مهندس اتصالات",
-                  "الاكاديمية الليبية ",
+                  training.trainingPosition ?? '', // استخدام القيمة الافتراضية إذا كانت فارغة
+                  training.city??'',
                 ),
               ),
               Padding(
@@ -188,7 +182,7 @@ class _TrianingDetilsState extends State<TrianingDetils> {
         padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: BottomBar(), // Pass the isCompany parameter here
+          child: BottomBar(),
         ),
       ),
     );

@@ -140,7 +140,7 @@ import '../UI Components/aboutTabForTrainee.dart';
 import 'training_provider.dart';
 
 class TrainingDetailsCompany extends StatefulWidget {
-  const TrainingDetailsCompany({super.key});
+  const TrainingDetailsCompany({super.key, int? id});
 
   @override
   State<TrainingDetailsCompany> createState() => _TrainingDetailsCompanyState();

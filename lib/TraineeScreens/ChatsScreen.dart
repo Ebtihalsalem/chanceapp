@@ -1,150 +1,5 @@
-// import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
-// import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
-// import 'package:flutter/material.dart';
-// import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-//
-// import '../../UI Components/BottomBar.dart';
-// import '../Core/App_theme.dart';
-// import '../UI Components/AppBar.dart';
-// import '../UI Components/BuildText.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-//
-// class ChatsScreen extends StatefulWidget {
-//   const ChatsScreen({super.key});
-//
-//   @override
-//   State<ChatsScreen> createState() => _ChatsScreenState();
-// }
-//
-// class _ChatsScreenState extends State<ChatsScreen> {
-//   late TextEditingController value = TextEditingController();
-//
-//   List<String> chats = ["hi", "welcome"];
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         resizeToAvoidBottomInset: false,
-//         appBar: buildAppBar("الاكاديمية الليبية","lib/images/acadimic.jpg"),
-//         backgroundColor: const Color(0xffEFEFEF),
-//         body: SafeArea(
-//           child: Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-//             child:
-//                 Column(crossAxisAlignment: CrossAxisAlignment.center,
-//                     children: [
-//               Container(
-//                 height: 25,
-//                 width: 70,
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(20), color: Colors.white),
-//                 child: Center(
-//                     child: Padding(
-//                       padding: const EdgeInsets.only(top:4.0),
-//                       child: buildTextTitle("Today", 8, FontWeight.bold),
-//                     )),
-//               ),
-//               const SizedBox(height: 22),
-//               Expanded(
-//                 child: SizedBox(
-//                   height: 500,
-//                   child: Column(
-//                     children: [
-//                       Expanded(
-//                         child: ListView.builder(
-//                           scrollDirection: Axis.vertical,
-//                           itemCount: chats.length,
-//                           itemBuilder: (context, index) {
-//                             return Padding(
-//                               padding: const EdgeInsets.only(bottom: 8),
-//                               child: BubbleSpecialThree(
-//                                 text: chats[index],
-//                                 color: const Color(0xFFF59039),
-//                                 tail: true,
-//                                 textStyle: const TextStyle(
-//                                     color: Colors.white, fontSize: 16),
-//                               ),
-//                             );
-//                           },
-//                         ),
-//                       ),
-//                       Container(
-//                         height: 90,
-//                         padding: const EdgeInsets.symmetric(horizontal: 8),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                           children: [
-//                             // textFieldWithoutIcon("", 45, 280),
-//                               Theme(
-//                                   data: ThemeData(
-//                                     colorScheme: const ColorScheme.light(
-//                                       primary: Color(0xFFF59039),
-//                                     ),
-//                                   ),
-//                                   child: SizedBox(
-//                                     width: 280,
-//                                     height: 45,
-//                                     child: TextField(
-//                                       controller: value,
-//                                       textDirection: TextDirection.rtl,
-//                                       textAlign: TextAlign.right,
-//                                       decoration: InputDecoration(
-//                                         filled: true,
-//                                         fillColor: const Color(0xFFF3F3F3),
-//                                         border: OutlineInputBorder(
-//                                           borderSide: const BorderSide(color: Color(0xFFBCBCBC)),
-//                                           borderRadius: BorderRadius.circular(30),
-//                                         ),
-//                                         enabledBorder: OutlineInputBorder(
-//                                           borderSide: const BorderSide(color: Color(0xFFBCBCBC)),
-//                                           borderRadius: BorderRadius.circular(30),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                   ),
-//                             Container(
-//                                 height: 40,
-//                                 width: 60,
-//                                 decoration: BoxDecoration(
-//                                     color: secondaryColor,
-//                                     borderRadius: BorderRadius.circular(20)),
-//                                 child: IconButton(
-//                                     onPressed: () {
-//                                       setState(() {
-//                                         chats.add(value.text);
-//                                         value.text = "";
-//                                       });
-//                                     },
-//                                     icon: const Icon(
-//                                       EvaIcons.paperPlane,
-//                                       color: Colors.white,
-//                                     )))
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ]),
-//           ),
-//         ),
-//         bottomNavigationBar: const Padding(
-//           padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
-//           child: ClipRRect(
-//             borderRadius: BorderRadius.all(Radius.circular(30)),
-//             child: BottomBar(),
-//           ),
-//         ),
-//     );
-//   }
-//
-// }
-import 'dart:convert';
 
+import 'dart:convert';
 import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +13,10 @@ import 'package:chanceapp/TraineeScreens/chats.dart';
 import 'package:http/http.dart' as http;
 
 class ChatsScreen extends StatefulWidget {
-  const ChatsScreen({super.key});
+  final String senderId;
+  final String receiverId;
+
+  const ChatsScreen({super.key, required this.senderId, required this.receiverId});
 
   @override
   State<ChatsScreen> createState() => _ChatsScreenState();
@@ -167,8 +25,6 @@ class ChatsScreen extends StatefulWidget {
 class _ChatsScreenState extends State<ChatsScreen> {
   late TextEditingController value = TextEditingController();
   List<Chats> chats = [];
-  final String senderId = "user123"; // معرف المرسل
-  final String receiverId = "user456"; // معرف المستقبل
 
   @override
   void initState() {
@@ -178,7 +34,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   // دالة لجلب الرسائل من الـ API
   Future<void> fetchChats() async {
-    final response = await http.get(Uri.parse('http://192.168.88.247:8085/chats/chat/$senderId/$receiverId'));
+    final response = await http.get(Uri.parse('http://192.168.1.14:8085/chats/chat/${widget.senderId}/${widget.receiverId}'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -194,14 +50,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Future<void> sendMessage(String message) async {
     final chatMessage = Chats(
       messageId: DateTime.now().millisecondsSinceEpoch.toString(), // توليد ID فريد
-      senderId: senderId,
-      receiverId: receiverId,
+      senderId: widget.senderId, // استخدام معرف المرسل
+      receiverId: widget.receiverId, // استخدام معرف المستقبل
       message: message,
       timestamp: DateTime.now().toIso8601String(),
     );
 
     final response = await http.post(
-      Uri.parse('http://192.168.88.247:8085/chats/chat'),
+      Uri.parse('http://192.168.1.14:8085/chats/chat'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -221,7 +77,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   // دالة لحذف الرسالة
   Future<void> deleteMessage(String messageId) async {
     final response = await http.delete(
-      Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
+      Uri.parse('http://192.168.1.14:8085/chats/chat/$messageId'),
     );
 
     if (response.statusCode == 200) {
@@ -236,7 +92,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   // دالة لتعديل الرسالة
   Future<void> editMessage(String messageId, String newMessage) async {
     final response = await http.put(
-      Uri.parse('http://192.168.88.247:8085/chats/chat/$messageId'),
+      Uri.parse('http://192.168.1.14:8085/chats/chat/$messageId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

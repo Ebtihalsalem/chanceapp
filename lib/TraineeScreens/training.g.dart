@@ -23,6 +23,8 @@ Training _$TrainingFromJson(Map<String, dynamic> json) => Training(
           const [],
       numberOfPositions: (json['numberOfPositions'] as num).toInt(),
       city: json['city'] as String,
+      companyName: json['companyName'] as String,
+      companyLogo: json['companyLogo'] as String, role: '',
     );
 
 Map<String, dynamic> _$TrainingToJson(Training instance) => <String, dynamic>{
@@ -39,4 +41,6 @@ Map<String, dynamic> _$TrainingToJson(Training instance) => <String, dynamic>{
       'requiredSkills': instance.requiredSkills,
       'numberOfPositions': instance.numberOfPositions,
       'city': instance.city,
+      'companyName': instance.companyName,
+      'companyLogo': instance.companyLogo,
     };

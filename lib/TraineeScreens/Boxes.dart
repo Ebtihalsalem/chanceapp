@@ -27,10 +27,10 @@ Widget boxesSkills(List<String> dataList, String maintitle,bool edit) {
             padding: const EdgeInsets.all(4.0),
             child: buildOvalContainer(
               data,
-              const Color(0xFFF59039),
-              const Color(0xFFEAEAEA),
-              false
-            ),
+              false,
+              const Color(0xFFF59039)  // اللون الخلفي
+          ),
+
           );
         }).toList(),
       ),

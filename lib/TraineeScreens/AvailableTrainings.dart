@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../UI Components/BuildText.dart';
 import '../UI Components/Cards.dart';
+import '../UI Components/PersonCard.dart';
 
 Widget availableTrainings(BuildContext context,Widget targetScreen,
     List<String> skillsList,String role,String location,String num,String money,String time ) {

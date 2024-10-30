@@ -322,6 +322,10 @@ class Training {
     );
   }
 
+  get title => null;
+
+  get companyLogo => null;
+
   // تحويل كائن Training إلى JSON
   Map<String, dynamic> toJson() {
     return {

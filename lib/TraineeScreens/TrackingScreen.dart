@@ -248,23 +248,20 @@ class _TrackingScreenState extends State<TrackingScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: centerAppBar(context, "تتبع الخبرة"),
-      body: Padding(
+      body: ListView( // استخدام ListView هنا
         padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-                alignment: Alignment.centerRight,
-                child: buildTextTitle(
-                    "راجع تقدمك المهني وتطور مهاراتك", 18, FontWeight.bold)),
-            const SizedBox(
-              height: 40,
-            ),
-            heatMap(context, activities),
-            const SizedBox(height: 26,),
-            tips(),
-          ],
-        ),
+        children: [
+          Align(
+              alignment: Alignment.centerRight,
+              child: buildTextTitle(
+                  "راجع تقدمك المهني وتطور مهاراتك", 18, FontWeight.bold
+              )
+          ),
+          const SizedBox(height: 40),
+          heatMap(context, activities),
+          const SizedBox(height: 26),
+          tips(),
+        ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
