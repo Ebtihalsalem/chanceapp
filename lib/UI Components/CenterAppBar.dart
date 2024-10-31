@@ -9,16 +9,16 @@ AppBar centerAppBar(BuildContext context,String title)
 {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor: primaryColor,
+    backgroundColor: backgroundColor,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(icon: Icon(Icons.arrow_back_ios_new,color: secondaryColor,size: 18,),
+        IconButton(icon: Icon(Icons.arrow_back_ios_new,color: borderColor,size: 18,),
           onPressed: (){
             Navigator.of(context).pop();
           },),
         Image.asset(
-          "lib/images/logo.png",
+          "lib/images/Asset 6.png",
           height: 20,
           width: 20,
         ),

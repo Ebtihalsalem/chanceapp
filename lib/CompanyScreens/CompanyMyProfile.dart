@@ -1,17 +1,22 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/TraineeScreens/TrainingApplied.dart';
 import 'package:chanceapp/UI%20Components/BackgroundImg.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart'as http;
 import '../../UI Components/BottomBar.dart';
 import '../Core/App_theme.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../TraineeScreens/AboutCompany.dart';
-import '../TraineeScreens/AvailableTrainings.dart';
+import '../UI Components/AvailableTrainings.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/CircleImg.dart';
+import 'MyAccountForCompany/Data/CompanyUser.dart';
+import 'MyAccountForCompany/Data/Trainings.dart';
 
 class CompanyMyProfile extends StatefulWidget {
   const CompanyMyProfile({super.key});
@@ -24,28 +29,55 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
 
   List<String> tabs = ["حــول", "التدريبات المتاحة"];
 
-  List<String> summary = ["تأسست الأكاديمية الليبية للاتصالات والمعلوماتية بموجب قرار مجلس إدراة الشركة الليبية للبريد والاتصالات وتقنية المعلومات القابضة رقم 15 لسنة 2021م، كشركة وطنية تدريبية وتطويرية متخصصة تخدم قطاع الاتصالات وبقية القطاعات الخاصة والحكومية، وتختص بإعداد ورفع كفاءة العناصر البشرية من خلال التدريب المستمر، كما تقدم الدراسات والاستشارات الفنية لتوطين التقنية وتمكين التحول الرقمي في كافة القطاعات ذات العلاقة. نسعى من خلالنا معالجة الفجوات والتحديات في تنفيذ استراتيجية التحول الرقمي في ليبيا، وذلك بإعداد الكوادر البشرية المدربة القادرة على التعامل مع التقنيات الحديثة وتطبيقها ميدانيا، بالإضافة لتطوير أداء العاملين في قطاع الاتصالات على كافة المستويات، لضمان تقديم أداء عالي المستوى يرقى إلى المواصفات العالمية والارتقاء بالجودة المهنية والفنية للكوادر البشرية. كما تساهم الأكاديمية في تدريب حديثي التخرج والباحثين عن العمل لتغطية الحاجة الوظيفية المتغيرة والمتزايدة، والذي سيؤدي دون أدنى شك إلى التطوير المؤسسي ورفع كفاءة وجودة الأنشطة الاقتصادية والبرامج والأعمال"];
-
-  List<Map<String, String>> information = [
-    { "الموقع":"https://lati.ly/","المجال": "لخدمات تقنية المعلومات والاستشارات \n في مجال تقنية المعلومات","حجم الشركة":"50-11 موظف",
-      "المقر الرئيسي":"المقر الرئيسي","نوع":"الشركة عامة","تأسست":"2021","التخصص":"التدريب، تقنية المعلومات والاتصالات ، التحول الرقمي، الاستشارات"
-    }
-  ];
-
   int _currentTab = 0;
 
-  Widget screensTabs()
-  {
+  CompanyUser? userCompany;
+
+  @override
+  void initState() {
+    super.initState();
+    getCompanyInfo(emailGeneral).then((getCompanyInfo) {
+      setState(() {
+        userCompany = getCompanyInfo;
+      });
+    });
+  }
+
+  Widget screensTabs() {
+    if (userCompany == null) {
+      return const CircularProgressIndicator();
+    }
+
     switch(_currentTab){
       case 0:
-        return aboutTab(summary,information);
+        return aboutTab(userCompany!);
       case 1:
-        return availableTrainings(context,const TrainingDetailsCompany(),skills,"مهندس اتصالات","مصراتة","20","يوجد","شهرين");
+        // return availableTrainings(context,const TrainingDetailsCompany(),fetchTrainings("company@example.com"));
       default:
         return Container();
     }
   }
 
+  Future<List<Training>> fetchTrainings(String email) async {
+    final response = await http.get(Uri.parse('http://192.168.88.42:8085/trainings/company/$email'));
+
+    if (response.statusCode == 200) {
+
+      final List<dynamic> data = jsonDecode(response.body);
+      return data.map((json) => Training.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load trainings');
+    }
+  }
+  Future<CompanyUser?> getCompanyInfo(String email) async {
+    final response = await http.get(Uri.parse('http://192.168.88.42:8085/companies/$email'));
+
+    if (response.statusCode == 200) {
+      return CompanyUser.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load company information');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,20 +101,20 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                     width: double.infinity,
                     padding: const EdgeInsets.fromLTRB(18, 90, 18, 50),
                     decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: backgroundColor,
                     ),
                     child: Align(
                       alignment: Alignment.center,
                       child: Column(
                         children: [
                           buildTextTitle(
-                              "الاكاديمية الليبية للاتصالات والمعلوماتية",
+                              userCompany!.name,
                               12,
                               FontWeight.bold),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
                             child: buildText(
-                                "لخدمات تقنية المعلومات والاستشارات\n في مجال تقنية المعلومات",
+                                userCompany!.company.description,
                                 10,
                                 FontWeight.normal,
                                 const Color(0xFF848484)),
@@ -94,7 +126,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                                   height: 34,
                                   width: 200,
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: secondaryColor),
+                                    border: Border.all(color: primaryColor),
                                     borderRadius: BorderRadius.circular(30),
                                   ),
                                   child: Row(
@@ -103,7 +135,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                                         padding: const EdgeInsets.only(left: 18.0, right: 40),
                                         child: Icon(
                                           EvaIcons.edit2Outline,
-                                          color: secondaryColor,
+                                          color: primaryColor,
                                           size: 16,
                                         ),
                                       ),
@@ -113,7 +145,7 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                                           'تعديل الحساب',
                                           11,
                                           FontWeight.bold,
-                                          secondaryColor,
+                                          primaryColor,
                                         ),
                                       ),
                                     ],
@@ -140,7 +172,19 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                   ),
                   Positioned(
                     top: -70,
-                    child: circleImg("lib/images/acadimic.jpg"),
+                    child: Container(
+                      height: 125,
+                      width: 125,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE7E7E7),
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.network(
+                        urlPhoto,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -160,19 +204,19 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
     ? Padding(
       padding: const EdgeInsets.only(left: 18,bottom:10),
       child: FloatingActionButton(
-      backgroundColor: const Color(0xFFF59039),
-      onPressed: (){},
+      backgroundColor: primaryColor,
+      onPressed: (){
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_)=>AddTraining())
+        );
+      },
       child: const Icon(EvaIcons.edit2,color: Color(0xFFF1F1F1),)
       ),
     ):null
     );
   }
   Widget _tabs() {
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: tabs.map((tab) {
           int index = tabs.indexOf(tab);
@@ -196,13 +240,12 @@ class _CompanyMyProfileState extends State<CompanyMyProfile> {
                   margin: const EdgeInsets.only(top: 5),
                   height: 2,
                   width: 100,
-                  color: _currentTab == index ? const Color(0xFFF59039) : Colors.transparent,
+                  color: _currentTab == index ? primaryColor : Colors.transparent,
                 ),
               ],
             ),
           );
         }).toList(),
-      ),
     );
   }
 

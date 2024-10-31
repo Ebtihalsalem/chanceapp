@@ -3,14 +3,12 @@ import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/Cards.dart';
 import 'package:flutter/material.dart';
-
 import '../../UI Components/BottomBar.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/SearchBar.dart';
-import 'CompanyScreen.dart';
-
-
+import '../UI Components/CompanyScreen.dart';
+import 'TrianingDetils.dart';
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});
@@ -24,11 +22,10 @@ class _SavedScreenState extends State<SavedScreen> {
   List<String> skills = ["شبكات واتصالات", "علوم الحاسوب"];
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar("المحفوظات", "lib/images/logo.png",context,false),
+      appBar: buildAppBar("المحفوظات", "lib/images/Asset 6.png",context,false),
       backgroundColor: primaryColor,
       body: SafeArea(
         child: Padding(
@@ -46,19 +43,10 @@ class _SavedScreenState extends State<SavedScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: buildCard(
-                        context,
-                        const TrainingDetailsCompany(),
-                        const CompanyScreen(),
-                        secondaryColor,
-                        primaryColor,
-                        "lib/images/acadimic.jpg",
-                        secondaryColor,
-                        primaryColor,
-                        skills,
-                        "مهندس اتصالات",
-                        "مصراتة",
-                        "الاكاديمية الليبية",false),
+                    child: BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                        fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+                        boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+                        company: "الاكاديمية الليبية ",isCompleted: false ),
                   );
                 },
               ),
@@ -66,11 +54,11 @@ class _SavedScreenState extends State<SavedScreen> {
           ]),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(30)),
-          child: BottomBar(), // Pass the isCompany parameter here
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          child: BottomBar(),
         ),
       ),
     );

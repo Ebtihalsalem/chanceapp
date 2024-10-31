@@ -8,20 +8,25 @@ import 'dart:ui';
 import 'BuildText.dart';
 import 'Snackbar.dart';
 
-Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,VoidCallback? onPressed) {
+Widget button(String text, BuildContext context, targetScreen, Icon? icon,
+    VoidCallback? onPressed) {
   return SizedBox(
     width: 300,
     height: 50,
     child: ElevatedButton(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(
-          secondaryColor,
+          primaryColor,
         ),
       ),
-      onPressed: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => targetScreen)
-        );
+      onPressed: () async {
+        if (onPressed != null) {
+          onPressed();
+        } else {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => targetScreen),
+          );
+        }
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +37,7 @@ Widget button(String text, BuildContext context,Widget targetScreen, Icon? icon,
                 text,
                 16,
                 FontWeight.bold,
-                primaryColor,
+                backgroundColor,
               ),
             ),
           ),

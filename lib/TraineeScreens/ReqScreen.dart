@@ -1,7 +1,6 @@
 import 'package:chanceapp/UI%20Components/CenterAppBar.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
 import '../Core/App_theme.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Button.dart';

@@ -1,16 +1,18 @@
+import 'dart:convert';
 import 'package:chanceapp/CompanyScreens/AddTraining.dart';
 import 'package:chanceapp/CompanyScreens/TraineeProfile.dart';
 import 'package:chanceapp/Core/App_theme.dart';
-import 'package:chanceapp/UI%20Components/BCards.dart';
 import 'package:chanceapp/UI%20Components/PersonCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import '../../UI Components/BottomBar.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Cards.dart';
 import '../UI Components/SearchBar.dart';
+import 'HomeScreenForCompany/Data/User.dart';
+import 'HomeScreenForCompany/Data/UserInformation.dart';
 
 class CHomeScreen extends StatefulWidget {
   const CHomeScreen({super.key});
@@ -20,219 +22,186 @@ class CHomeScreen extends StatefulWidget {
 }
 
 class _CHomeScreenState extends State<CHomeScreen> {
-  List<String> personalSkillsList = [
-    "حس المسؤولية",
-    "التواصل مع الأخرين",
-    "العمل مع فريق",
-    "قدرات إبداعية",
-  ];
+
+
+  late Future<List<User>> usersFuture;
+  late Future<List<UserInformation>> usersInfoFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    usersFuture = fetchAllUsers();
+    usersInfoFuture = fetchAllUsersforinfo();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("الرئيسية","lib/images/logo.png",context,true),
-        backgroundColor: const Color(0xffEFEFEF),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildSearchRow(),
-                // ),
-                const SizedBox(height: 26),
-                buildTextTitle('لأجلك', 20, FontWeight.bold),
-                const SizedBox(height: 22),
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TraineeProfile(),const TraineeProfile(),secondaryColor,
-                            primaryColor,"lib/images/portrait-smiling-woman.jpg",
-                            secondaryColor,primaryColor,personalSkillsList,"مهتمة بمجال شركتك","مصراتة","سارة أحمد ",false ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 26),
-                buildTextTitle('المتدربين لديك', 20, FontWeight.bold),
-                const SizedBox(height: 22),
-                SizedBox(
-                  height: 210,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: personCard(context,const TraineeProfile(),
-                            "lib/images/portrait-smiling-woman.jpg",
-                            "سارة أحمد ","من تدريب التصميم الجرافكي"),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        bottomNavigationBar: const Padding(
-          padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            //child: BottomBar(),
-          ),
-        ),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(left: 18,bottom:10),
-            child: FloatingActionButton(
-                backgroundColor: const Color(0xFFF59039),
-                onPressed: (){
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const AddTraining();
-
-                    },);
-                },
-                child: const Icon(EvaIcons.edit2,color: Color(0xFFF1F1F1),)
-            ),
-          ),
-    );
-  }
-
-  Widget _buildOvalContainer(
-      String text, Color color, Color borderColor, Color fontColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: borderColor),
-      ),
-      child: buildText(text, 10, FontWeight.bold, fontColor),
-    );
-  }
-
-  List<List<String>> chunkedList(List<String> list, int chunkSize) {
-    List<List<String>> chunks = [];
-    for (var i = 0; i < list.length; i += chunkSize) {
-      chunks.add(list.sublist(
-          i, i + chunkSize > list.length ? list.length : i + chunkSize));
-    }
-    return chunks;
-  }
-
-  Widget _boxesSkills(List<String> dataList) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: chunkedList(dataList, 2).map((chunk) {
-        return Wrap(
-          spacing: 1.0,
-          runSpacing: 1.0,
-          children: chunk.map((data) {
-            return Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: _buildOvalContainer(
-                data,
-                const Color(0xFFF3F3F3),
-                const Color(0xFFBBBBBB),
-                const Color(0xFFF59039),
-              ),
-            );
-          }).toList(),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildRecommendationsSection() {
-    return Container(
-      height: 90,
-      width: 344,
-      decoration: BoxDecoration(
-          color: const Color(0xFFF3F3F3),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFFBBBBBB))),
-      padding: const EdgeInsets.all(8),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                image: const DecorationImage(
-                  image: AssetImage('lib/images/portrait-smiling-woman.jpg'),
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildText('ســارة أحمد', 10, FontWeight.bold,
-                        const Color(0xFFF59039)),
-                    buildText('من تدريب التصميم الجرافيكي', 10,
-                        FontWeight.normal, const Color(0xFFF59039)),
-
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Row(
+      resizeToAvoidBottomInset: false,
+      appBar: buildAppBar("الرئيسية", "lib/images/Asset 6.png", context, true),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildSearchRow(),
+              const SizedBox(height: 26),
+              buildTextTitle('لأجلك', 20, FontWeight.bold),
+              const SizedBox(height: 22),
+              FutureBuilder<List<UserInformation>>(
+                future: usersInfoFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 1.0),
-                            child: Icon( EvaIcons.star,
-                              size: 13,
-                              color: Color(0xFfFFD233),
-                            ),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Icon(EvaIcons.alertTriangle,color: Colors.red,),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 1.0),
-                            child: Icon( EvaIcons.star,
-                              size: 13,
-                              color: Color(0xFfFFD233),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 1.0),
-                            child: Icon( EvaIcons.star,
-                              size: 13,
-                              color: Color(0xFfFFD233),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 1.0),
-                            child: Icon( EvaIcons.star,
-                              size: 13,
-                              color: Color(0xFFE6E6E6),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 1.0),
-                            child: Icon( EvaIcons.star,
-                              size: 13,
-                              color: Color(0xFFE6E6E6),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
+                          buildTextTitle("عذرا هناك خطأ، حاول لاحقا!", 12, FontWeight.bold),
+                        ]
+                    );
+                  } else if (!snapshot.hasData || snapshot.data == null) {
+                    return Center(child: Image.asset("lib/images/box (1).png",height: 40,width: 40,));
+                  }
 
-      ]),
+                  final List<UserInformation> userInformationList =
+                      snapshot.data!;
+                  return Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: userInformationList.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 18.0),
+                            child: BuildCard(
+                              targetScreen: TraineeProfile(email:userInformationList[index].email),
+                              profileScreen: TraineeProfile(email:userInformationList[index].email),
+                              backColor: whiteApp,
+                              fontColor: fontColorBlack,
+                              img: userInformationList[index].urlPhoto??"lib/images/default-image.png",
+                              boxes: secondaryColor,
+                              skillsList: userInformationList[index].personalSkills??[],
+                              role: "مهتمة بمجال شركتك",
+                              location: userInformationList[index].city??"",
+                              company: userInformationList[index].name,
+                              isCompleted: false,
+                            ),
+                          );
+                        }),
+                  );
+                },
+              ),
+              const SizedBox(height: 26),
+              buildTextTitle('المتدربين لديك', 20, FontWeight.bold),
+              const SizedBox(height: 22),
+              FutureBuilder<List<User>>(
+                future: usersFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Icon(EvaIcons.alertTriangle,color: Colors.red,),
+                          ),
+                         buildTextTitle("عذرا هناك خطأ، حاول لاحقا!", 12, FontWeight.bold),
+                        ]
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Image.asset("lib/images/box (1).png",height: 40,width: 40,));
+                  } else {
+                    List<User> users = snapshot.data!;
+                    return Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          User user = users[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: personCard(
+                              context,
+                              TraineeProfile(email:user.email),
+                              user.userInformation?.urlPhoto??"lib/images/default-image.png",
+                              // "lib/images/portrait-smiling-woman.jpg",
+                              user?.name??"marwa",
+                              "",
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: const Padding(
+        padding: EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(30)),
+          child: BottomBar(),
+        ),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 18, bottom: 10),
+        child: FloatingActionButton(
+            backgroundColor: primaryColor,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return const AddTraining();
+                },
+              );
+            },
+            child: const Icon(
+              EvaIcons.edit2,
+              color: Color(0xFFF1F1F1),
+            )),
+      ),
     );
+  }
+
+  Future<List<User>> fetchAllUsers() async {
+    final response =
+        await http.get(Uri.parse('http://192.168.88.42:8085/users'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> usersJson = json.decode(response.body);
+      return usersJson.map((json) => User.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load users: ${response.body}');
+    }
+  }
+
+  Future<List<UserInformation>> fetchAllUsersforinfo() async {
+    final url = Uri.parse(
+        'http://192.168.88.42:8085/users');
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+
+        final List<dynamic> data = jsonDecode(response.body);
+        return data
+            .map((userJson) => UserInformation.fromJson(userJson))
+            .toList();
+      } else {
+        print('Failed to load users info: ${response.statusCode}');
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching users info: $e');
+      return [];
+    }
   }
 }
-

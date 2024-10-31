@@ -3,13 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:chanceapp/Core/App_theme.dart';
 import 'package:chanceapp/UI%20Components/textFieldWithoutIcon.dart';
 import '../UI Components/BuildText.dart';
-
 class AddCv2 extends StatefulWidget {
   final String title;
   final String name;
-
   const AddCv2({super.key, required this.title, required this.name});
-
   @override
   State<AddCv2> createState() => _AddCvState();
 }
@@ -43,7 +40,6 @@ Widget textFieldWithoutIcon(String text, double h, double w, TextEditingControll
     ),
   );
 }
-
 class _AddCvState extends State<AddCv2> {
   final TextEditingController _degreeController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -54,7 +50,6 @@ class _AddCvState extends State<AddCv2> {
         _dateController.text.isNotEmpty &&
         _institutionController.text.isNotEmpty;
   }
-
   @override
   Widget build(BuildContext context) {
     String title = widget.title;

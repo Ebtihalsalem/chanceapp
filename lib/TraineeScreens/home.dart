@@ -1,10 +1,12 @@
 import 'package:chanceapp/CompanyScreens/TrainingDetails.dart';
 import 'package:chanceapp/Core/App_theme.dart';
-import 'package:chanceapp/TraineeScreens/CompanyScreen.dart';
+import 'package:chanceapp/UI%20Components/CompanyScreen.dart';
 import 'package:chanceapp/TraineeScreens/NotifationScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import '../../UI Components/BottomBar.dart';
+import '../Screens/Auth.dart';
+import '../Screens/LoginScreen.dart';
 import '../UI Components/AppBar.dart';
 import '../UI Components/BuildText.dart';
 import '../UI Components/Cards.dart';
@@ -26,16 +28,19 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
-        backgroundColor: const Color(0xffEFEFEF),
+        // appBar: buildAppBar("مرحبًا، ســأرة أحمد!","lib/images/logo.png",context,true),
+      appBar: buildAppBar("مرحبًا، $name!","lib/images/Asset 6.png",context,true),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 buildSearchRow(),
-                const SizedBox(height: 26),
+                 Padding(
+                   padding: const EdgeInsets.only(top:10.0),
+                   child: buildSearchRow(),
+                 ),
+                const SizedBox(height: 28),
                 buildTextTitle('لأجلك', 20, FontWeight.bold),
                 const SizedBox(height: 22),
                 SizedBox(
@@ -46,8 +51,10 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TrianingDetils(),const CompanyScreen(),secondaryColor,primaryColor,"lib/images/acadimic.jpg",
-                            secondaryColor,primaryColor,skills,"مهندس اتصالات","مصراتة","الاكاديمية الليبية ",false ),
+                        child: BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                           fontColor:  fontColorBlack,img: "lib/images/acadimic.jpg",
+                            boxes: secondaryColor,skillsList: skills,role:"مهندس اتصالات",location: "مصراتة",
+                            company: "الاكاديمية الليبية ",isCompleted: false ),
                       );
                     },
                   ),
@@ -63,8 +70,11 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(left: 8.0),
-                        child: buildCard(context,const TrianingDetils(),const CompanyScreen(),primaryColor,secondaryColor,"lib/images/almadar.png",
-                            borderColor,secondaryColor,skills,"مهندس شبكات","مصراتة","المــدار ",false ),
+                        child:BuildCard(targetScreen: TrianingDetils(),profileScreen: CompanyScreen(),backColor: whiteApp,
+                            fontColor:  fontColorBlack,img: "lib/images/almadar.png",
+                            boxes: secondaryColor,skillsList: skills,role:"مهندس شبكات",location: "مصراتة",
+                            company: "المــدار ",isCompleted: false ),
+
                       );
                     },
                   ),
@@ -82,6 +92,6 @@ List<String> skills = ["شبكات واتصالات","علوم الحاسوب"];
         ),
     );
   }
-
+  
 
 }
